@@ -1,4 +1,0 @@
-wview
-=====
-
-Unix weather application.
