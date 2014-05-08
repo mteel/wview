@@ -1,0 +1,37 @@
+#!/bin/bash
+###############################################################################
+#
+#   Filename:		wview-update-macosx
+#
+#   Description:	Update wview on an existing Mac OSX server.
+#
+#   Notes:              Must be run with root privileges: 
+#                       sudo ./wview-update-macosx
+#
+#                       Make sure this script is executable: 
+#                       chmod +x wview-update-macosx
+#
+#                       Uses the $prefix of "/opt/local" thus wview config will
+#                       be found at /opt/local/etc/wview and wview data will be
+#                       found at /opt/local/var/wview.
+###############################################################################
+
+echo "Stopping wview:"
+/sbin/SystemStarter stop "wview"
+
+# First, update the ports info:
+port -d selfupdate
+
+# Update existing installed ports (including wview):
+port upgrade outdated
+
+echo "Configuring wview:"
+/opt/local/bin/wviewconfig
+
+echo "Configuring HTML:
+/opt/local/bin/wviewhtmlconfig
+
+echo "Starting wview:"
+/sbin/SystemStarter start "wview"
+
+echo "Done! - Check your system logs (sudo tail -n 100 -f /var/log/system.log) for wview start up status..."

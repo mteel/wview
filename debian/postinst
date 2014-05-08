@@ -1,0 +1,180 @@
+#!/bin/sh
+# postinst script for wview
+#
+# see: dh_installdeb(1)
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+
+case "$1" in
+    configure)
+        if [ ! -d /var/lib/wview ]; then
+            mkdir -p /var/lib/wview
+            mkdir -p /var/lib/wview/noaa
+            mkdir -p /var/lib/wview/alarms
+            mkdir -p /var/lib/wview/img
+            mkdir -p /var/lib/wview/img/Archive
+            mkdir -p /var/lib/wview/img/NOAA
+            mkdir -p /var/lib/wview/archive
+            cp -fp /usr/share/wview/var/wview/img/*.* /var/lib/wview/img
+            cp -fp /usr/share/wview/var/wview/archive/* /var/lib/wview/archive
+            /usr/bin/sqlite3 /var/lib/wview/archive/wview-archive.sdb '.read /var/lib/wview/archive/wview-archive.sql'
+            echo "==> /var/lib/wview has been created with distro examples"
+        else
+            echo "==> /var/lib/wview already exists - skipping default data installation"
+        fi
+        if [ ! -e /etc/wview/wview-conf.sdb ]; then
+            mkdir -p /etc/wview
+            mkdir -p /etc/wview/export
+            chmod 777 /etc/wview/export
+            mkdir -p /etc/wview/html
+            mkdir -p /etc/wview/html/chrome
+            mkdir -p /etc/wview/html/chrome/plus
+            mkdir -p /etc/wview/html/chrome/static
+            mkdir -p /etc/wview/html/chrome/standard
+            mkdir -p /etc/wview/html/classic
+            mkdir -p /etc/wview/html/classic/plus
+            mkdir -p /etc/wview/html/classic/static
+            mkdir -p /etc/wview/html/classic/standard
+            mkdir -p /etc/wview/html/exfoliation
+            mkdir -p /etc/wview/html/exfoliation/plus
+            mkdir -p /etc/wview/html/exfoliation/static
+            mkdir -p /etc/wview/html/exfoliation/standard
+            mkdir -p /etc/wview/alarms
+            cp -fp /usr/share/wview/etc/wview/*.* /etc/wview
+            chmod +x /etc/wview/pre-generate.sh
+            chmod +x /etc/wview/post-generate.sh
+            cp -fp /usr/share/wview/etc/wview/html/*.* /etc/wview/html
+            cp -fp /usr/share/wview/etc/wview/html/chrome/plus/*.* /etc/wview/html/chrome/plus
+            cp -fp /usr/share/wview/etc/wview/html/chrome/static/*.* /etc/wview/html/chrome/static
+            cp -fp /usr/share/wview/etc/wview/html/chrome/static/*.* /var/lib/wview/img
+            cp -fp /usr/share/wview/etc/wview/html/chrome/standard/*.* /etc/wview/html/chrome/standard
+            cp -fp /usr/share/wview/etc/wview/html/classic/plus/*.* /etc/wview/html/classic/plus
+            cp -fp /usr/share/wview/etc/wview/html/classic/static/*.* /etc/wview/html/classic/static
+            cp -fp /usr/share/wview/etc/wview/html/classic/standard/*.* /etc/wview/html/classic/standard
+            cp -fp /usr/share/wview/etc/wview/html/exfoliation/plus/*.* /etc/wview/html/exfoliation/plus
+            cp -fp /usr/share/wview/etc/wview/html/exfoliation/static/*.* /etc/wview/html/exfoliation/static
+            cp -fp /usr/share/wview/etc/wview/html/exfoliation/standard/*.* /etc/wview/html/exfoliation/standard
+            cp -fp /usr/share/wview/etc/wview/alarms/*.* /etc/wview/alarms
+            cp -fp /usr/share/wview/etc/wview/html/chrome/standard/awekas_wl.htx-us /etc/wview/html/awekas_wl.htx
+            /usr/bin/sqlite3 /etc/wview/wview-conf.sdb '.read /etc/wview/wview-conf.sql-deb-pkg'
+            echo "==> /etc/wview has been created with distro examples"
+            echo ""
+            echo "This is a first time install so the station type will be set to \"simulator\"."
+            echo "To change the station type, run \"wviewconfig\" or use the wviewmgmt web interface to change it."
+            echo "You will need to stop wview and clear the databases of simulator data after you have changed the station type:"
+            echo "#> wviewcleardata"
+            echo ""
+            echo "This is a first time install so the generation templates will be set to \"chrome-standard-US units\"."
+            echo "To change this run \"wviewhtmlconfig\" to configure the template directory"
+            echo "after you have configured wview for metric units and-or extended data."
+            echo ""
+            echo "If you have problems accessing the wviewmgmt site after installation, try restarting apache2:"
+            echo "#> sudo apache2ctl restart"
+            echo "so the PHP5-sqlite module gets loaded - this will never be required again."
+            echo ""
+            echo "If you want start/stop control of wview from the Management Web Site"
+            echo "(and you are comfortable giving the http server user account sudo privileges):"
+            echo "Add the http user to the sudo group:"
+            echo "#> sudo adduser www-data sudo"
+            echo "Set the sudo group to no password required privileges in /etc/sudoers:"
+            echo "#> sudo visudo"
+            echo "(Make sure the line [%sudo ALL=NOPASSWD: ALL] is at the bottom of the /etc/sudoers file)"
+            echo ""
+#           Assuming php5-sqlite was just installed, restart apache2 so it will load php5-sqlite module:
+            /usr/sbin/apache2ctl restart
+        else
+            echo "==> /etc/wview/wview-conf.sdb already exists - skipping default configuration installation"
+            cp -fp /usr/share/wview/etc/wview/wview-conf-update.sql /etc/wview
+            /usr/bin/sqlite3 /etc/wview/wview-conf.sdb '.read /etc/wview/wview-conf-update.sql'
+        fi
+
+        echo ""
+        echo "To start/stop wview:"
+        echo "\"#> sudo /etc/init.d/wview start|stop\""
+        echo ""
+
+        if [ -e /var/lib/wviewmgmt/functions.php ]; then
+            rm -f /var/lib/wviewmgmt/functions.php
+        fi
+        ln -s /usr/bin/functions.php /var/lib/wviewmgmt/functions.php
+
+        chmod 666 /etc/wview/wview-binary
+        chmod 666 /etc/wview/wview-conf.sdb
+        chmod 777 /etc/wview
+
+#       Always rewrite the version file:
+        cp -f /usr/share/wview/etc/wview/wview-version /etc/wview
+
+#       Create a few handy links (hard to know what the document root is for the http server):
+        if [ -e /var/www ]; then
+            if [ ! -e /var/www/wviewmgmt ]; then
+                ln -s /var/lib/wviewmgmt /var/www/wviewmgmt
+            fi
+            if [ ! -e /var/www/weather ]; then
+                ln -s /var/lib/wview/img /var/www/weather
+            fi
+        fi
+        if [ -e /srv ]; then
+            if [ ! -e /srv/wviewmgmt ]; then
+                ln -s /var/lib/wviewmgmt /srv/wviewmgmt
+            fi
+            if [ ! -e /srv/weather ]; then
+                ln -s /var/lib/wview/img /srv/weather
+            fi
+        fi
+        if [ -e /usr/local/www ]; then
+            if [ ! -e /usr/local/www/wviewmgmt ]; then
+                ln -s /var/lib/wviewmgmt /usr/local/www/wviewmgmt
+            fi
+            if [ ! -e /usr/local/www/weather ]; then
+                ln -s /var/lib/wview/img /usr/local/www/weather
+            fi
+        fi
+
+#       Copy our rsyslog configuration file if rsyslog is installed:
+        if [ -e /etc/rsyslog.d ]; then
+            cp -fp /usr/share/wview/etc/rsyslog.d/99-wview.conf /etc/rsyslog.d
+            if [ ! -e /var/log/wview.log ]; then
+                touch /var/log/wview.log
+                chown syslog:adm /var/log/wview.log
+                chmod 664 /var/log/wview.log
+                /etc/init.d/rsyslog restart
+            fi
+            echo "wview logs will be found at: /var/log/wview.log"
+        fi
+
+#       Copy our logrotate configuration file if logrotate is installed:
+        if [ -e /etc/logrotate.d ]; then
+            cp -fp /usr/share/wview/etc/logrotate.d/wview-logrotate /etc/logrotate.d/wview
+            echo "You may want to restart logrotate so wview rotate settings will take effect."
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure|deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# dh_installdeb will replace this with shell code automatically
+# generated by other debhelper scripts.
+
+#DEBHELPER#
+
+exit 0

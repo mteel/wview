@@ -1,0 +1,78 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH VPCONFIG 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+vpconfig \- wview utility program to configure an attached Vantage Pro weather station 
+.SH SYNOPSIS
+.B vpconfig
+.RI station_device command [cmnd_args]
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B vpconfig
+.
+Configure an attached Vantage Pro weather station (or display current configuration).
+.BR    station_device         - serial device the VP console is connected to:
+                                FreeBSD:   /dev/cuaa0 - /dev/cuaa4
+                                Linux:     /dev/ttyS0 - /dev/ttyS4
+                                Linux USB: /dev/ttyUSB0
+                                Ethernet:  host:port
+.BR    command                - command to execute, one of:
+                                show
+                                - retrieve and display VP console config
+                                cleararchive
+                                - clear the archive memory without changing the interval
+                                setinterval <interval in minutes>
+                                - set the archive interval (this clears the archive memory)
+                                setelevation <elevation in feet>
+                                - set the station elevation (feet) - use this to adjust the barometer
+                                setgain <0 for off, 1 for on>
+                                - sets the gain of the radio receiver
+                                setlatlong <latitude (negative for S)> <longitude (negative for W)>
+                                - set the station latitude and longitude in tenths of a degree
+                                setrainseasonstart <month (1-12)>
+                                - set the month that the yearly rain total begins
+                                setyeartodaterain <0.00 - 200.00>
+                                - set the yearly rain total to date
+                                setyeartodateET <0.00 - 200.00>
+                                - set the yearly Evapotranspiration total to date
+                                setwinddirectioncal <-360 - 360>
+                                - set the station wind direction calibration
+                                setsensor <1 - 8> <type>
+                                - set type of sensor to listen to on the given channel
+                                  type is one of: iss temp hum temp_hum
+                                                  wind rain leaf soil leaf_soil
+                                                  sensorlink none
+                                  (this clears the archive memory)
+                                setretransmit <0 - 8>
+                                - set channel that the station uses to retransmit data (0 is off)
+                                  (this clears the archive memory)
+                                setraincollectorsize <0.01in 0.2mm 0.1mm>
+                                - set the amount of rain that tips the collector once
+                                setwindcupsize <0 for small, 1 for large>
+                                - set the size of the anenometer cup (1 is standard)
+.SH OPTIONS
+station_device and command are mandatory.
+.TP
+.SH SEE ALSO
+.BR /usr/share/doc/wview/wview-User-Manual.html
+.br
+.SH AUTHOR
+vpconfig was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

@@ -1,0 +1,121 @@
+<!-- table of current readings -->
+
+<table>
+  <tr>
+    <td class="metric_title" colspan="3">Current Conditions</td>
+  </tr>
+  <tr>
+    <td class="metric_name">Temperature:</td>
+    <td class="metric_value"><!--outsideTemp--><!--tempUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Humidity:</td>
+    <td class="metric_value"><!--outsideHumidity--><!--humUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Dewpoint:</td>
+    <td class="metric_value"><!--outsideDewPt--><!--tempUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Barometer:</td>
+    <td class="metric_value"><!--barometer--><!--barUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Heat Index:</td>
+    <td class="metric_value"><!--outsideHeatIndex--><!--tempUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Wind Chill:</td>
+    <td class="metric_value"><!--windChill--><!--tempUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Wind:</td>
+    <td class="metric_value"><!--windDirection--> at <!--windSpeed--> <!--windUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Rain:</td>
+    <td class="metric_value"><!--dailyRain--><!--rainUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Rain Rate:</td>
+    <td class="metric_value"><!--rainRate--><!--rateUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Storm Total:</td>
+    <td class="metric_value"><!--stormRain--><!--rainUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Monthly Rain:</td>
+    <td class="metric_value"><!--monthlyRain--><!--rainUnit--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Yearly Rain:</td>
+    <td class="metric_value"><!--totalRain--><!--rainUnit--></td>
+  </tr>
+
+  <tr><td>&nbsp;</td></tr>
+
+  <tr>
+    <td class="metric_title" colspan="3">Today's Highs/Lows</td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Temperature:</td>
+    <td class="metric_value"><!--hiOutsideTemp--><!--tempUnit--></td>
+    <td class="hilo_time"><!--hiOutsideTempTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Low Temperature:</td>
+    <td class="metric_value"><!--lowOutsideTemp--><!--tempUnit--></td>
+    <td class="hilo_time"><!--lowOutsideTempTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Humidity:</td>
+    <td class="metric_value"><!--hiHumidity--><!--humUnit--></td>
+    <td class="hilo_time"><!--hiHumTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Low Humidity:</td>
+    <td class="metric_value"><!--lowHumidity--><!--humUnit--></td>
+    <td class="hilo_time"><!--lowHumTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Dewpoint:</td>
+    <td class="metric_value"><!--hiDewpoint--><!--tempUnit--></td>
+    <td class="hilo_time"><!--hiDewpointTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Low Dewpoint:</td>
+    <td class="metric_value"><!--lowDewpoint--><!--tempUnit--></td>
+    <td class="hilo_time"><!--lowDewpointTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Barometer:</td>
+    <td class="metric_value"><!--hiBarometer--><!--barUnit--></td>
+    <td class="hilo_time"><!--hiBarometerTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Low Barometer:</td>
+    <td class="metric_value"><!--lowBarometer--><!--barUnit--></td>
+    <td class="hilo_time"><!--lowBarometerTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Heat Index:</td>
+    <td class="metric_value"><!--hiHeatindex--><!--tempUnit--></td>
+    <td class="hilo_time"><!--hiHeatindexTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">Low Wind Chill:</td>
+    <td class="metric_value"><!--lowWindchill--><!--tempUnit--></td>
+    <td class="hilo_time"><!--lowWindchillTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Wind Speed:</td>
+    <td class="metric_value"><!--hiWindSpeed--><!--windUnit--></td>
+    <td class="hilo_time"><!--hiWindSpeedTime--></td>
+  </tr>
+  <tr>
+    <td class="metric_name">High Rain Rate:</td>
+    <td class="metric_value"><!--hiRainRate--><!--rateUnit--></td>
+    <td class="hilo_time"><!--hiRainRateTime--></td>
+  </tr>
+</table>

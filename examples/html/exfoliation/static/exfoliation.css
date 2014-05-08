@@ -1,0 +1,114 @@
+/* wview stylesheet for exfoliation skin
+   $Id$
+   Copyright 2011 Matthew Wall, all rights reserved
+*/
+body {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 10pt;
+}
+h1 {
+  font-size: 110%;
+}
+h2 {
+  font-size: 100%;
+}
+.copyright {
+  font-size: 8pt;
+  font-style: italic;
+  color: #aaaaaa;
+}
+.page_description {
+  width: 25%;
+}
+#station_title {
+  font-size: 140%;
+  font-weight: bold;
+}
+#station_location {
+  font-size: 60%;
+}
+#station_time {
+  font-size: 60%;
+}
+#navigation_controls {
+  font-size: 85%;
+  width: 100%;
+}
+#report_controls {
+  font-size: 80%;
+  width: 100%;
+}
+.metric_title {
+  font-size: 90%;
+  font-weight: bold;
+  text-align: center;
+}
+.metric_name {
+  font-size: 70%;
+  text-align: right;
+}
+.metric_value {
+  font-size: 70%;
+  font-weight: bold;
+  text-align: left;
+}
+.metric_units {
+  font-size: 70%;
+  text-align: left;
+}
+.hilo_time {
+  font-size: 70%;
+  text-align: left;
+  color: #aaaaaa;
+}
+.chart {
+/*  background-color: #eeeeee; */
+/*  background: url(chart_bg.png) no-repeat center; */
+  width: 300;
+  height: 180;
+}
+.dial {
+/*  background-color: #eeeeee; */
+/*  background: url(dial_bg.png) no-repeat center; */
+  width: 160;
+  height: 160;
+}
+.bucket {
+/*  background-color: #eeeeee; */
+/*  background: url(bucket_bg.png) no-repeat center; */
+  width: 120;
+  height: 240;
+}
+#index_plain {
+  background-color: #ffffff;
+/*  background-image: url(django_bg.jpg); */
+}
+#index_day {
+  background-color: #ffffff;
+/*  background-image: url(Clouds.jpg); */
+}
+#index_night {
+  background-color: #ffffff;
+/*  background-image: url(above_clouds.jpg); */
+}
+#almanac {
+  background-color: #ffffff;
+}
+#current {
+  background-color: #ffffff;
+}
+#daily {
+  background-color: #ffffff;
+}
+#weekly {
+  background-color: #ffffff;
+}
+#monthly {
+  background-color: #ffffff;
+}
+#yearly {
+  background-color: #ffffff;
+}
+#current_summary {
+  background-color: #ffffff;
+}

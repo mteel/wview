@@ -1,0 +1,19 @@
+#!/bin/sh
+rm -rf *.cache
+
+for filename in NEWS README AUTHORS ChangeLog
+do
+    if [ ! -f "$filename" ]; then
+        echo "Creating empty $filename..."
+        touch "$filename"
+    fi
+done
+ 
+echo "aclocal:"
+aclocal
+echo "autoconf:"
+autoconf
+echo "autoheader:"
+autoheader
+echo "automake -ac:"
+automake -a -c

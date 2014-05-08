@@ -1,0 +1,7 @@
+Current Conditions as of <!--stationDate--> <!--stationTime-->:     Temperature <!--outsideTemp--><!--tempUnit-->     
+Humidity <!--outsideHumidity--><!--humUnit-->     Dewpoint <!--outsideDewPt--><!--tempUnit-->     
+Wind <!--windDirection--> at <!--wind10Avg--> <!--windUnit-->     
+Barometer <!--barometer--> <!--barUnit-->     Wind Chill <!--windChill--><!--tempUnit-->     
+Heat Index <!--outsideHeatIndex--><!--tempUnit-->     
+Today's Rain <!--dailyRain--> <!--rainUnit-->     Storm Total <!--stormRain--> <!--rainUnit-->     
+Monthly Total <!--monthlyRain--> <!--rainUnit-->     Yearly Total <!--totalRain--> <!--rainUnit-->     Current Rain Rate <!--rainRate--> <!--rateUnit-->

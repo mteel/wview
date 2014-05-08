@@ -1,0 +1,73 @@
+wview HTML Template Skin HOWTO
+------------------------------
+
+-- Overview
+------------------------------------------------------------------------
+The objective is to allow contributors to submit new web site skins which 
+support standard or extended data (UV, ET and Solar Radiation) as well as 
+Imperial (US) or Metric units. To that end, each skin should provide a 
+"standard" and "plus" subdirectory containing templates and the appropriate 
+"html-templates.conf", "images.conf/images-metric.conf", "images-user.conf",
+"graphics.conf" and "post-generate.sh" files. See the "classic" skin in the 
+wview distribution for an example implementation.
+
+-- Minimum Requirements
+------------------------------------------------------------------------
+1) index.htx and/or index-day.htx/index-night.htx
+    This is the home page template.  If "day/night" are provided and 
+    listed in "html-templates.conf", wview will generate based on if it 
+    is day time or night time.
+
+2) html-templates.conf
+    This specifies the html template files to generate. Contents are up 
+    to the skin designer.
+
+3) images.conf/images-metric.conf
+    These are the US/Metric configuration files containing the images to 
+    be generated. wviewhtmlconfig copies the appropriate file based on 
+    the units selection during execution of "wviewconfig". Contents are 
+    up to the skin designer but both files should be provided.
+
+4) images-user.conf (can be empty)
+    Allows new images to be designed and included in skins.
+
+5) graphics.conf (can be empty if default colors are desired)
+    Allows custom definition of colors and sizes for wview graphics.
+
+6) post-generate.sh
+    Allows custom post-generation actions to be defined by skin designers.
+
+7) Standard and Extended Data Support
+    Each skin should have a "standard" and "plus" subdirectory with 
+    appropriate template and config files for each mode.
+
+8) Static File Support
+    Each skin may have a "static" subdirectory under <your_skin_name>. Files
+    in this directory will be copied to the HTML destination directory (i.e.,
+    /var/wview/img) once when wviewhtmlconfig is run. Examples include page
+    backgrounds, css files, etc.
+
+Note: Skins will be located at: 
+      .../wview-x.y.z/examples/html/<your_skin_name>
+      The wviewhtmlconfig script will allow selection of skin and copy 
+      templates and config files appropriately if the skin is organized 
+      as described above.
+      To add your skin to wviewhtmlconfig, look around line 95 for:
+        "classic" )
+            echo "Site skin $SITE_SKIN selected..."
+            ;;
+      and add a block for your skin below it as:
+        "classic" )
+            echo "Site skin $SITE_SKIN selected..."
+            ;;
+        "<your_skin_name>" )
+            echo "Site skin $SITE_SKIN selected..."
+            ;;
+
+
+-- Submission for Inclusion In wview
+------------------------------------------------------------------------
+Tar the <your_skin_name> directory up and send it to me at 
+mteel2005@gmail.com.  I will test it and if all is good, include it in 
+"wviewhtmlconfig" and the next wview release.
+

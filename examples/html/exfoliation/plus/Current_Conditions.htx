@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Current: <!--stationCity--> <!--stationState--></title>
+  <meta http-equiv="refresh" content="150" ;="">
+  <link href="exfoliation.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="current_summary">
+
+<table>
+  <tr>
+    <td align="center" colspan="3">
+      <!--stationCity--> <!--stationState--><br>
+      <span id="station_location"><!--stationLatitude--> - <!--stationLongitude--> - <!--stationElevation--></span><br>
+      <span id="station_time"><!--stationDate--> <!--stationTime--></span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td class="metric_name">Temperature:</td>
+          <td class="metric_value"><!--outsideTemp--><!--tempUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Humidity:</td>
+          <td class="metric_value"><!--outsideHumidity--><!--humUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Wind:</td>
+          <td class="metric_value"><!--windDirection--> at <!--windSpeed--><!--windUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Barometer:</td>
+          <td class="metric_value"><!--barometer--><!--barUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Today's Rain:</td>
+          <td class="metric_value"><!--dailyRain--><!--rainUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Storm Total:</td>
+          <td class="metric_value"><!--stormRain--><!--rainUnit--></td>
+        </tr>
+      </table>
+    </td>
+    <td width="10"></td>
+    <td>
+      <table>
+        <tr>
+          <td class="metric_name">Wind Chill:</td>
+          <td class="metric_value"><!--windChill--><!--tempUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Heat Index:</td>
+          <td class="metric_value"><!--outsideHeatIndex--><!--tempUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Dewpoint:</td>
+          <td class="metric_value"><!--outsideDewPt--><!--tempUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Rain Rate:</td>
+          <td class="metric_value"><!--rainRate--><!--rateUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Monthly Rain:</td>
+          <td class="metric_value"><!--monthlyRain--><!--rainUnit--></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Yearly Rain:</td>
+          <td class="metric_value"><!--totalRain--><!--rainUnit--></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

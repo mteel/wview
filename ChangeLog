@@ -1,0 +1,3491 @@
+RELEASE VERSION HISTORY (newest to oldest)
+------------------------------------------
+
+
+5.21.5    04-06-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Remove debug message.
+
+
+
+
+5.21.4    04-06-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Added stale pid file cleanup to the APT package start script.
+
+2)  WMRUSB HID interface changes. Changed reader thread to blocking IO.
+    Mitigated the console occasionally blasting out bogus data. Now zero
+    packet loss. Fixed issue with pressure sanity check. Added sanity
+    check for bogus rain accumulator values from the WMR console.
+
+
+
+
+5.21.3    03-31-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Further WMRUSB interface improvements. Better packet framing.
+
+
+
+
+5.21.2    03-30-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Updated debian APT postinst script to include copying the exfoliation skin
+    for new installs.
+
+2)  Enabled checksum processing for WMR stations.
+
+3)  Changed LOOP windspeed items to floats for better precision.
+    NOTE: If you use custom datafeed clients the LOOP data structure has changed.
+
+4)  Added temp only packet support for WMRUSB stations. This adds support for
+    add-on sensors such as the pool sensor.
+
+5)  Fixed APT installs changing the wview.log file ownership incorrectly. Also
+    restarts rsyslog automatically if a new install.
+
+
+
+
+5.21.1    03-13-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Modified HILOW database storage so higher precision is used for cumulative
+    data such as rain and ET.
+
+2)  Fixed issue with yearly historical charts when generated at wview start
+    (as opposed to at midnight). The current day was erroneously being included in
+    the history data. This was most apparent with the UV and Solar Radiation
+    charts.
+
+3)  Fixed bug introduced in 5.21.0 release causing NULL wind direction to have
+    360 added to it (to normalize calibration result). A value of -99640 was
+    being stored/displayed.
+
+
+
+
+5.21.0    03-05-2014
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  WMRUSB improvements. Further reverse engineering of the undocumented protocol. Reset and
+    heartbeat messages now working. Packet reception more stable. Initial packet acquisition
+    faster resulting in faster startup.
+
+2)  Modify CWOP packet header for new stricter compliance requirements of CWOP servers.
+
+3)  Fix log message time_t bug for 64-bit platforms.
+
+4)  Add timeout parameter for ssh rules. Added rows to config database.
+
+5)  Updated data feed conversion logic to handle ARCHIVE_VALUE_NULL in loop data.
+
+6)  Added flat line sensor value detection for outside temp, wind direction and wind speed.
+    If there are no changes over a 4 hour period an email alert will be sent.
+
+7)  Added Station Name, City and State to the wviewmgmt System Status page header.
+
+8)  Added logic to SSH timer to fixup next timer interval if system time has skewed or
+    if the ssh transfer took longer than 2 minutes.
+
+9)  Fixed TE923 rain calculation to assume each tip is 1/36" instead of 1mm.
+
+10) Fixed a bug for Vantage Pro stations which could cause the last archive interval of
+    the previous day to be included in the current day HILOW data. This occurred if the
+    midnight archive record was provided late by the console.
+
+11) Added wet bulb temperature calculation and html tag --WetBulbTemp--. Added to all
+    "readings.incx" templates.
+
+12) Added email alert notification if no loop data has been received for a given archive
+    interval. This applies to all stations except the Davis stations (alerts already
+    exist for them).
+
+13) Updated start scripts to detect and delete stale pid files.
+
+14) Modified WH1080 data parsing to assume a humidity of 9% if the value from the
+    station is undefined (0xff).
+
+
+
+
+5.20.2    03-21-2012
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Added back "dailyrainin" for http reporting. They do no computation based on hourly rain values.
+
+2)  Fixed a typo in the wviewmgmt station.php file. 
+
+
+
+
+5.20.1    03-20-2012
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Modified http rain submission (Wunderground and Weatherforyou) so only the
+    "rainin" parameter is sent so daily rain will be correct. 
+
+
+
+
+5.20.0    03-17-2012
+--------------------
+
+radlib version required: 2.12.0 or newer
+
+1)  Added "wait_for_time_set" function to most wview start script examples so 
+    wview daemons are not started until the system time is set. This applies to
+    platforms without a real time clock which must reset their time during 
+    startup.
+
+2)  Updated the User Manual section on skin selection to better describe enabling
+    extended data generation (UV, ET, radiation).
+
+3)  Updated the debian post install script to try harder to find the default http
+    document root location for creation of symbolic links to wviewmgmt and the
+    weather home page.
+
+4)  Added new configuration option to optionally disable using the Vantage Pro 
+    console archive records and instead autogenerate them from the LOOP data.
+    This is how all other stations work. It also supports non-standard console
+    interfaces (those not using the datalogger on the console).
+
+5)  Updated the Weatherforyou URL for data submissions.
+
+6)  Fixed bug with DataFeed clients that caused an infinite loop if you
+    restarted wview while there was a datafeed client connection.
+
+7)  Fixed bug with Alarm Type configuration introduced in 5.19.0.
+
+8)  Changed TWI station to compute rain fall rate as it is reported to not
+    be provided by the station.
+
+9)  Added socket retry logic to the station ethernet interface (used by the
+    Vantage Pro IP datalogger and any serial-to-ethernet device).
+
+10) Modified CWOP host name to IP address resolution so that 'getaddrinfo' is
+    used instead of 'gethostbyname' and all results are tried in the order they 
+    are returned. This requires radlib 2.12.0 or newer.
+
+11) Modified the WH1080 station interface to relax packet header requirements
+    so it is compliant with more stations of this type. Also hardened the read
+    process to require two consecutive matching reads of any record block.
+    Added log text to indicate that bad magic numbers can be resolved by clearing
+    the station memory.
+
+12) Added bounds checking for calibrated humidity values so they don't fall
+    outside [0, 100].
+
+13) Fixed a bug with datafeed client utilites which incorrectly converted
+    ARCHIVE_VALUE_NULL (-100000) when preparing a packet for network transmission.
+
+14) Fixed a bug with wind average computation that overflowed the accumulator
+    for very large sample size.
+
+15) Added a default logrotate configuration for APT installs.
+
+16) Fixed a bug introduced with 5.19.0 which caused the wind and windgust values
+    to always be the same.
+
+17) Removed requirement for a rain sensor for the WMRUSB stations. Stopped sanity
+    check of dewpoint values from WMR console which can vary wildly when the
+    temperature is low.
+
+18) Fixed a data size mismatch when the virtual server is used and one end is 
+    64-bit and the other end is 32-bit. Modified LOOP_PKT and ARCHIVE_PKT to
+    use sized integers (int32_t) defined in stdint.h.
+
+19) Incorporated Debbie P's changes for the debian wview start script so it uses
+    start-stop-daemon and supports running wview processes as a non-root user
+    specified in a new wview-user config file.
+
+20) Modified wviewmgmt Station page to hide location entry if the station type
+    is Davis Vantage Pro. ELEV/LAT/LON are defined in the VP console and not by
+    wview.
+
+21) Added configuration item "Default Wind Units" to the wviewmgmt generation
+    page. Added support for all tags and graphics to use the selected wind
+    units. You can now select one of mph, m/s, knots or km/h for the global
+    default wind units in wview.
+
+22) Fixed UV processing for FFFF protocol WMRUSB stations.
+
+23) Added support for last 60 minutes rain ("r"), last 24 hours rain ("p") and
+    solar radiation ("L") to CWOP packet submission. The use of "P" (rain since
+    local midnight) has been removed in favor of the Madis-preferred rain
+    reporting data.
+
+24) Added support for solar radiation and UV to http clients (Wunderground
+    and WeatherForYou). If these sensor values are populated they will now
+    be transmitted.
+
+25) Added exfoliation skin designed by Matthew Wall.
+
+26) Changed the minimum CWOP reporting interval from 10 to 5 minutes.
+
+27) Added n1otx's example script for fast SQLite3 queries:
+    examples/scripts/rainInLastWeek.sh.
+
+28) Added socket recovery logic to the ethernet station medium. Added restart
+    logic to the serial medium. Added restart function to the medium abstraction.
+
+29) Changed debian package definition to "Recommends" apache and php-sqlite as
+    opposed to "Requires".
+
+
+
+
+5.19.0    05-22-2011
+--------------------
+
+radlib version required: 2.11.2 or newer
+
+1)  Added "-f" argument to all processes so they can be run in the foreground
+    (i.e., not as daemons). This will facilitate tracing and debugging wview
+    processes from the command line.
+
+2)  Added "start-trace" command to the wview start script examples that don't
+    use some distro-specific magic to start/stop processes so all processes can 
+    be started with strace and run in the foreground. Added section in the User
+    Manual to describe the use of strace and the "-f" argument for debugging.
+
+3)  Added an rsyslog config file to the debian APT installation such that wview
+    logs are placed in the file /var/log/wview.log. Also added "99-wview.conf"
+    to the examples/rsyslog directory and instructions for use in the source 
+    build section of the User Manual.
+
+4)  Added alarm type definitions to the Alarm Type mouse over tool tip so they
+    can be viewed directly from the wviewmgmt configuration page.
+
+5)  Added release of SIGABRT signal for all process initializations. This allows
+    a clean abort for the operating system.
+
+6)  Update WH1080 station interface to better handle potential extraneous data
+    on the USB bus.
+
+7)  Moved all calculated values (wind chill, heat index, dew point) to the
+    generic station code so they are not computed until after calibrations.
+
+8)  Added new configuration parameter to control if station interface details
+    (such as host/port or serial device) are displayed with the station type
+    when the tag "!--stationType--" is expanded. The default is "yes". Can be 
+    configured on the File Generation page of wviewmgmt.
+
+
+
+
+5.18.6    04-01-2011
+--------------------
+
+radlib version required: 2.11.0 or newer
+
+1)  Added more valid magic numbers for WH1080 stations.
+
+
+
+
+5.18.5    03-31-2011
+--------------------
+
+radlib version required: 2.11.0 or newer
+
+1)  Fixed NOAA yearly reports missing rain on day that DST starts.
+
+2)  Added read thread to WMRUSB using new radthread facility.
+
+3)  Added email alert when VP archive record has to be retried.
+
+
+
+5.18.4    03-26-2011
+--------------------
+
+radlib version required: 2.10.3 or newer
+
+1)  Added better WH1080 sensor decode.
+
+2)  Added console reset logic for WMRUSB stations when sensor data stops being
+    sent.
+
+
+
+5.18.3    03-20-2011
+--------------------
+
+radlib version required: 2.10.3 or newer
+
+1)  Fixed TE923 rain decode logic.
+
+2)  Changed WMRUSB device open paradigm to harden the interface for marginal
+    USB environments.
+
+
+
+5.18.2    03-15-2011
+--------------------
+
+radlib version required: 2.10.3 or newer
+
+1)  Fixed WMRUSB UV value decode logic.
+
+2)  Fixed hidapi compile error for OSX.
+
+
+
+5.18.1    03-14-2011
+--------------------
+
+radlib version required: 2.10.3 or newer
+
+1)  Fixed the hidapi utility to work on armel and powerpc platforms.
+
+
+
+5.18.0    03-13-2011
+--------------------
+
+radlib version required: 2.10.1 or newer
+
+1)  Added wind rose graphic initially contributed by J. Fiddler and G. Eddy.
+    Integrated with html generation. Added to default templates.
+
+2)  Added rsync option "-L" (--copy-links) to command used for ssh file 
+    transfers.
+
+3)  Added the ability to test alarm scripts by enabling the test and alarm
+    number via wviewmgmt on the Alarms configuration page.
+
+4)  Added a configuration parameter to the Station page to allow 
+    enable/disable of DTR toggling for certain station interfaces. Currently
+    only the TWI and Vaisala stations use DTR toggling.
+
+5)  Fixed issue with datafeed packets and negative values based on research
+    done by P. Sanchez.
+
+6)  Fixed computation of rain/ET cumulative values when preset values are
+    provided.
+
+7)  Added new wind speed composite graph contributed by G. Eddy.  Added to all
+    Day, Week and Month templates.
+
+8)  Added workaround for TWI single digit negative temperature reporting bug
+    contributed by pannetron.
+
+9)  Fixed issue causing stations without ET having the rain dials always 
+    render at the highest resolution (contributed by P. Sanchez).
+
+10) Fixed all templates' "images-metric.conf" file so the decimal places
+    field for the barometer bucket is "1" instead of "2". "2" was causing
+    truncation of the labels.
+
+11) Changed Virtual station connection recovery behavior to never stop trying 
+    to reconnect with the remote station when the connection is lost.
+
+12) Added support for the Weatherlink IP datalogger. Updated the station 
+    configuration page of wviewmgmt to support Weatherlink IP and more
+    coherent display of optional config items based on station type. Cleaned
+    up some miscellaneous commands.
+
+13) Added support for the WMRUSB station based on M. Maehre contribution. This
+    includes the WMR88, WMR100, WMR100N, WMR200 and WMRS200 stations.
+    Added a compatibility layer so libusb-1.0 is used. Added wviewmgmt and
+    wviewconfig support. Added new medium abstraction support for USB.
+
+14) Added a quick start guide for FreeBSD "wview-Quick-Start-FreeBSD.html".
+
+15) Added a separate medium abstraction for the USB hidapi. This allows support
+    for USB devices in Mac OSX and can be used for linux and FreeBSD as well.
+    MEDIUM_USBHID should be used for USB stations whenever possible so the
+    station is accessible for all supported operating systems.
+
+16) Added support for the Fine Offset WH1080 station and all of its variants.
+    These include: Fine Offset: WH1080, WH1081; Watson: W8681, WX2008; 
+    National Geographic: 265 NE; Elecsa: 6975, 6976; Ambient Weather: WS-1080, 
+    WS-1090, WS-2080; Tycon: TP1080WC; Jaycar XC0348. Used the new USBHID 
+    medium for the interface so it will work on Mac OSX systems.
+
+17) Fixed a bug in the "wvutilsConvertMPSToMPH" utility.
+
+18) Fixed a race condition in the process monitor daemon causing possible
+    start up hangs.
+
+19) Added support for the Oregon Scientific WMR88A (not the same protocol as the
+    WMR88/WMR100). Uses the USB HID medium. Added wviewmgmt and wviewconfig 
+    support.
+
+20) Added support for the Honeywell TE923W station and all of its variants.
+    These include: TE923, TE821W, WXR810, DV928 (manufacturers include Hideki,
+    Nexus, Mebus, Irox, Honeywell, Cresta). Uses the USB HID interface so it is
+    supported for Mac OSX systems.
+
+21) Added generic extra sensor support to various stations and the html generator.
+    See the file "parameterlist.txt" or the generated file "parameterlist.htm"
+    for details. This changed the LOOP packet structure thus requiring an update
+    to both remote and local wview servers for users of the "virtual" station type.
+
+22) Removed use of the "HOST_IS_BIGENDIAN" macro and replaced with "WORDS_BIGENDIAN"
+    to support OSX universal binaries (thanks B. Northcott).
+
+
+
+
+5.17.3    05-16-2010
+--------------------
+
+radlib version required: 2.10.1 or newer
+
+1)  Changed packet receive timeout action from error to warning. Increased 
+    wviewd packet response timeout from 30 to 60 seconds.
+
+2)  Updated User Manual source so it is easier to print. Contributed by 
+    D. Merritt.
+
+
+
+
+5.17.2    04-18-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed "stormStart" display.
+
+2)  Increased wviewd packet response timeout from 10 to 30 seconds.
+
+
+
+
+5.17.1    04-06-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Increased wviewd response timeout from 2 to 10 seconds.
+
+
+
+
+5.17.0    04-04-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added more verbose logging of WMR918 sensor initialization. Fixed timeout
+    value for select call while waiting for first data packets.
+
+2)  Added htmlgend timer to limit the wait time for wviewd data packets once
+    requested. If packets are not received the timeout will produce log output
+    to indicate a problem.
+
+3)  Add back in the display of time for storm start.
+
+4)  Added user contributed PHP code to do path and file sanity check for certain
+    configuration items in wviewmgmt screens. Will indicate problems in red.
+
+5)  Added "From" email address configuration and use for email alerts.
+
+
+
+
+5.16.0    03-28-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added contributed java script code to wviewmgmt so the focus defaults to the
+    login page's password entry.
+
+2)  Added contributed moon rise and set utilites and html tags. If you are
+    upgrading and you want to add them to your Almanac page, you will have to
+    do so manually.
+
+3)  Enhanced alarms datafeed archive sync so new archive records will not be
+    sent if archive sync is in progress.
+
+4)  Changed storm start display to use the date format specified during 
+    configuration.
+
+
+
+5.15.0    03-21-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added daily rain (since midnight) to the wunderground and weatherforyou
+    data submissions.
+
+2)  Added station time sync after DST change so stations like the Vantage Pro
+    which time stamp archive records will heve the new DST time update in a 
+    *timely* manner.
+
+3)  Added a 2 minute timeout argument to rsync for ssh file transfers.
+
+
+
+
+5.14.3    03-02-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Modified NOAA update to use a 30 second offset from midnight to avoid 
+    DB resource conflicts at midnight. Simplified update logic and fixed 
+    bug introduced in 5.14.2 for NOAA causing alternating update and no 
+    update at midnight. 
+
+
+
+
+5.14.2    02-25-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Remove legacy FTP interval definition per rule and replace with one global
+    interval value to allow control of the frequency of possible FTP transfers.
+    Files are still only transmitted if new. Added more verbose logs describing 
+    per file status/action.
+
+2)  Modified NOAA database update logic based on time stamps.
+
+3)  Fixed bug in process monitor preventing restart of the station daemon if the
+    wview-binary file included CR or LF.
+
+
+
+
+5.14.1    02-21-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Enhance serial read retry logic for the WS-2300 so the station daemon will
+    try harder when serial errors occur.
+
+
+
+
+5.14.0    02-19-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Add user-contributed WS-2300 sensor data validation via multiple sample
+    collection. Three "similar" readings are required before each sensor data 
+    is stored.
+
+2)  Modified NOAA database behavior to allow replacement of existing NOAA
+    records with newer data.
+
+
+
+
+5.12.6    01-31-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed ssh rule counter initialization.
+
+2)  Restart apache2 for APT installs (not upgrades) so the php5-sqlite module is
+    activated.
+
+
+
+
+5.12.5    01-28-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Modified history rollup utility to better handle database and wview NULL 
+    values in station data.
+
+2)  Removed obsolete station type selection during ./configure.
+
+3)  Added final prompt for confirmation before wviewcleardata purges all data.
+
+
+
+
+5.12.4    01-24-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed wvhttpd and wvcwopd not setting exit status properly.
+
+2)  Cleaned up some previously contributed generator code.
+
+3)  Added new wviewcleardata utility. This script will purge all archive records
+    and delete the dependent databases to allow a clean start. Can be used to
+    purge simulator data when ready to "go live" with your weather station.
+
+
+
+
+5.12.3    01-16-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed bug in ssh rule processing introduced with popen change. 
+
+
+
+
+5.12.2    01-16-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Changed libcurl connection options including not stomping on SIG_ALARM for
+    timeouts (which can skew/disable radlib timers). This was causing the FTP 
+    transfer timer to fail when a transfer timeout occurred. Also enabled DNS
+    cacheing for libcurl which significantly speeds up file transfers. 
+
+
+
+
+5.12.1    01-14-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added passive mode configuration to the FTP daemon.
+
+
+
+
+5.12.0    01-13-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Change FTP daemon to use libcurl transactions directly, not tnftp. This should
+    alleviate any "hangs" waiting on the remote server. tnftp dependency removed.
+
+
+
+
+5.11.0    01-09-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fix log buffer overflow for FTP verbosity.
+
+2)  Modify FTP to execute multiple smaller ftp commands to avoid large command
+    lines which may timeout.
+
+3)  Added an FTP marker file indicating the last update time for FTP. This allows 
+    only new files to be transferred, saving time and bandwidth.
+
+4)  Added new SSH configuration parameters for remote port number and remote
+    ssh login username.
+
+5)  Added ability to automatically update the configuration database during update
+    of existing installations when new configuration parameters are added in 
+    future releases.
+
+
+
+
+5.10.3    01-05-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fix interrupted system call handling for FTP and SSH popen sessions.
+
+
+
+
+5.10.2    01-03-2010
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Modified build environment to better support cross-development.
+
+2)  Enhanced the FTP daemon to do a better job of logging the command output
+    if verbose logging is enabled and the tnftp arguments are changed from "-iV"
+    to "-iv". All tnftp stdout/stderr output will now be logged for transfer 
+    debugging purposes. The User Manual describes how to do this.
+
+3)  Enhanced the SSH daemon to do a better job of logging the command output
+    if verbose logging is enabled. All rsync stdout/stderr output will now be 
+    logged for transfer debugging purposes.
+
+4)  Removed conditional build of the HTTP service. It will always be built and
+    can be enabled/disabled like any other service.
+
+
+
+5.10.1    12-29-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added PHP logic to the system status page so the refresh is 3 seconds while
+    starting and 60 seconds otherwise.
+
+2)  Fixed a few html errors in the system_status.php file.
+
+3)  Modified the software identifier string tacked on to the end of CWOP packets.
+
+
+
+5.10.0    12-28-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added new status facility so wview processes can report their status and
+    meaningful statistics. The status data will be stored in text files in the
+    /var/run/wview directory in an "INI" file format. /var/run is transient and
+    usually not mounted on any physical media (including flash or SD drives).
+
+2)  Added status information by wview service to the wviewmgmt System Status 
+    page. Status, last message and up to 4 service-specific statistics are 
+    presented. Modified the page to auto-refresh every 10 seconds.
+
+
+
+5.9.5     12-26-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Updated day history table insertion to replace existing records.
+
+2)  Fixed LSB header for debian init.d start script.
+
+
+
+5.9.4     12-25-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added "IsBlocking" check for ethernet medium reads.
+
+
+
+5.9.3     12-25-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added LSB header to the debian start script.
+
+2)  Fixed debian postinst script to always overwrite the wview-version file.
+
+3)  Added support for wviewd shutdown notification to other daemons if it fails
+    initialization and shuts down. "/etc/init.d/wview stop" should still be
+    issued to ensure all daemons shutdown (ftp and ssh daemons do not receive
+    internal messages and radmrouted must be stopped externally).
+
+
+
+5.9.2     12-24-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed errant "functions.php" inclusion in the tarball.
+
+2)  Added gawk dependency for the debian package.
+
+3)  Fixed a link in the User Manual.
+
+
+
+5.9.1     12-23-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Fixed sqlite3 dependency in debian control file. Fixed install "error" when
+    apache2 is not installed.
+
+2)  Updated alarm daemon handling of VP consoleBatteryStatus.
+
+
+
+5.9.0     12-22-2009
+--------------------
+
+radlib version required: 2.9.0 or newer
+
+1)  Added station support for most Texas Weather Instruments stations. Thanks to 
+    David Finster for development and debug support.
+
+2)  Changed alarm datafeed socket to publish LOOP data and archive records in
+    support of the new wview virtual station. LOOP and archive packets will now
+    be sent in network byte order. Added new utilities to provide host-to-network
+    and network-to-host conversion of LOOP and archive packets in datafeed.[ch].
+    The start frame for loop data has been changed so the start frame can be used
+    as a packet type indicator as both LOOP and archive packets will now be pushed.
+
+3)  Added new station type "Virtual". This allows remote forwarding of one wview 
+    installation to another. A wview server connected to a real station can run
+    just the wviewd daemon and alarm daemon which will push archive and LOOP data
+    to a remote wview server configured as "Virtual" which will receive the archive
+    and LOOP data and use it to generate files and html as a normal wview server
+    would.
+
+4)  Fixed a bug in htmlHistoryInit which caused the wview-history.sdb database to 
+    be filled with NULL records if there was no archive history available. Simply
+    delete the $prefix/var/wview/archive/wview-history.sdb file and restart wview.
+
+5)  Cleaned up the debian package generation control files including making
+    "radlib-dev" a prerequisite for wview. APT upgrades of the 5.8.0 package
+    should be seamless.
+
+6)  Source code: GLC_VALUE_NONE is dead, replaced by ARCHIVE_VALUE_NULL.
+
+
+
+5.8.0     12-12-2009
+--------------------
+
+radlib version required: 2.8.5 or newer
+
+1)  Updated Awekas US templates to send proper rain unit.
+
+2)  Added new data tag "--stationName--" (brackets removed) to display the
+    station name as configured in wviewmgmt.
+
+3)  Updated build environment to support debian packaging. Added wview debian
+    package support. See the new User Manual for details.
+
+4)  Removed use of the HTTP_DOC_ROOT environment variable. Now the install
+    location for wviewmgmt will be $(localstatedir)/wviewmgmt. Soft links can
+    be used to make this visible in the http server document root as desired.
+    $(localstatedir) is /usr/local/var by default.
+
+5)  Added new configuration database creation script for debian package
+    installations. It is used by the debian package post-installation script.
+
+6)  Changed the default station type configured from Vantage Pro to Simulator.
+
+7)  Added targets for default generation configuration of "chrome", "standard",
+    "US units" to the build. It will not overwrite existing html configuration 
+    (based on existence of the wview-conf.sdb file). wviewhtmlconfig will no 
+    longer be required outside of the new installation unless a different skin
+    or different units are selected.
+
+8)  Reformatted the User Manual wview-User-Manual.html. Removed old references
+    and added new content for the debian and MacPorts package installs.
+
+
+
+5.7.1     11-14-2009
+--------------------
+
+radlib version required: 2.8.5 or newer
+
+1)  Fixed legacy HILOW retrieval logic so the first hour of rain/ET in a day is 
+    not skipped when computing daily rain.
+
+
+
+5.7.0     11-12-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Added "install-exec-hook" to Makefile.am and removed "install-env" target.
+    Now the old "install-env" tasks will be done automatically after the 
+    installation tasks and all can be invoked with "make install". Added 
+    "uninstall-hook" target to clean up all "install-exec-hook" data.
+    The "uninstall" target should never be used unless all data (including 
+    archive) is to be removed.
+
+2)  Changed library search order in the LDFLAGS variable for all processes. This
+    ensures that libraries installed by package management systems are used
+    before older system-installed libraries.
+
+
+
+5.6.4     11-05-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Further clean up of chart labels to support DST strangeness.
+
+
+
+5.6.3     11-03-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Changed computed rain rate period to 5 minutes for stations for which it is
+    computed.
+
+2)  Fixed example alarm scripts so the path is correct.
+
+3)  Fixed issue in Vantage Pro archive record time stamping when DST "falls back".
+    Now all records will be stored in the archive database for Vantage Pro,
+    including the "2nd" 1 AM to 2 AM period. All non-archive-generating stations
+    were already doing this.
+
+4)  Modified day history chart time labeling to be smarter about DST changes.
+
+
+
+5.6.2     10-21-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Fixed bug in Makefile.am which allowed the station type to be overwritten 
+    during "make install-env".
+
+
+
+
+5.6.1     10-21-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Updated the User Manual and quick start guides.
+
+
+
+
+5.6.0     10-11-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Added a "scripts" directory to the distribution. Added "wview-install-debian"
+    and "wview-upgrade" scripts to the distro.
+
+2)  Incorporated a few more defensive measures and fixed a few return values and
+    one transposed "break" statement based on user comments. Thanks David Barto.
+
+3)  Added the HTML page "wview-Debian-Quick-Start.html" to the distribution. It
+    describes a very simple method for installation on debian and derivative 
+    systems.
+
+4)  Fixed a remaining bug with the day history table population when no data 
+    exists for one or more archive periods. Consult the User Manual for how to
+    regenerate the day history table.
+
+5)  Added better resolution to email alerts; added support for all stations.
+
+
+
+
+5.5.6     09-24-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Fixed a bug for utilities accessing old WLK database files introduced in 
+    5.5.4.
+
+
+
+
+5.5.5     09-22-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Fixed a bug for forecast icons and rules introduced in 5.5.4.
+
+2)  Updated selected log messages to be more user friendly.
+
+
+
+
+5.5.4     09-13-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Fixed a loop boundary bug in htmlgend initialization.
+
+2)  Replaced many non-static source string strcpy invocations to provide better
+    defensive coverage of excessively long configuration strings.
+
+3)  Fixed a bug when the proper images.conf format is compromised by user
+    configuration error.
+
+
+
+
+5.5.3     08-15-2009
+--------------------
+
+radlib version required: 2.8.4 or newer
+
+1)  Restored WS-2300 serial operation from change made in 5.5.2.
+
+
+
+
+5.5.2     07-21-2009
+--------------------
+
+radlib version required: 2.8.3 or newer
+
+1)  Changed Vantage Pro serial initialization to remove hangup and HW flow 
+    control.
+
+2)  Changed internal data structures to not be packed.
+
+3)  Changed SIGCHLD processing to be more robust.
+
+
+
+
+5.5.1     06-14-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Changed UV to float in LOOP structure so decimal precision is not lost.
+
+2)  Add more paranoid sanity checks for NULL archive data.
+
+3)  Remove references to "NOAA" for NOAA-style reports in HTML templates 
+    (because it apparently isn't clear wview generated the data?!?).
+
+4)  Updated the User Manual.
+
+5)  Added more sanity checks for data converters.
+
+
+
+5.5.0     05-14-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Modified WMR9XX station init so it will exit more gracefully.
+
+2)  Removed the wviewsqld process. Exports to external database servers will now
+    be done through the $distro/dbexports scripts.
+
+3)  Improved NOAA initialization process so when there are no records, it doesn't
+    try so hard.
+
+4)  Integrated WMR9XX changes to support configurable outside channel (thanks 
+    Kevin Cloy).
+
+5)  Split out some NULL value checks for Vantage Pro archive record reception.
+
+6)  Added more boundary tests for image generation so when the user tries to
+    generate non-existent sensors, htmlgend will not crash.
+
+7)  Changed wind direction graphs from line graphs to scatter graphs (thanks
+    Debbie Pickett).
+
+8)  Fixed errant UV conversions in the generator.
+
+9)  Changed wind direction processing so NULL values are not graphed. Modified
+    wind direction archive record creation for non-archive generating stations so 
+    it is consistent with VP record creation.
+
+10) Fixed some bucket issues from prior dual units contributions.
+
+11) Updated the wview management site (wviewmgmt) to support network configuration
+    on Debian-based distributions. Added automatic upgrade support for wviewPlug
+    systems.
+
+12) Enhanced the install-env make target further including setup for Debian-based
+    network config.
+
+
+
+5.4.0     04-18-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Added new SQLite3-MySQL export scripts. Added $distro/dbexport directory
+    to contain the script sources. Version 5.4.x will be the last release containing
+    the wviewsqld daemon as it is now deprecated in favor of the wview-mysql-export
+    script. Added wview-mysql-create script to allow easy setup of the user, database
+    and tables on the MySQL server in preparation for export. Archive, HILOW and
+    NOAA tables are exported to the same MySQL database. Updated User Manual
+    section on MySQL exports.
+
+2)  Added missing documentation of the default wviewmgmt password in the User
+    Manual.
+
+3)  Added marker file support for the archive, hilow and noaa databases so the
+    synchronization externally via scripts is facilitated.
+
+4)  Removed sample databases for config and archive and changed the "install-env"
+    make target so it generates them. This avoids platform issues of sqlite3 databases.
+
+5)  Modified wvpmond so it reads the wview-binary marker file to know which binary
+    name to use for wviewd. wviewd binary names are now appended with the station type.
+
+6)  Added new SQLite3-PostgreSQL export scripts. Added $distro/dbexport directory
+    to contain the script sources. Version 5.4.x will be the last release containing
+    the wviewsqld daemon as it is now deprecated in favor of the wview-pgsql-export
+    script. Added wview-pgsql-create script to allow easy setup of the database
+    and tables on the PostgreSQL server in preparation for export. Archive, HILOW and
+    NOAA tables are exported to the same PostgreSQL database. Updated User Manual
+    section on PostgreSQL exports.
+
+7)  Added vpconfig contributions from Deborah Pickett so the ISS channels can be
+    configured. Also adds support for setting rain collector size and wind direction
+    calibration.
+
+8)  Commented out SQLite3 pragma attempts to change the journaling mode. Support
+    for it is not consistent across SQLite3 versions.
+
+
+
+5.3.2     03-27-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Changed behavior of the "install-env" make target so it only copies config
+    and run environment examples from the distro if the directories do not exist.
+    This means future upgrades will require manual copy or manual rename of the
+    config and run directories prior to building the "install-env" target (if
+    and when new features are desired).
+
+
+
+5.3.1     03-26-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Added SQLite3 version check before applying "journal_mode" pragmas. 
+
+
+
+5.3.0     03-25-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Created new wviewmgmt site for distribution. Better site navigation, database 
+    updates by page, a new system status page and password protection for site
+    pages are a few of the enhancements.
+
+2)  Added support for a new configure environment variable, HTTP_DOC_ROOT. When
+    defined prior to invocation of the configure script, the install-env target
+    will install wviewmgmt to the http document root specified.
+
+3)  Updated the install-env target for wview build so the $prefix/var/wview/archive
+    directory is NOT replaced, but rather updated. This means your existing archive
+    database should be preserved and will not require a manual copy from the save 
+    directory after the installation.
+
+4)  Modified HILOW database population so that archive records are now always added
+    as a sample (except for cumulative sensors rain, ET and hail). This avoids the
+    missing of the high wind value in the archive record and LOOP data during the
+    interval not catching the high wind value. This only applies to Vantage Pro 
+    stations.
+
+5)  Changed initial start of sync timer so it cannot inadvertently track with the
+    archive interval timer.
+
+
+
+5.2.0     03-12-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Changed station build procedure so all station binaries are built with unique
+    names such as wviewd_vpro, wviewd_wxt510, etc. Modified the wviewmgmt and
+    wviewconfig configuration utilities to populate the file 
+    $prefix/etc/wview/wview-binary with the appropriate wviewd binary name; 
+    changed all start scripts to use the contents of this file when starting.
+
+2)  Moved the ConfigForms directory out of $distro/examples to $distro/wviewmgmt
+    and added automake logic so it is aware of the install prefix and opens the 
+    wview-conf.sdb file directly (no soft link required). Added the ability 
+    (with sudo membership for the http user) to start and stop wview from the 
+    Management web interface.
+
+3)  Moved NOAA data from the ASCII file noaa.dat to an SQLite3 database, 
+    wview-noaa.sdb. Modified NOAA generation to use the new API. See the User
+    Manual for a schema description.
+
+4)  Added email alert notifications. Added configuration support in wviewmgmt
+    and added new config parameters to the example wview-conf.sdb database. See
+    the UPGRADE file for instructions. Sendmail and sendEmail packages are required.
+
+5)  Added All Time html tags and sensor support. Added new tags to the almanac
+    template examples.
+
+6)  Fixed a bug in VP LOOP data reception logic which caused UV samples to be
+    a factor of 10 too large.
+
+7)  Fixed a bug in html generation caused by old DST code that pre-dated the new
+    SQLite archive database and the use of unix time for the records.
+
+
+
+5.1.3     03-03-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Added hilowcreate to the distribution - it was erroneously left out of the
+    prior two builds.
+
+
+
+5.1.2     03-03-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Fixed a bug for Vantage Pro stations which only occured if there were no
+    records in the wview-archive.sdb database (new install) which caused the 
+    wviewd daemon to never retrieve archive records because of a bad 
+    LastArchiveTime value (retrying archive record...).
+
+
+
+5.1.1     03-01-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Added an out-of-band utility to create the HILOW database so that limited
+    power platforms like the NSLU2 can create the new database while the older 
+    version continues to archive data and generate files from templates. See
+    the UPGRADE file for full details on the process.
+
+
+
+5.1.0     03-01-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Added new HTML/Javascript/PHP forms for wview configuration. They are found
+    at $distro/examples/ConfigForms. That entire directory should be copied
+    to your web server document root. The entry point is 
+    /ConfigForms/wview-form.php. Hooks were included for parameter value checking
+    but for now whatever you enter is what gets put in the wview-conf.sdb database.
+    A link to $prefix/etc/wview/wview-conf.sdb must be placed in the /ConfigForms
+    directory with proper rw permissions.
+
+2)  Added new database to store HILOW data, wview-hilow.sdb. Hourly highs and lows 
+    are stored along with timestamps for the events, an accumulator and the number
+    of samples included (average = accumulator/samples). There is a separate table
+    for each sensor type and one record per hour is maintained from the beginning
+    of archive records to the current time. sensorstore.bin is no longer required.
+    This will also allow for implementation of all-time highs, lows and averages
+    in the near future. Note that the initial creation of this database will occur
+    the first time wview runs and will take some time according to how far back
+    your archive records go.
+
+3)  Fixed bug in computed data utility for archive records which was still using
+    the old WLK 0-15 wind direction scheme for a validation check.
+
+4)  Fixed a 1 second delay in file generation introduced when the pre/post generation
+    zombie bug was fixed.
+
+5)  Added more checks to the station time sync routine so time syncs are never 
+    done at the top of the hour.
+
+
+
+5.0.1     02-07-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Fixed bug in alarms configuration processing introduced with the sqlite 
+    configuration database.
+
+
+
+5.0.0     02-05-2009
+--------------------
+
+radlib version required: 2.8.2 or newer
+
+1)  Replaced use of multiple text files for wview configuration with one SQLite3
+    database.  There are multiple ways to configure wview now including some new
+    graphical choices.  See the User Manual section on configuration for full 
+    details.
+
+2)  Replaced the use of the "WLK" database files with the use of one SQLite3
+    database. Added conversion utilities wlk2sqlite and sqlite2wlk to allow the 
+    import of old WLK records into the SQLite3 archive database. Added the
+    dbsqlite.[ch] utility in common to provide the archive database access.
+
+3)  Updated the Awekas template files per changes by Othmar Gattringer.
+
+4)  Segregated rain tipper support to the VP station code. Cleaned up history
+    data storage and references. Cleaned up internal archive data processing and
+    made it more generic (less VP-specific). Moved WLK utility dbfiles.[ch] under
+    the VP-specific station code to retain for the conversion utilities.
+
+5)  Updated sensor utility and added magic number to the sensorstore.bin file
+    so when the magic number is changed between versions, wview will automatically
+    regenerate the sensor store.
+
+6)  Removed configurability of the archive path. It will now always be at
+    $prefix/var/wview/archive.
+
+7)  Autogenerate CWOP passcode for non-CW/DW stations (Gerry Creager).
+
+8)  Updated index page templates to support year selections through 2050.
+
+9)  Updated computed data utility to use new dbsqlite API.
+
+10) Modified wviewconfig to update the SQLite3 configuration database directly
+    through the use of the sqlite3 utility, other unix tools and some fancy 
+    scripting.
+
+11) Added WMR9x8 support for extra sensors and the undocumented pool sensor 
+    (thanks to Kevin Cloy).
+
+12) Added support for new radlib red-black text search utility for data tag
+    matching.
+
+13) Added 12-hour temperature accumulator so the 12 hour average temperature can
+    be used for pressure conversions.
+
+14) Added support for a dayHistory table in the archive database so once daily
+    averages have been computed for historical purposes, they can be stored in
+    the database and retrieved to save repeated calculation during startup.
+
+15) Fortified SIGCHILD handling in all signal handlers to mitigate race condition
+    with the subsequent signal assignment (thanks Graham Eddy).
+
+16) Changed how station pressure values are calibrated. Instead of calibrating
+    each of BP, SP and ALT independently, only the pressure type produced by your
+    station needs to be calibrated and the other two are computed based on the
+    calibrated sensor value. To date, all stations except the VP produce SP; the
+    VP produces BP. Thus only SP (or BP for VP) need to be calibrated.
+
+
+
+4.0.1     07-03-2008
+--------------------
+
+radlib version required: 2.7.5 or newer
+
+1)  Fixed nuisance bug in FTP status logging - did not effect performance.
+
+2)  Fixed "Rain Units are mm" message appearing during boot when imperial units
+    are selected.
+
+
+
+4.0.0     06-28-2008
+--------------------
+
+radlib version required: 2.7.5 or newer
+
+1)  Adjusted rain rate accumulator window for the WS-2300.
+
+2)  Add rain rate accumulator to the WMR918 station as the reported rain rate
+    from the station is inferior.
+
+3)  Changed default source location for ftp transfers from $prefix/var/wview
+    to $prefix/var/wview/img so by default no "img" directory will be tacked on
+    to the destination directory. This will require all users of ftp to modify 
+    their wviewftp.conf file to remove all leading "img" references.
+
+4)  Added tipper size support for Vantage Pro stations. The calibration solution
+    for VP stations with non-0.1" tippers did not work because of the VP protocol
+    inconsistencies. Now no calibration is required to support any VP tipper
+    size.
+
+5)  Enhanced dual unit support in charts and buckets (thanks W. Krenn). Unit 
+    names must be those indicated in the example images.conf and 
+    images-metric.conf files. English is the only language supported for dual
+    units at this time.
+
+6)  Added new html tags for various wind units (thanks W. Krenn). See 
+    parameterlist.txt for details.
+
+7)  Added a new html template "parameterlist.htx" which includes every html tag
+    displayed as "<tag name>=TAG_VALUE". Can be accessed at:
+    http://<your_weather_url>/parameterlist.htm.
+
+8)  Modified conversion of Sea Level Pressure (SLP) to Station Pressure (SP) in
+    wvutils. This should correct deviations at higher elevations.
+
+9)  Fixed homepage templates for all skins (plus) so the !--localRadarURL-- and
+    !--localForecastURL-- tags are used.
+
+10) Added the new chrome skin based on work by M. Nausch.
+
+11) Fixed a bug with rain and ET aggregate values for charts so that values across
+    midnight are not displayed incorrectly.
+
+
+
+3.9.0     04-20-2008
+--------------------
+
+radlib version required: 2.7.5 or newer
+
+1)  Modify for new unsigned long long radTimeGetMSSinceEpoch return value. You 
+    must update your version of radlib to 2.7.5 BEFORE upgrading to this version
+    of wview.
+
+2)  Added new station support for the Oregon Scientific WMR918/968 stations. The
+    WMR918/968 is selected during the "configure" step by specifying 
+    "--enable-station-wmr918". Added battery status HTML tags for the four
+    WMR918 transmitters.
+
+3)  Added example alarm script "outtempMaxEmail.sh" to illustrate how to use
+    alarm scripts to send notification emails.
+
+4)  Added checks for unpopulated wind gust speed.
+
+5)  Fixed bug where wviewsqld expected SQLDB_EXTENDED_INFO to be defined in all
+    cases when in fact it is only valid for VP with extra sensors.
+
+
+
+3.8.0     04-01-2008
+--------------------
+
+radlib version required: 2.7.4 or newer
+
+1)  Added basic sensor calibration support such that a multiplier and constant
+    are defined for each of the sensors which can be calibrated. Added a new
+    config file "calibrate.conf" to allow configuration of the calibration. Now
+    (for example) calibration of the rain collector type is possible: 0.01", 
+    0.2mm, 0.1mm and others can be supported. Station pressure deviations can
+    be calibrated. Allows ratio and/or constant calibrations.
+
+2)  Fix input bug in vpinstall script so configuration is only done if 'y' is
+    entered.
+
+3)  Fix strcmp bug in alarms configuration.
+
+4)  Remove barometer trend indicator from automatic inclusion with barometer 
+    value during generation.
+
+5)  Fixed a bug in dbfStoreArchiveRecord which allowed the "dashed" value of
+    255 through as a valid wind reading for VP stations.
+
+6)  Fixed a bug in the station simulator so no serial fd is added to the wviewd
+    file descriptor list.
+
+7)  Added additional console wakeup try for VP archive retrieval.
+
+8)  Changed station time sync interval from every 1 hour to every 4 hours.
+
+
+
+3.7.3     03-22-2008
+--------------------
+
+radlib version required: 2.7.4 or newer
+
+1)  Fixed "exec-prefix" bug in wview start script generation.
+
+2)  Added support for generation of NOAA reports in metric units.
+
+3)  Added support for a new "pre-generate.sh" script which, if it exists in
+    $prefix/etc/wview, will be executed after image generation but before 
+    template generation. Added to the classic/standard and classic/plus skins.
+
+
+
+3.7.2     03-18-2008
+--------------------
+
+radlib version required: 2.7.4 or newer
+
+1)  Fixed MaxWindSpeed bug in the WS-2300 interface.
+
+2)  Fixed wviewconfig bug introduced with stationType addition in 3.7.1 which
+    omits position configuration for non-VP stations.
+
+3)  Fixed small bug in alarms error logging if the script execution fails.
+
+
+
+3.7.1     03-17-2008
+--------------------
+
+radlib version required: 2.7.4 or newer
+
+1)  Enabled NOAA generation for metric stations.
+
+2)  Fixed bug in wviewconfig which prevented non-standard database names for SQL
+    setup.
+
+3)  Fixed start script generation to use $exec-prefix instead of $prefix for 
+    "WVIEW_INSTALL_DIR".
+
+4)  Clarified text for "STATION_RAIN_ET_YTD_YEAR" config value to indicate the 
+    year is the year of the rain season start.
+
+5)  Added new tag !--stationType-- so the weather station type can be produced
+    for html pages, etc. Modified wviewconfig to allow for specification of the 
+    station type. Removed "Generic" type and added "Simulator", "WXT510" and
+    "WS-2300". Added to classic skin homepages.
+
+
+
+3.7.0     03-09-2008
+--------------------
+
+radlib version required: 2.7.3 or newer
+
+1)  Fixed missing config file blocks in htmlGenerateInit.
+
+2)  Added transparency level values to graphics.conf and support for all
+    graphic types (thanks to Jon Barber).
+
+3)  Fixed bugs in endian conversion utilities (thanks to Michael Puckett and
+    Jerry Fiddler).
+
+4)  Added dual unit buckets (thanks to Randy Miller).  This is presently only
+	available on non-metric systems and is selected during configuration.
+
+5)  Changed CWOP submission logic to only send a packet if a new archive record 
+    has been received. Changed the report interval from a hard-coded 10 minutes
+    to be the station archive interval, with a minimum duration of 10 minutes.
+
+6)  Added new wview.conf parameters to configure preset values for rain and ET.
+    This allows the display of current conditions to include rain/ET accumulated
+    outside of the data in archive records for the specified year. Added support 
+    in wviewconfig.
+
+7)  Added support for a "static" directory to be included in site skins. The
+    contents of this directory will be copied to the HTML destination once when
+    wviewhtmlconfig is run.
+
+8)  Changed location of wview configuration and data trees from /etc/wview and
+    /var/wview to $prefix/etc/wview and $prefix/var/wview respectively. This
+    allows wview to be installed at any prefix specified during the configure 
+    process (--prefix=/opt/local for example). Binary files were already being
+    installed to $prefix. This allows wview to be installed/run in a chroot jail
+    if so desired (or required by package management systems).
+
+9)  Enhanced example start scripts so they are populated with the proper paths
+    for binaries and the data directory based on the configure $prefix during
+    the build process.
+
+10) Added new station support for the La Crosse WS-2300 series stations. The
+    WS-2300 is selected during the "configure" step by specifying 
+    "--enable-station-ws2300". Added rain rate computation for the WS-2300 as it
+    does not provide it.
+
+11) Update DST change handling to recompute the sun rise/set etc. data when a
+    daylight savings time event occurs.
+
+
+
+3.6.0     02-23-2008
+--------------------
+
+radlib version required: 2.7.2 or newer
+
+1)  Added new config file "graphics.conf" to define alternate graphics colors
+    and sizes. Added support in htmlGenerate.c for these definitions (thanks to
+    Brooks Clark). Made "graphics.conf" part of skin definitions so graphics 
+    can be customized by skin designers.
+
+2)  Added "post-generate.sh" and "images-user.conf" to skin definitions so post-
+    generation and image customization can be defined by skin designers.
+
+3)  Updated "examples/html/Template-Skins-HOWTO.txt" to reflect changes and better
+    describe the skin creation process.
+
+4)  Moved the destination directory for NOAA and ARC pages to ".../NOAA" and
+    ".../Archive" respectively.
+
+5)  Fixed bug introduced in delayed CWOP submission logic of 3.5.0 release.
+
+6)  Added support for image background transparency (configured in graphics.conf).
+
+7)  Fixed missing change for the "htmlmgrReReadImageFiles" method so it no longer
+    looks for "images-metric.conf" if a metric station (images-metric.conf is
+    now copied to images.conf by wviewhtmlconfig based on your wviewconfig
+    choices).
+
+
+
+3.5.0     02-12-2008
+--------------------
+
+radlib version required: 2.7.2 or newer
+
+1)  Changed CWOP generation logic so that packets are sent every 10 minutes and
+    the transmission offset is based on the last digit/character of the APRS 
+    call sign.  Call signs with a character in the last position will have a
+    transmission offset based on the ASCII value of the character, i.e. a final
+    character of "A" would have a transmission offset of: 
+    'A' = 65 => 65 % 10 = 5, thus the offset is 5.  No effort was made to 
+    support the 9 or 11 minute interval for transmission offsets of 0 as this 
+    algorithm will evenly distribute CWOP transmissions over any 10 minute
+    interval so long as the callsigns are distributed uniformly. Also changed the
+    default servers to all be "cwop.aprs.net" per recent requirements.
+
+2)  Added a new HTML configuration script "wviewhtmlconfig" to simplify template
+    setup for US/metric and standard/extended data settings.  It must be run 
+    immediately after "wviewconfig". Moved old example templates to
+    examples/html/classic/standard and /examples/html/classic/plus and added
+    a HOWTO in examples/html for contribution of new template skins.
+
+3)  Changed the format of the "wviewftp.conf" file so that the FTP binary and
+    arguments can be configured there rather than hard-coded.
+
+4)  Added config value SQLDB_FULL_SYNC to allow choice of either full sync of
+    all archive data or partial sync from last database entry.  The partial
+    sync option should allow those with lots of data or slow links to be up 
+    and running more quickly.
+
+
+
+3.4.1     12-22-2007
+--------------------
+
+radlib version required: 2.7.1 or newer
+
+1)  Fixed make target "install-env" so the html template directory is properly 
+    created.
+
+2)  Updated new include templates to support "plus" pages more completely.
+
+3)  Modify WXT510 station interface so it does not over-write the heating 
+    configuration. Heating enable/disable must be done outside of wview.
+
+
+
+3.4.0     12-16-2007
+--------------------
+
+radlib version required: 2.7.1 or newer
+
+1)  Added new meta-tag for file inclusion: !--include filename.xxx--. If this 
+    tag is found in any template file, then htmlgend will attempt to open the
+    file at /var/wview/img/filename.xxx and place its contents in the file
+    being generated (if your default output location is different from the
+    default location of /var/wview/img, htmlgend will look in your destination
+    folder). Included files can themselves be generated from templates, just
+    place them before the template file which includes them in 
+    html-templates.conf (htmlgend generates them in the order found in this conf
+    file).
+
+2)  Added new wview process, wvpmond, to monitor other wview processes and 
+    kill/restart ones which have become non-responsive (such as wvhttpd).
+    Added new config file (processes.conf) so the user can set the timeout
+    values for each process or to disable monitoring for that process. Created 
+    new wview start scripts to include the wvpmond process.
+
+3)  Fixed bug in htmlgend introduced with the post-generate enhancement which
+    caused messages sent to htmlgend to not be received until the next 
+    generation timer expiry.
+
+4)  Moved default html templates from "examples/html" to "examples/html/classic".
+    This will allow the future addition of other "skins" to the distribution as
+    users contribute them. Modified html templates to utilize newly added 
+    include files for navigation buttons, headers and current reading tables. 
+    Removed redundant old template files which only differed by the background 
+    image. Modified the example html-templates.conf to include (and thus
+    generate) these new template include files. Changed the default homepage
+    behavior to use the "day/night" paradigm.
+
+5)  Added a timeout value to the configuration of libcurl transactions for
+    wunderground data submission. This may prevent transactions from "hanging"
+    when the wunderground servers are non-responsive.
+    
+6)  Renamed the wunderground process to "wvhttpd" and added support for the 
+    weatherforyou system. wunderground and/or weatherforyou are enabled during
+    configuration by specifying "--enable-http". They may be disabled in the
+    new http.conf file by setting their station IDs to 0.
+
+7)  Modified the former "wunderground.conf" (now "http.conf") to include 
+    weatherforyou settings. Modified wviewconfig to support configuration of 
+    weatherforyou.
+
+8)  Modified the Vantage Pro station state machine to only log being in the 
+    error state one time to avoid continuous system logging.
+
+
+
+3.3.0     05-28-2007
+--------------------
+
+radlib version required: 2.7.0 or newer
+
+1)  Fixed wunderground verbose log output (no change to wunderground data sent).
+
+2)  Changed rain dials to only use ET if the station is configured for extended
+    data samples.
+
+3)  Fixed rain and ET amounts being rounded up when interval amount is added - 
+    sprintf was doing the rounding up. Was only an issue on WXT-510 stations.
+
+4)  Added "withmysql" make target to the sample-datafeed-client Makefile so the
+    example could be built with MySQL support.
+
+5)  Added DATE_FORMAT config value in htmlgen.conf to allow user-defined date
+    format in images and tags.  Formats allowed are those defined by strftime(3).
+    If the value is not present in the config file, mm/dd/yyyy will be used for
+    non-metric systems, or yyyymmdd for metric systems.
+
+6)  Added DIAL_TEMP_FEELSLIKE_DISABLE macro to htmlGenerate.[ch] so that if the
+    caller passes this value for the "feelsLike" argument, no apparent 
+    temperature will be drawn for the htmlGenPngDialTemperature method.
+
+7)  Changed default CWOP servers and port numbers to match new APRS servers 
+    specified by Dave Helms.
+
+8)  Verified 64-bit operation with radlib versions 2.7.0 and up.
+
+9)  Added new html tags for !--windGustSpeed-- and !--windGustDirectionDegrees--
+    which allow access to the "current" (this term is of course relative) wind
+    gust speed and direction.
+
+10) Added new html tags for !--windBeaufortScale-- (which represents the current
+    windspeed) and !--intervalAvgBeaufortScale-- (which represents the last 
+    archive interval windspeed).  Added wvutils routine to convert windspeed in 
+    mph to a Beaufort string.  See parameterlist.txt for the exact tag 
+    expressions to use in your templates.  Added "Recent Avg Wind" and "Recent
+    Beaufort Scale" rows to all the "index" templates.
+
+11) Added a post-generation script for the htmlgend daemon.  It will be run
+    (if found at /etc/wview/post-generate.sh) after all template files have 
+    been generated, each time they are generated.  Added an empty script file
+    to the distribution (examples/conf/post-generate.sh) and support for it in 
+    the "install-env" make target.
+
+
+
+3.2.1     03-16-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Modified example images-metric(-mm).conf files to use zero decimal places
+    for the weekly barometer chart.
+
+2)  Modified VP state machine to better detect and handle missed archive records.
+
+3)  Added support for the WXT-510 extra sensors to the Alarms processing.
+
+4)  Added two new HTML tags: --localRadarURL-- and --localForecastURL--. Added 
+    support for configuring them in wviewconfig and producing them in htmlgend. 
+    Added references to them in all of the homepage (index*.htx) templates. See
+    examples/html/index.htx for example usage.
+
+5)  Fixed a bug in the common file for the endian conversion utilities.
+
+
+
+
+3.2.0     03-05-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Added more logic to handle system time changes with respect to archive 
+    record generation. Also enhanced html generator to better handle missing 
+    archive records.
+
+2)  Added endian conversion utilities for WLK and sensor archive files:
+    arc_be2le and arc_le2be. These utilities will convert all WLK and sensor 
+    store files in a given source directory then store the results in a given
+    destination directory. The conversions are Big Endian to Little Endian and
+    Little Endian to Big Endian respectively and can be run from either a big or
+    little endian system.
+
+3)  Added weekly historical chart support. Added image definitions in the three
+    images config files. Added new HTML templates for Weekly and Weekly_Plus.
+    Added references to the new weekly pages in the other template navigation 
+    bars. Added reference to the weekly page in the home page templates. You 
+    will need a full template and config file upgrade to properly deploy weekly
+    charts (make install-env).
+
+4)  Fixed SuSE wview start script radmrouted invocation.
+
+5)  Added generic ".[your_ext]x" => ".[your_ext]" template file generation 
+    support. Any template file with extension ending in 'x' will be generated 
+    without the trailing 'x'. Thus, example.phpx is generated as example.php.
+    Note: wview will search for tags in these templates and replace them without
+          any regard for a particular file/scripting syntax.
+
+6)  Added archive retrieval retry logic to the VP station interface to address
+    VP consoles which do not have a record ready when it should be.
+
+
+
+
+3.1.4     02-11-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Added station altimeter computation support. Changed CWOP submission (again)
+    to provide Altimeter value instead of Station Pressure. Added new HTML tag
+    --altimeter-- and associated support.
+
+2)  Removed "set -e" from NSLU2 wview start script so it behaves properly.
+
+3)  Changed logic for parsing the *directory* entry of the wviewftp.conf file.
+    It appears that "isdigit" was not functioning as expected on the NSLU2.
+
+
+
+
+3.1.3     02-05-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Fixed rain dial scale calculation for metric stations.
+
+2)  Changed images-metric-mm.conf to use 0 decimal places for rain charts.
+
+
+
+
+3.1.2     02-03-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Fixed several hour/day/week "change" values for temp, dewpoint and barometer
+    introduced with the LOOP data change to float.
+
+2)  Changed rain dials to be zero-based if there is no ET measurement.
+
+3)  Added mm support to the rain dials, buckets, and historical charts. 
+
+4)  Fixed rain accumulator bug for WXT-510 archive records.
+
+
+
+
+3.1.1     01-30-2006
+--------------------
+
+radlib version required: 2.6.2 or newer
+
+1)  Fixed a rain HTML tag value reporting bug in the WXT-510 station support.
+
+2)  Fixed a couple of "Plus" references missing in some of the Plus templates.
+
+3)  Changed the HUP signal behavior for log verbosity to just toggle logging 
+    on/off instead of rereading the wview.conf file. Thus the logging can be 
+    turned on/off individually for each daemon run time without touching the 
+    default in wview.conf.
+
+4)  Changed significant LOOP structure data to type float to get away from the 
+    VP "shifted" shorts.
+
+5)  Changed use of the VERBOSE_MSGS config value in wview.conf to be a bitmask
+    representing each of the wview daemons. This allows controlling the log 
+    verbosity individually for each wview daemon. The config Value should now be 
+    8 characters of zeros or ones but if the value is less than 8 characters, 
+    the old global setting will be used to maintain backward compatibility. See
+    the distro example wview.conf file for a description of the bitmask.
+
+6)  Fixed big endian bug (Mac) in new VP loop processing code.
+
+
+
+
+3.1.0     01-28-2006
+--------------------
+
+radlib version required: 2.6.1 or newer
+
+1)  Added station support for the Vaisala WXT-510 in stations/WXT510. Added 
+    content to the User Manual for enabling the WXT510 during configuration 
+    and setting it up. Added the wxt510config utility to set up the serial 
+    parameters for the WXT-510.
+
+2)  Fixed a bug with the moon phase calculator.
+
+3)  Fixed a potential race condition at startup which could allow html 
+    generation before the first LOOP cycle had been completed by wviewd.
+
+4)  Added station support for the Simulator station in stations/Simulator. 
+    Added content to the User Manual for enabling the Simulated Station during
+    configuration and setting it up. Now wview can be demonstrated/tested 
+    without connectivity to a physical station.
+
+5)  Added SIGHUP support to wviewd, htmlgend, wviewftpd, wviewsshd and wvalarmd 
+    so this signal can be sent to cause the log verbosity setting to be reread.
+    The configuration value VERBOSE_MSGS in wview.conf should be changed prior 
+    to sending the HUP signal(s).
+    For htmlgend, the image and html config files are also reloaded - this 
+    allows the user to change images.conf, images-user.conf, images-metric.conf,
+    html-templates.conf and (if supported) forecast.conf without having to 
+    restart wview.
+    It can be invoked individually for each process with these commands: 
+    kill -s HUP `cat /var/wview/wviewd.pid`
+    kill -s HUP `cat /var/wview/htmlgend.pid`
+    kill -s HUP `cat /var/wview/wviewftpd.pid`
+    kill -s HUP `cat /var/wview/wviewsshd.pid`
+    kill -s HUP `cat /var/wview/wvalarmd.pid`
+
+6)  Added FTP configuration ability to specify a relative path from the FTP 
+    login directory to which the wview-generated files will be transferred. 
+    Added commented out example in distro wviewftp.conf-no-ftp file. If the new
+    config parameter is not found, all FTP transfers will be placed in the FTP 
+    login directory (the old behavior).
+
+7)  Modified the elevation HTML tag to be populated with meters instead of feet
+    if a metric station.
+
+8)  Added contributed code to allow selection of cm or mm for rain display if
+    the station is metric. Added new htmlgen.conf parameter "METRIC_USE_RAIN_MM"
+    to control this option. Added support in wviewconfig.
+
+9)  Fixed CWOP/Wunderground rain reporting bug introduced by the station
+    abstraction changes in 3.0.0.
+
+10) Added wvutilsCalculateSLP to calculate sea level pressure (barometric 
+    pressure) from station pressure.
+
+11) Added new wview.conf config parameters "STATION_RAIN_STORM_TRIGGER_START"
+    and "STATION_RAIN_STORM_IDLE_STOP" and support for them in the wviewconfig
+    script. Changed the rainStorm utility to use the user-configurable values.
+
+12) Changed CWOP submission so it uses Station Pressure instead of sea level or
+    Barometric Pressure. This is what CWOP really wants. For the case of the 
+    Vantage Pro, the same algorithm used to create Barometric Pressure from 
+    Station Pressure on stations like the WXT-510 is used with negative 
+    elevation to generate the station pressure value to send to CWOP. This 
+    corrects a long-standing problem with Vantage Pro CWOP participants 
+    reporting sea level pressure instead of station pressure. Added an HTML tag 
+    for Station Pressure (!--stationPressure--). This does not modify what is 
+    displayed for the !--barom-- HTML tag (sea level pressure).
+
+
+
+
+3.0.0     01-15-2006
+--------------------
+
+radlib version required: 2.6.1 or newer
+
+1)  Added support for new HTML tags --stationDateMetric--, --dailyRainMM-- and 
+    --baromTrend--. See parameterlist.txt for the exact tag expressions to use 
+    in your templates.
+
+2)  Added AWEKAS support. Added html template files awekas_wl.htx-us and
+    awekas_wl.htx-metric to the examples/html directory in the distro and added
+    a new User Manual section for setting up AWEKAS with wview.
+
+3)  Totally reorganized and rewrote the station interface code to abstract the
+    station interface. This is done in preparation for Vaisala WXT510 support in
+    wview. The daemon directory is gone, replaced with a stations directory 
+    which contains a common directory for all station-generic code and a
+    VantagePro directory for the Vantage Pro-specific interface code. Care was
+    taken to minimize the code required for station-specific interfaces to ease
+    the implementation of new stations in the future.
+
+4)  Added a new station interface API in stations.h. Clearly defines the 
+    functions which must be implemented for specific station implementations.
+
+5)  Added a new storm rain API (stormRain.[ch]). wview now computes rain storm
+    events based on a 0.05"/hour rain rate start trigger and an idle (no rain)
+    condition of 12 hours to determine when the storm ends. Vantage Pro storm
+    values are no longer used so this is available for all station types. Added
+    a new HTML tag --stormStart-- which retrieves the storm start date/time.
+
+6)  Added a new sensor API (sensor.[ch]). This provides a robust API for storing
+    and retrieving sensor highs, lows and averages for any time frame (hour, 
+    day, week, month, year).
+
+7)  Significantly enhanced the computed data API to use the sensor API for HILOW
+    data storage. HILOW computation and storage are now done generically by 
+    wview - the Vantage Pro HILOW packet is no longer used. Sensor HILOW values
+    are exported to a binary file in the archive directory so they can be 
+    restored when wview is restarted.
+
+8)  Added a new sun/civil/astronomical rise and set API. This includes a method
+    for "midday" and "day length". New HTML tags were added to access these new
+    values. The Vantage Pro sunrise and sunset values are no longer used so that
+    these values are available for all station types.
+
+9)  Renamed all HTML templates and references so that they do not contain the
+    words "Vantage Pro".
+
+10) Enhanced the wviewconfig script so that it queries for station type and 
+    does station-aware configuration.
+
+11) Added new HTML tag --forecastIconFile-- which just inserts the name of the
+    icon file without any HTML img helper text.
+
+12) Added native wview support for Rain Season Start Month. Added new parameter
+    to wview.conf and support in the wviewconfig script so it will create the 
+    entry in wview.conf if it is not there. This only effects Yearly rain, ET 
+    and rain rate calculation. Added a new HTML tag --rainSeasonStart-- so the 
+    start month can be used in templates. Added it to all example home page 
+    templates and the alamanac template.
+
+13) Added sanity check logic and requirement to the station initialization so 
+    that the station/user config setting for archive interval matches the 
+    interval found in the archive files. Startup will not continue if they do 
+    not match. This prevents accidental corruption of the archive files.
+
+14) Added new HTML tags --intervalAvgWindSpeed-- and --intervalAvgWindChill--
+    along with the code to support them. These provide the most recent archive 
+    interval average values for wind speed and wind chill.
+
+15) Reorganized the User Manual and added content to the Building and 
+    Troubleshooting sections. Added new content to the UPGRADE file.
+
+16) Enhanced almanac, Current, Daily, Monthly and Yearly HTML templates to
+    include java buttons at the top of the page for site navigation. Created
+    alamanac_Plus.htx so it may be migrated in the same way the other files are
+    for extended sensor support. Updated the example html-templates.conf file.
+    Removed the davisticker applet.
+
+
+
+
+2.0.0     12-28-2005
+--------------------
+
+radlib version required: 2.6.1 or newer
+
+1)  Added support for HTML tags soilMoist1, soilMoist2, leafWet1 and leafWet2.
+    See parameterlist.txt for the exact tag expressions to use in your templates.
+
+2)  Added support for computation of the daily high wind direction and a 
+    corresponding new HTML tag dayhighwinddir. Also added displaying a high wind 
+    direction "tick" on the wind dial.
+
+3)  Improved the resolution of the HTML tag windDirection from 8 possible values 
+    to 16.
+
+4)  Added new SQL background process which synchronizes the SQL table (if 
+    SQLDB_ENABLE is enabled in wview.conf) to the entire WLK binary database 
+    even if the records were stored before SQL was enabled. By running the SQL 
+    interface in the background as a separate process, it eliminates possible 
+    problems with wviewd VP console timing that could have been introduced by
+    inserting the SQL records inline from the wviewd process. Uses existing 
+    SQL configuration values in wview.conf. You must install the appropriate new
+    wview start script for your platform so the new wviewsqld process is started
+    when SQL archiving is enabled.
+
+5)  Added configurability of the Moon Phase text. New parameters were added to 
+    htmlgen.conf and to the wviewconfig script to support using different words
+    or languages for "Waxing", "Waning" and "Full". Should be configured with
+    the wviewconfig script.
+
+6)  Optimized dial graphics generation by creating a gd dial palette file during
+    initialization and using that run-time to avoid re-drawing the dial circle 
+    for every image. 25% or better improvement in overall generation times.
+
+7)  Addressed a rare scenario which could cause wviewd to not send an archive
+    notification to wviewd, wvcwopd and wvhttpd when a new archive record is 
+    stored. The VP console was indicating an empty archive page. This would 
+    cause chart data to "fall behind" by an archive interval and CWOP/
+    Wunderground packets to not be sent every time the scenario occurred. 
+    Archive record storage was not affected.
+
+8)  Enhanced the "Precip" dials so that gross and net precipitation are depicted.
+    Gross is measured rainfall and net is rainfall minus ET. This should clear 
+    up any confusion concerning "rain vs. precip".
+
+
+
+
+1.9.1     12-18-2005
+--------------------
+
+radlib version required: 2.6.0 or newer
+
+1)  Added support for hosting wview on the Linksys NSLU2. Created an ipkg 
+    repository on the wviewweather.com site so wview and prerequisites (including
+    an assortment of USB drivers) can be easily installed from the NSLU2 ipkg 
+    utility. See the new User Manual section "Using a Linksys NSLU2 as the wview 
+    Host" for full details.
+
+2)  Fixed a memory leak in dbdatabase.c for SQL record insertions which caused 
+    the memory used by wviewd to gradually grow in size. This only affects those 
+    who have "SQLDB_ENABLE" enabled in wview.conf.
+
+3)  Changed archive receive processing so if the VP console fails to send the 
+    next archive page wviewd will cancel the download and proceed with the 
+    HILOW request.
+
+
+
+
+1.9.0     12-09-2005
+--------------------
+
+radlib version required: 2.6.0 or newer
+
+1)  Changed all wview interprocess messaging to use the new radlib message 
+    router utility. Cleaned up message type definition and broke out request
+    types to a separate enumeration. You MUST upgrade your radlib installation 
+    to 2.6.0 or higher before building/installing this version of wview. You 
+    MUST also copy the appropriate wview run script from the 1.9.0 distribution
+    for your platform (examples/SuSE, examples/FedoraCore, examples/FreeBSD, 
+    examples/MacOSX/wview, etc.). The new wview run script starts the radlib 
+    message router first which is now required by the wview processes. See the 
+    User Manual section "4.6  Configure to run at system boot" for details.
+
+2)  Fixed a bug in computed data processing when wview is run with a new station 
+    that only has archive records for the current day.
+
+
+
+1.8.6     12-03-2005
+--------------------
+
+radlib version required: 2.5.0 or newer
+
+1)  Added a new configuration parameter "DO_RXCHECK" to wview.conf which 
+    enables/disables the generation of receive check stats for the rxcheck.png 
+    chart (which indicates wireless receive quality). If the parameter is not 
+    found at startup, wviewd will assume it is enabled (the old behavior).
+    Added support for this parameter to the wviewconfig script and added it to
+    the example wview.conf file in the distro.
+
+2)  Changed CWOP temperature reporting so it rounds up (or down for negative 
+    temps) instead of truncating fractional values. Also changed so it will 
+    report negative temperatures.
+
+3)  Modified the wakeup console routines to be more robust in certain odd USB
+    scenarios.
+
+
+
+
+1.8.5     11-27-2005
+--------------------
+
+radlib version required: 2.5.0 or newer
+
+1)  Fixed a bug in the computation of temperature and dewpoint change values 
+    for hour, day and week when the wview system is metric. It was computing 
+    the absolute celsius value for 1 degree F change instead of the celsius 
+    equivalent for one degree F (5/9 of a degree C).
+
+2)  Added composite inside temperature and humidity chart support for the last 
+    day and month. You will need to update your /etc/wview/images.conf (or 
+    images-metric.conf) file with the new (commented out) entries found in the 
+    example config file in the distribution (examples/conf/images.conf). New
+    chart images (intempdaycomp.png and intempmonthcomp.png) were not added to 
+    any example HTML templates - you will need to do that manually if desired.
+    Examples can be seen at: http://www.weather.teel.ws/intempdaycomp.png and
+    http://www.weather.teel.ws/intempmonthcomp.png.
+
+3)  Added XML template and generation support. wview now recognizes XML 
+    templates (*.xtx) and generates files with extension "xml" from them. Added 
+    a default RSS feed for current conditions to all home page templates. Added 
+    a new XML template file "wxrss.xtx" to the examples/html directory of the 
+    distro and added an entry for it to examples/conf/html-templates.conf. The 
+    template file can be copied to your /etc/wview/html directory and edited for 
+    your site and preferences. Be sure to add an entry like the one now in 
+    examples/conf/html-templates.conf for "wxrss.xtx" in your 
+    /etc/wview/html-templates.conf file so the XML file will be generated.
+
+
+
+
+1.8.4     11-13-2005
+--------------------
+
+radlib version required: 2.5.0 or newer
+
+1)  Changed all build targets to used shared libraries instead of static if 
+    they are available. This fixes build problems on Mac OSX.
+
+2)  Added new wviewd configuration value "SQLDB_DB_NAME" to allow configuration 
+    of the database name used for MySQL/PostGreSQL archive record storage. 
+    Added support for this new parameter in the wviewconfig script and to the 
+    example wview.conf file in ./examples. If the new parameter is not found in
+    wview.conf, it will default to the old hard-coded value of "wviewDB".
+
+3)  Fixed a bug in images.c for month rain and ET charts that could occur at 
+    midnight.
+
+
+
+
+1.8.3     11-05-2005
+--------------------
+
+radlib version required: 2.5.0 or newer
+
+1)  Changed all references to LIST and LIST_ID to RADLIST and RADLIST_ID
+    respectively to avoid namespace conflicts with newer versions of MySQL, 
+    which only recently started using the same name. You must upgrade to 
+    radlib 2.5.0 or higher before installing this version.
+
+2)  Improved DST change processing by adding a timer to allow the kernel GMT 
+    offset to be reset properly before re-initializing the history data and 
+    resetting the VP console time and GMT offset. Fixed a minor bug that caused 
+    history data to be added in cases where the VP console reports new archive
+    records but they are actually not new.
+
+3)  Modified some build settings to work properly with the new radlib (libtool)
+    build method. Modified all start scripts to set the LD_LIBRARY_PATH 
+    environment variable.
+
+
+
+
+1.8.2     10-22-2005
+--------------------
+
+radlib version required: 2.3.0
+
+1)  Changed archive record storage so that the bucket type indicator for 0.01
+    inches is stored in the rain field (0x1000). This is moot for wview, but 
+    is important for weatherlink.
+
+2)  Changed HTML file generation so it will continue generating files even if 
+    a missing template file is encountered. It will now just log a warning 
+    message.
+
+3)  Added GMT offset configuration of the VP console, done each time the 
+    station time is synchronized. The VP console GMT offset is set to the same 
+    value as the wview host system and DST is turned off on the VP console as
+    the GMT offset already reflects the state of Daylight Savings Time. This 
+    corrects many problems folks have had getting their Sunrise and Sunset 
+    values to be reported correctly by the VP console (assuming the wview host 
+    is configured properly for time zone).
+
+
+
+
+1.8.1     10-01-2005
+--------------------
+
+radlib version required: 2.2.5
+
+1)  Fixed potential divide-by-zero bug in vpifGetRXCheck function.
+
+2)  Added better data integrity checking to the computed data utilities.
+
+3)  Added Debian start script.
+
+4)  Added generation of a simple current conditions text file to be used for 
+    mesonet submission. The file generated is mesonet.txt.
+
+
+
+
+1.8.0     09-24-2005
+--------------------
+
+radlib version required: 2.2.5
+
+1)  Increased buffer sizes for FTP username and password.
+
+2)  Changed FTP to use malloc heap instead of radlib buffers for static rules
+    and work area.
+
+3)  Cleaned up format and comments for the example html-templates.conf config 
+    file.
+
+
+
+
+1.7.8     09-13-2005
+--------------------
+
+radlib version required: 2.2.5
+
+1)  Changed database timestamp format to something pgresql 8+ likes.
+
+
+
+
+1.7.7     09-02-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Fixed wview start scripts so they don't fail for those who don't build the
+    Weather Underground daemon.
+
+2)  More tweaking of the NOAA high and low determination.
+
+3)  Fixed a compiler warning introduced with the rxcheck image addition. 
+
+
+
+
+1.7.6     09-01-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Fixed bug introduced with NOAA changes for 1.7.5. 
+
+
+
+
+1.7.5     08-31-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Changed NOAA file generation to use low and high outside temps from archive 
+    records instead of the outsideTemp value for lows and highs.
+
+2)  Added newer example message log output for the User Manual Troubleshooting
+    section.
+
+3)  Cleaned up "departure from normal" values being displayed as "-0.0" when
+    there are no previous year's months to use.
+
+
+
+
+1.7.4     08-22-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Changed yearly number of records counter for yearly average computation
+    from a USHORT to a UINT (it was rolling over today 8/22). Changed month 
+    and day counter sizes just to be on the safe side.
+
+
+
+
+1.7.3     08-21-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Fixed air density calculation for older compilers.
+
+
+
+
+1.7.2     08-20-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Added new HTML tags for day/month/year high THSW/Radiation/UV plus time of
+    day for the daily highs. See examples/html/parameterlist.txt for details.
+
+2)  Updated build environment for MacOSX PostgreSQL builds. Updated the 
+    wview-Quick-Start-MacOSX.html file to include a hint for system shared 
+    memory configuration.
+
+3)  Added new HTML tag <!--moonPhase--> for moon phase and corresponding new 
+    source file to calculate it: lunarCycle.c. Embedded users may want to avoid
+    this tag as it uses significant floating-point and trigonometric 
+    calculations.
+
+4)  Added new HTML tags <!--airDensity--> and <!--airDensityUnit> for air
+    density and corresponding new source code to calculate it. Added new HTML 
+    tags <!--cumulusBase--> and <!--cumulusBaseUnit> for estimated cumulus 
+    cloud base (in feet or meters). Added table entries for these two values 
+    to all example home page templates.
+
+5)  Added new diagnostic chart and supporting VP interface code and data 
+    storage to display the percentage of good packets received from the ISS 
+    for each archive interval. Added new image definition in images.conf (and
+    images-metric.conf) for the rxcheck.png image file. Upgraders will need to
+    either copy the new image file definition to their /etc/wview/images.conf 
+    from the examples/conf/images.conf file, or copy the distro file over their 
+    file if they have not customized the images to be generated. The RX packet 
+    chart can be accessed at: http://[your_weather_site_url]/rxcheck.png.
+
+6)  Added three new precipitation dials which combine rain and ET for a "net 
+    precipitation" measurement. Day, Month and Year dials added to all example 
+    home page templates. Added new image definitions in images.conf (and
+    images-metric.conf) for the 3 precip image files. Upgraders will need to
+    either copy the new image file definitions to their /etc/wview/images.conf 
+    from the examples/conf/images.conf file, or copy the distro file over their 
+    file if they have not customized the images to be generated. Embedded users 
+    may want to avoid enabling these images as they reqiure significant 
+    floating-point and trigonometric calculations.
+
+
+
+
+1.7.1     08-14-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Fixed MacOSX byte swap bug introduced by a copy-paste for the new HILOW 
+    HTML tag implementation.
+
+
+
+
+1.7.0     08-14-2005
+--------------------
+
+radlib version required: 2.2.4
+
+1)  Changed all invocations of the system call "localtime" with the more 
+    thread-safe version "localtime_r".
+
+2)  Added wunderground interface support. New daemon wvhttpd, new config file 
+    wvwunder.conf-no-wunder and new support in the wviewconfig script. Added 
+    conditional build/inclusion support in the configure script - 
+    "--enable-wunderground" must be given to the configure script to enable 
+    building the wvhttpd daemon which also has a new prerequisite library 
+    requirement: libcurl. Thus curl (which includes libcurl) must be installed
+    if you want to submit data to the Weather Underground. See the new 
+    "Weather Underground" section in the User Manual for details.
+
+3)  Added a host of new HTML tags and corresponding data computation and 
+    storage. These tags address "holes" in the standard data points provided by
+    the Vantage Pro console/protocol. Hour/day/week/month/year wind run is just
+    one example. Also included tags for min/max monthly and yearly event dates.
+    See the file ./examples/html/parameterlist.txt for a complete list of all 
+    the new tags (70 + of them).
+
+4)  Created a new HTML template file, "almanac.htx", which utilizes the majority
+    of the new HTML tags to display comprehensive weather information in one 
+    easy-to-read place. Hour/Day/Week change values and averages are among the 
+    new data values diaplayed. Added a new java button to the homepage templates
+    labeled "Almanac" which links to this new page.
+
+5)  Cleaned up some extraneous decimal points for values which did not require
+    decimal point resolution when displaying some HTML tag values.
+
+
+
+
+1.6.3     08-02-2005
+--------------------
+
+radlib version required: 2.2.3
+
+1)  Added a Quick Start Guide for MacOSX users.
+
+2)  Added an example startup directory compliant with MacOSX in ./examples/MacOSX.
+
+3)  Modified the vpinstall script generation to dynamically determine the location 
+    of vpconfig based on the prefix given to the configure script. It will now 
+    work for MacOSX installs.
+
+
+
+
+1.6.2     07-26-2005
+--------------------
+
+radlib version required: 2.2.3
+
+1)  Added a big endian version of vpinterface.c (vpinterface-be.c) to support 
+    the VP console interface on big endian systems such as the PowerPC (Mac). 
+    Added a configure script test for endianess and conditional inclusion of 
+    the little or big endian version of vpinterface based on the results of 
+    the configure test. See http://www.wviewweather.com/sites/index.html for 
+    a new example Mac OSX 10.3.9 site.
+
+2)  Added new HTML tags for inside temperature and humidity. See the file 
+    parameterlist.txt for the new tag names.
+
+
+
+
+1.6.1     07-17-2005
+--------------------
+
+radlib version required: 2.2.2
+
+1)  Fixed a bug in the wvcwopd signal handler when shutting it down.
+
+2)  Simplified html generator timer logic to tighten up generation to occur 
+    at 10 seconds past the minute.
+
+
+
+
+1.6.0     07-14-2005
+--------------------
+
+radlib version required: 2.2.2
+
+1)  Added CWOP (Citizen Weather Observer Program) support. Properly formatted 
+    APRS CWOP data packets are transmitted to the user-defined APRS server 
+    with the arrival of each new archive record. Thus archive interval drives 
+    how often the CWOP data is updated. This allows wview to send a valid High 
+    Wind Speed value for the last archive interval, something Weatherlink does 
+    not populate at all.
+    Added new process wvcwopd and new configuration file wvcwop.conf. Added 
+    CWOP configuration to the wviewconfig script. This facility is disabled or 
+    enabled in the same manner as the other wview optional facilities - if the 
+    config file is not found, the wvcwopd daemon exits, thus disabling CWOP 
+    support. See the User Manual for full details on enabling CWOP support.
+    Supports the APRS-IS Rollover functionality by enforcing the definition of 
+    3 APRS-IS server:port pairs - the goal is to avoid data loss to the CWOP 
+    system caused by connection errors.
+
+2)  Changed how the ARCREC generator behaves at startup so it does not 
+    regenerate files which already exist, other than the current day.
+
+
+
+
+1.5.0     07-10-2005
+--------------------
+
+radlib-gpl version required: 2.2.1
+
+1)  Added archive record browser file generation (arcrecGenerate.[ch]). Added 
+    a new configuration parameter for htmlgen.conf named 
+    ARCHIVE_BROWSER_FILES_TO_KEEP which indicates the number of days (or files 
+    as each file is one day's archive records) to keep in the generation 
+    destination (usually your weather site document root). If 0, all files are 
+    kept (~ 20 KB per file) and if -1, the files are not generated at all.
+    As promised, this new configuration parameter is optional and if not found 
+    wview will default to disabled. Also added support for this new parameter 
+    in the wviewconfig script - I don't know how we ever lived without this 
+    script!
+
+2)  Fixed a minor annoyance when archive averages were being computed where 
+    an entire "period" would be skipped if the first record time was not the 
+    expected time (missing archive records because of comms failure or battery 
+    failure). This caused "holes" in the chart data erroneously. Now if there 
+    are *any* records within the period to be averaged they are used to compute 
+    the period average.
+
+3)  Added new Quick Start Guide - wview-Quick-Start.html.
+
+
+
+
+1.4.0     06-28-2005
+--------------------
+
+radlib-gpl version required: 2.2.1
+
+1)  Added support for two new html tags - forecast rule and forecast icon.
+    The new tags are <!--forecastRule--> and <!--forecastIcon--> respectively.
+    Added a new configuration file, forecast.conf, which allows the user to 
+    define the icon files and text associated with the forecast rules. See the 
+    example forecast.conf file for details. The icon tag will be replaced by 
+    an image html construct pointing at the appropriate icon image file.
+
+2)  Changed Heat Index temperature threshold so it is calculated for 
+    temperatures >= 75 degrees F - the old threshold was 80 degrees F. I can 
+    find no definitive constraints for the input values of the heat index 
+    formula. 75 F seems to be a reasonable starting point.
+
+3)  Added support for different homepage templates based on day or night. 
+    If the files "index-day.htx" and "index-night.htx" are listed in 
+    /etc/wview/html-templates.conf INSTEAD of "index.htx", then wview will 
+    generate the file "index.html" based on the values of sunrise, sunset and 
+    the current wview server time. See the example html-templates.conf file 
+    in the distro for more details. Also changed index.htx and the two new 
+    index-*.htx files just described so that their extensions will be "html"
+    instead of "htm" when generated, as it has always been. This only applies 
+    to the homepage file generated. If you have a soft link in your webserver 
+    document root named "index.html" that points to "index.htm" (as I did),
+    you will want to delete that so that htmlgend can generate the "index.html" 
+    file directly now.
+
+4)  Added ethernet TCP socket support for VP consoles connected to terminal 
+    servers or ethernet-to-serial convertors. Added the parameter 
+    "STATION_INTERFACE" to wview.conf so that one of serial or ethernet can 
+    be selected. Added "STATION_HOST" and "STATION_PORT" to wview.conf as well
+    so the hostname/IP and port number of the terminal server can be specified.
+    Confirmed proper operation on an Atop GW21E converter and a Lantronix 
+    MSS1-T. Setup of terminal server for proper operation will vary by type 
+    and capabilities. Proper serial configuration, transparent data flow (no 
+    control character processing), and no packet delimiter are required at a 
+    minimum for the terminal server setup. See the User Manual section 
+    "Prerequisites" for general requirements.
+
+5)  Confirmed USB operation for 2.4 linux kernels using the flagrantly non-GPL 
+    GPL driver from Silicon Labs for the CP2101 device used by Davis for the 
+    USB data logger. The driver presents the VP as "/dev/ttyUSB0", thus the 
+    serial option should be selected for "STATION_INTERFACE".
+
+6)  Added "wviewconfig" script to distro. This is an interactive script which 
+    will ask the user questions and write the wview.conf and htmlgen.conf 
+    configuration files based on the answers. It can be run for fresh installs 
+    or for upgrades. See the README file for details.
+
+7)  Moved all README content to the new wview-User-Manual.html file.
+
+8)  Integrated a bug fix by Steve Pacenka concerning the new temperature dial 
+    when the station is metric.
+
+9)  Fixed a minor annoyance with rain and ET charts that caused the y-axis 
+    maximum to be one more step than it should have been when rendered.
+
+10) Improved vpinstall/vpconfig reliability for use with serial, ethernet or 
+    USB interfaces. Also added year-to-date rain and ET configuration to 
+    vpconfig and the vpinstall script.
+
+11) Added new html tags for station elevation, latitude and longitude. Added 
+    the tags to the home page templates as part of the heading. The new tags 
+    are: <!--stationElevation-->, <!--stationLatitude--> and 
+    <!--stationLongitude--> respectively.
+
+
+
+
+
+1.3.0     06-15-2005
+--------------------
+
+radlib-gpl version required: 2.2.0
+
+1)  "YourCity,YourState" has been replaced in the html template files by 
+    "<!--stationCity-->,<!--stationState-->" - html tags which wview will 
+    replace with the values you specify for "STATION_CITY" and "STATION_STATE" 
+    in /etc/wview/htmlgen.conf. So you no longer need to edit every template 
+    for your location.
+
+2)  Added PostgreSQL archive support (via radlib-gpl-2.2.0). Note that the 
+    configure script option to enable MySQL or now PostgreSQL support has been 
+    changed from "--enable-database" to either "--enable-mysql" or 
+    "--enable-pgresql" for obvious reasons. There is a full section in the 
+    README file that addresses either database setup and building wview for 
+    relational database archiving.
+
+
+
+
+
+1.2.4     06-12-2005
+--------------------
+
+radlib-gpl version required: 2.1.0
+
+1)  Fixed several exit scenarios when things don't start properly.
+
+2)  Relaxed the timing constraints on the initialization commands to the VP.
+
+3)  Added new graphics - temperature, wind, and humidity "dials".  See the 
+    new example images.conf for the entry specifics. Each dial adds some 
+    time to generation - embedded users will want to keep this in mind and 
+    can of course just not generate them if there is a time issue.
+
+4)  Modified the example HTML templates - removed some odd characters and 
+    added the new dial images to the home page templates (index-*).
+
+5)  Added a troubleshooting section to the README file.
+
+
+
+
+
+1.2.3     06-09-2005
+--------------------
+
+radlib-gpl version required: 2.1.0
+
+1)  Fixed wvalarmd child signal omission when changing signal handling for 
+    1.2.2.
+
+
+
+
+
+1.2.2     06-09-2005
+--------------------
+
+radlib-gpl version required: 2.1.0
+
+1)  Changed wind meter image size to ~75% of the previous size. Changed colors 
+    and moved direction indicators inside the dial. Made the image background 
+    transparent. Generation time improvement of ~ 8%.
+
+2)  Decoupled serial specific logic from the wviewd state machine and 
+    initialization. Added "WVIEW_MEDIUM" abstraction with well-defined 
+    demarcation points for implementation of non-serial VP interfaces such as
+    USB or ethernet. See serial.c and vpinterface.[ch] for details.
+
+3)  Added result checking for png image file generation to detect file save 
+    failure (normally a bad IMAGE_PATH setting in htmlgen.conf). Now logs 
+    warnings concerning the failure.
+
+4)  Changed all process signal handling to do a more "friendly" job of cleaning 
+    up when unrecoverable exceptions occur.
+
+5)  Added SIGPIPE handling to wvalarmd so far-end disconnects can be handled 
+    gracefully.
+
+
+
+
+
+1.2.1     06-06-2005
+--------------------
+
+radlib-gpl version required: 2.1.0
+
+1)  Changed default home page template files index.htx and index_Plus.htx.
+    The "classic" home page templates have been renamed to index-classic.htx
+    and index-classic_Plus.htx. If one prefers the classic look, these files
+    can be renamed appropriately when placed in /etc/wview/html. There are 
+    new index-*.htx templates for several different backgrounds and layouts.
+    The new templates are in examples/html and the new background images are 
+    in bin/img. See the "Configuration" section of the README file for a 
+    discussion of the templates and a way to rotate your index.htx template. 
+    The default index.htx and index_Plus.htx templates are equivalent to the 
+    index-clouds.htx style.
+
+2)  Added a TCP/stream socket server interface to wvalarmd to support raw 
+    data feed applications. An example data feed client is included which can
+    be built and run to illustrate how the socket interface works. The README 
+    file is chock full of details for this new capability in the section 
+    "Alarms and wview As a Data Feed Engine".
+
+3)  Fixed a bug with generation of newly added extended sensor data historical 
+    charts in glchart.c and glmultichart.c.
+
+
+
+
+1.2.0     05-30-2005
+--------------------
+
+1)  Added html tags for all extended sensor values supported by the VP 
+    console for current conditions. These are:
+    
+    Solar Radiation
+    Extra Temp 1
+    Extra Temp 2
+    Extra Temp 3
+    Soil Temp 1
+    Soil Temp 2
+    Soil Temp 3
+    Soil Temp 4
+    Leaf Temp 1
+    Leaf Temp 2
+    Extra Humidity 1
+    Extra Humidity 2
+    
+    See .../wview-x.y.z/bin/html/parameterlist.txt for the new HTML tags that
+    may be placed in your HTML template files.
+
+2)  Changed the bucket and chart title background so that multichart titles
+    can be more easily seen.
+
+3)  Fixed vpconfig build problem on Mac OSX.
+
+4)  Added Current Condition Alarms and user-definable alarm actions (scripts).
+    Added a new process (wvalarmd) and a corresponding new config file 
+    wvalarm.conf to support MIN and MAX alarm thresholds for current condition 
+    values provided by the VP console. This facility may be used to control 
+    irrigation systems, etc. based on weather data values. It can also be used
+    to configure wview as an archive and data feed engine only, for those 
+    people who want to do something else with their VP instead of/in addition 
+    to generation of a weather web site. The alarm types are:
+    
+    Barometer
+    InsideTemp
+    InsideHumidity
+    OutsideTemp
+    WindSpeed
+    TenMinuteAvgWindSpeed
+    WindDirection
+    OutsideHumidity
+    RainRate
+    StormRain
+    DayRain
+    MonthRain
+    YearRain
+    TxBatteryStatus
+    ConsoleBatteryVoltage
+    DewPoint
+    WindChill
+    HeatIndex
+    Radiation
+    UV
+    ET
+    ExtraTemp1
+    ExtraTemp2
+    ExtraTemp3
+    SoilTemp1
+    SoilTemp2
+    SoilTemp3
+    SoilTemp4
+    LeafTemp1
+    LeafTemp2
+    ExtraHumid1
+    ExtraHumid2
+
+    As always, the README file contains a full description of the alarms 
+    implementation and configuration.
+
+5)  Added a new rsync/ssh daemon (wviewsshd) for secure file posting capability
+    to one or more remote servers. Utilizing rsync's ability to only transfer
+    changes to files, this is significantly faster and more secure than using
+    ftp. You must be able to setup the ssh shared key on the remote server - 
+    see the README file for full setup details.
+
+6)  Finally, added log message verbosity control. The "VERBOSE_MSGS" parameter
+    of the wview.conf configure script now controls all process status log
+    production. Set it to "0", and no log output will be generated for normal
+    operations by any wview daemon. Error conditions, if they occur, will 
+    continue to be logged.
+
+
+
+
+1.1.0     05-14-2005
+--------------------
+
+1)  Added Vantage Pro Plus extended data support for historical charts 
+    (day, month and year):
+
+    Solar Radiation
+    UV
+    ET
+    LeafTemp1
+    LeafTemp2
+    LeafWetness1
+    LeafWetness2
+    SoilTemp1
+    SoilTemp2
+    SoilTemp3
+    SoilTemp4
+    ExtraHumidity1
+    ExtraHumidity2
+    ExtraTemp1
+    ExtraTemp2
+    ExtraTemp3
+    SoilMoisture1
+    SoilMoisture2
+    SoilMoisture3
+    SoilMoisture4
+
+    Extended data chart generation can be enabled/disabled in
+    /etc/wview/images.conf (or images-metric.conf if a metric station). HTML
+    templates have been added (named *_Plus.htx) which include all of the 
+    extended data charts for the VP Plus. These can be edited and included in 
+    html-templates.conf so they are generated. Commented out entries for each 
+    of the new extended data images have been added to the example images.conf 
+    and images-metric.conf files which can be enabled by removing all leading 
+    '#' characters for a given image definition.
+    See the README file for full details on configuring extended data support.
+
+2)  Simplified htmlgend generator timer initial start offset computation. This
+    should tighten up the html generation to always occur on the 10th second.
+
+3)  Cleaned up and improved the HTML templates. Added java function to support
+    the 'Weather Summary' URL button on the history pages. Changed history page 
+    href's to java buttons in index.htx.
+
+4)  Added support for older VP 'A' archive records (firmware dated before
+    April 24, 2002). This is only an issue for VP Plus extended data - 'A' 
+    and 'B' records are identical up to 'ET'.
+
+5)  Fixed floating point wierdness causing Heat Index and Wind Chill to
+    sometimes have values 0.1 degrees less than the actual temperature for
+    cases when they should be equal.
+
+
+
+
+1.0.1     05-01-2005
+--------------------
+
+1)  Fixed bug with SQL archive record insertion at midnight caused by how 
+    WLK records want the packed time formatted at midnight (24:00 vs. 00:00).
+
+2)  Fixed bug with bad archive record handling of archive interval increment 
+    to determine the timestamp for the next archive record from the console. 
+    Replaced a legacy hard-coded reference to 5 minute archive intervals with 
+    the working value determined from the VP console interface.
+
+
+
+
+1.0.0     04-25-2005
+--------------------
+
+1)  Removed CONS_ARCHIVE_INTERVAL configuration option. wview now dynamically
+    determines the archive interval the station is using during initialization
+    and uses that to prevent the VP station and wview from being out of sync.
+    This greatly simplifies installation setup as well. Although the Vantage
+    Pro supports archive intervals up to 2 hours, wview supports the 
+    following (in minutes): 1, 5, 10, 15, 30, 60.
+
+2)  Added an optional MySQL database interface for archive records. Requires 
+    radlib-gpl-2.0.0 or greater which has been built with database support.
+    Configured via new entries in /etc/wview/wview.conf - can store in metric 
+    units, can enable or disable extended values such as UV index and solar 
+    radiation which are available with the Vantage Pro(2) Plus, and can 
+    specify the username, password, and table name used for archive storage.
+    See the README file for full details.
+
+3)  Added a new Vantage Pro console setup utility: "vpconfig". The primary
+    purpose of vpconfig is to be used by the new install script "vpinstall"
+    to setup new VP consoles prior to beginning use of wview. See the README
+    file for full details on new setups using "vpinstall".
+
+4)  Disabled NOAA report generation when wview is configured for metric 
+    values and units (if METRIC_UNITS[1]=1 in /etc/wview/htmlgen.conf).
+
+5)  Fixed a minor bug that caused chart y scale computation to allow 
+    fractional values to cause a point to be plotted below the y axis minimum.
+
+
+
+
+0.9.3     04-09-2005
+--------------------
+
+1)  Added metric units and value conversions. This makes wview compatible for 
+    non-US installations. A new configuration parameter in htmlgen.conf
+    named "METRIC_UNITS" has been added that if set to "1" will cause wview
+    to output all images (buckets and charts) as well as all values for HTML
+    templates in the metric equivalents. 
+    The conversions are:
+    
+    Temperature ........... Celsius
+    Barometer ............. Millibars
+    Wind Speed ............ Kilometers per hour
+    Rain .................. Centimeters
+    Date Format ........... YYYYMMDD
+    
+    A new image config file named "images-metric.conf" has been added which
+    is used instead of "images.conf" if "METRIC_UNITS" is set. This file can
+    be edited to translate the English labels, titles and units to any 
+    language. By editing this file and the HTML template files, any language
+    can be supported by wview. For existing installations, if the 
+    "METRIC_UNITS" parameter is not found in htmlgen.conf, wview will assume 
+    US units and no conversions will be done. Thus existing US users will not
+    be affected by this new feature. In fact one can easily switch back and 
+    forth between US and metric units by toggling this configuration value.
+    All archive data in the WLK files is still stored in US format - the 
+    conversions are only done for real time image and HTML file generation.
+
+2)  Added a new feature to detect Daylight Savings Time changes. If a DST
+    change occurs (based on the tm struct component "tm_isdst"), the real
+    time data arrays will be automatically updated so that chart data does
+    not appear to be 1 hour behind (when DST begins) or one hour ahead
+    (when DST ends). If the host system is not configured to automatically 
+    make DST time changes, this feature will not be activated and will have 
+    no effect.
+
+
+
+
+0.9.2     02-13-2005
+--------------------
+
+1)  Implemented a simple barometric pressure trend algorithm for the last 4
+    hours of observed values.  Barometer value display will now give an
+    indication of the BP trend via the characters "+", "-", "~" immediately
+    following the value, i.e. "30.027 + in", "29.921 - in", "30.511 ~ in"
+    indicating "rising", "falling", "steady" respectively.
+    Indicator may fluctuate in the first few hours after a restart until 
+    some history has been built up.
+
+2)  Added multi-plot charts.  Now charts can display several (up to 4) data
+    graphs which improves comprehension in select cases such as Temperature 
+    and Dewpoint. New images.conf entries can be found in 
+    examples/conf/images.conf for Temp/Dew Point and Heat Index/Wind Chill 
+    multi-plot charts. Current_Vantage_Pro.htx, Daily_Vantage_Pro.htx and
+    Monthly_Vantage_Pro.htx in the bin/html directory have been changed to use 
+    these four new charts. 
+    Upgraders will want to consider using these files as examples for how to 
+    modify their existing configuration and template files (see the file
+    "UPGRADE" for more details).
+    
+3)  Added logic so that for daily and monthly temp-based charts, the min and
+    max chart values are normalized.
+
+
+
+
+0.9.1     01-07-2005
+--------------------
+
+1)  Removed the history timer. Implemented an event-driven approach so that
+    the wviewd process sends a notification message to the htmlgend process
+    to indicate that a new archive record has been received. This greatly
+    simplifies the history data processing and addresses slow start up 
+    scenarios on low power devices.
+
+2)  Added verbage in the README file to discuss HTML generation configuration.
+
+3)  Modified archive retrieval interval timer start mechanism so that it 
+    uniformly lands 4 seconds into the next archive interval, as an even 
+    divisor of 60 seconds. Thus archive retrieval intervals should be between 
+    15 and 60 seconds (inclusive) and divide 60 evenly.
+
+4)  Fixed minor bug with chart boundary calculations.
+
+
+
+
+0.9.0     01-04-2005
+--------------------
+
+1)  Modified chart generation to add an argument for number of x-axis "hashes"
+    so that chart structure and labeling can be more closely controlled. Also 
+    added one data point to chart value arrays and processing to allow for
+    the "rightmost" label - thus simplifying other aspects of the old chart 
+    generation algorithm.
+
+2)  Fixed a bug when wview is started between an archive minute and the 
+    subsequent history timer expiry.
+
+3)  Fixed a bug in line chart rendering when a data point has an undefined 
+    value. This was causing GLC_VALUE_NONE (-10000.0) to be graphed.
+
+4)  Modified initial station time synchronization so that it is not 
+    synchronized until the wviewd state machine has cycled through one 
+    Archive/HiLow/Loop request cycle. Resetting the station time when it is
+    in or near the archive minute could have potentially caused record loss, 
+    although that has yet to be reported. Now the archive record will be 
+    retrieved prior to the time sync.
+
+5)  Cleaned up legacy archive request handling in the wviewd state machine. 
+    This code was now being executed because of the time synchronization move 
+    (#4). Now the proper handler function is called in both the RUN state and 
+    other states.
+
+6)  Optimized chart creation memory allocation.
+
+7)  Enhanced chart min and max boundary calculation so that they fall on
+    nice numbers.
+
+8)  Improved some of the titles for charts in the example images.conf file.
+
+
+
+
+0.8.6     12-31-2004
+--------------------
+
+1)  Fixed bug with computation of dayStart value for html generation causing 
+    systems with a 30 minute archive interval to not be computed properly, 
+    thus all 24-hour charts were 30 minutes "behind".
+    
+2)  Changed windchill calculation to require ">" 3.0 mph for wind speed and
+    "<" 50 degrees F.
+
+
+
+
+0.8.5     12-29-2004
+--------------------
+
+1)  Further optimized image generation by creating finer pitch flags for
+    new archive records and what images they impact. Daily charts are updated 
+    every archive interval, 28 day charts are updated every hour and 365 day
+    charts are updated every day at 12:01 AM.
+
+2)  Changed html generator startup so that it does an initial generation at
+    initialization so that images will exist prior to the first generator
+    timer expiry (after the next archive record is received).
+
+3)  Updated README file to better reflect recent changes and to describe the
+    historical chart generation process.
+
+4)  Fixed run paths in example start scripts.
+
+
+
+
+0.8.4     12-24-2004
+--------------------
+
+1)  Fixed minor bug in the display of negative values for temp, dewpoint,
+    windchill and heatindex.
+
+2)  Optimized image generation so that historical chart images are only 
+    updated immediately after a new archive record has been received. This 
+    saves about 75% of image generation time when there is no new archive 
+    record.
+
+3)  Removed adjustAccuracy function from noaaGenerate.c.
+
+
+
+
+0.8.3     12-15-2004
+--------------------
+
+1)  Changed location of run files to /var/wview (/var/run/* can be purged by
+    the system).
+
+2)  Changed log output to use CONS_ARCHIVE_INTERVAL for sample message.
+
+3)  Fixed a minor bug with systems brought up for the first time with no
+    archive files at all. Also optimized data averaging.
+
+4)  Added compiler optimization value "O2" to default builds.
+
+
+    
+
+0.8.2     12-14-2004
+--------------------
+
+1)  Added Ken McGuire's configurable archive interval changes into the
+    main source branch. Now the archive interval of the weather console
+    can be configured at build time by specifying "CONS_ARCHIVE_INTERVAL=X"
+    to the configure script (X = 5 or X = 30). See the README file for more
+    details.
+    
+2)  Changed (per Ken) the use of "#pragma(pack,1)" to 
+    "__attribute__ ((packed))" on several data structures for more portable 
+    code.
+
+3)  Abolished the /usr/local/wview directory - now configuration files
+    (*.conf, html templates) are located in /etc/wview and run files
+    (*.pid, archive, FIFO devices, images, NOAA) are located in 
+    /var/wview. This allows the dynamic files under /var to be mounted
+    on a ramdisk for embedded applications.
+
+4)  Changed the install-env build target to use the new locations. See the 
+    README file for more details.
+
+5)  Added the directory "cross-compile" which includes example configure
+    scripts for configuring and building all the libraries necessary for 
+    wview and a script for wview itself. See the README file for more 
+    cross compiling details.
+
+6)  Added SuSE, FreeBSD, RedHat, and FedoraCore directories under "examples"
+    which contain distro/OS specific run control scripts.
+
+
+
+    
+0.8.1     11-30-2004
+--------------------
+
+1)  Converted wview to the GNU autoconf/automake paradigm.
+    
+    Now the package is built as follows:
+    #./configure
+    #make
+    #make install
+
+    The ftpd daemon executable has been renamed "wviewftpd".
+    
+    All three daemons (wviewd, htmlgend and wviewftpd) are installed
+    in /usr/local/bin by default, although the prefix (=/usr/local)
+    can be changed when "configure" is invoked.
+    
+    make.config, rules.make, and Makefiles have been removed from
+    the distro. The "configure" script generates the build files
+    based on the host platform.
+    
+2)  Fixed an annoying text alignment issue for month labels in
+    noaaGenerate.c. All labels are now 3 chars long.
+
+    
+    
+
+0.8.0     11-21-2004
+--------------------
+
+1)  Added the file "make.config" and changed the build environment to
+    utilize it.  Linux or BSD can now be specified as well as the 
+    install location of the wview daemons.
+
+2)  Added the "pkg" make target and the file "excludefiles" so distro 
+    tarballs can be easily built.
+
+3)  Fixed several trivial problems with building on a BSD platform.
+
+4)  Fixed a bug with archive records from the console which contained 
+    bogus data - such as when the console loses communication with the 
+    wireless data collector.  Now if a bogus record is received from the 
+    Vantage Pro Console, data from the last good record is used.
+    
+    
+    
+
+0.7.5     05-02-2004
+--------------------
+
+1)  Added a new tag for system up time called <!--wviewUpTime-->
+    which will insert the length of time the wview system has
+    been running. This release requires radlib-gpl version 1.3.1. 
+
+    
+    
+    
+0.7.4     02-22-2004
+--------------------
+
+1)  Found a minor problem with the wind direction calculation
+    which would skew the result slightly. The fix requires
+    the file $WVIEW_DIRECTORY/noaa.dat to be deleted so that
+    it can be correctly regenerated after wview has been
+    upgraded and built, but before it is restarted. This MUST
+    be done to gain the improvements of the bug fix.
+2)  Changed ftpd to use /usr/bin/ftp - a child process is forked
+    which calls execv for the ftp binary. This requires a format
+    change for the ftp.conf file (which now allows wildcards).
+    See the example in .../examples/conf/ftp.conf for the new
+    file format. It is possible for multiple instances of the
+    ftp binary to run concurrently if the transmission time for
+    a file set overlaps the next transmission interval. This was
+    not observed to be a problem when tested but care should be
+    observed in the rule definitions in ftp.conf. This behavior
+    is identical to cron jobs which overlap invocations.
+
+
+
+
+0.7.3     02-18-2004
+--------------------
+
+1)  Fixed bug #32 - chart data for time frames before archive
+    data exists should not be "drawn".
+2)  Fixed label problem with rain chart for last 24 hours.
+3)  Enhanced sample processing so that the last bar for the
+    last 28 days rain chart and the last 365 days rain chart 
+    which represent the last current day and current week 
+    respectively, are update with each new sample. This allows 
+    all of the rain charts to be accurate to the last sample.
+
+
+
+
+0.7.2     02-15-2004
+--------------------
+
+1)  Changed rain charts to be bar charts. Rain is expressed as:
+    inches/hour for the last 24 hours, inches/day for the last
+    28 days, and inches/week for the last 365 days. Chart labels
+    found in images.conf should be changed (the new images.conf
+    under .../examples/conf has these changes).
+2)  Modified wviewd loop packet processing to ignore values of
+    "0xFF" or "0xFFFF" in received loop packets from the Vantage
+    Pro. These apparently indicate "no reading detected" or
+    an RF error.
+
+
+
+
+0.7.1     02-09-2004
+--------------------
+
+1)  Ported wview to radlib-gpl version 1.3.0. radlib-gpl now has
+    its own homepage, www.radlib.teel.ws, for reference documents
+    and other support. Download radlib-gpl-1.3.0 from the homepage
+    and build it per the instructions in the distribution README
+    for radlib-gpl before installing and building this version of
+    wview. The wview homepage will now specify the version of
+    radlib-gpl required for the current version of wview.
+
+
+
+
+0.7.0     02-04-2004
+--------------------
+
+1)  Fixed bug #26 - Monthly "Low Humidity" was always zero.
+2)  Renamed all radlib references and build against new GPL version
+    of radlib.  radlib must now be built separately (and before)
+    wview.  radlib can now be located anywhere and the env variable
+    "RADLIB_SRC_BASE" is no longer required at all. Headers and
+    the library file are stored under "/usr/local/include" and
+    "/usr/local/lib" respectively. The new radlib version is
+    1.2 and the distro tree is rooted at "radlib-gpl". The README
+    file has been updated (and simplified) accordingly.
+3)  Added GPL headers and the "COPYING" file which contains the
+    GPL version 2 license. wview is now officially GPL software.
+
+
+
+
+0.6.3     02-01-2004
+--------------------
+
+1)  Improved wind direction averaging by using a consensus averaging
+    algorithm. This corrects the problem where 1 degree and 359 degrees
+    would normally average to 180 (south), when in fact we want them
+    to average 0 (north). This is deployed for all instances of wind
+    direction averaging: 24 hour, 28 day, and 365 day charts, and
+    NOAA reports.
+2)  Cleaned up some NOAA report formatting.
+
+
+
+
+0.6.2     01-29-2004
+--------------------
+
+1)  Fixed a few annoyances in the generated NOAA reports such as
+    "DEP FROM NORM" values.
+2)  Improved normal values calculation to handle case of no historical
+    data.
+3)  Added <!--wviewVersion--> html tag so that the version of wview
+    is available for html templates to use. This requires the
+    "globalWviewVersionStr" macro to be changed for each new release
+    in ../common/sysdefs.h.
+4)  Added a new html template: .../bin/html/index.htx. This is a
+    good starting point for a weather home page. It includes the
+    new <!--wviewVersion--> tag so the wview version can be displayed.
+    It also includes some nifty javascript code for picking NOAA
+    reports from drop down lists (thanks SSM!). It references other
+    generated html files such as Current_Vantage_Pro.htm.
+
+
+
+0.6.1     01-28-2004
+--------------------
+
+1)  Added enhancement #22 - NOAA monthly and yearly historical reports
+    are now generated and placed where the other image and html files
+    are located. The files are named "NOAA-<year>.text" and
+    "NOAA-<year>-<month>.txt". This capability is implemented in
+    noaaGenerate.[ch] in the htmlgenerator directory.
+2)  Added a recovery state for serial read errors.
+
+
+
+0.6.0     01-21-2004
+--------------------
+
+1)  Added enhancement #19 - html generator images and htmls can now be
+    configured by the user. The source files "images-user.[ch]" can be
+    modified and saved outside the source tree during upgrades (then
+    copied back in the source tree) so that users can easily save their
+    customized image creation source and config files. This requires
+    new config files "images.conf" (for built-in generators), 
+    "images-user.conf" (for user defined generators), and "html-templates.conf"
+    (to define which html templates to generate). See README for complete
+    details.
+
+
+
+0.5.4     01-17-2004
+--------------------
+
+1)  Actually fixed Bug #8!
+
+
+
+0.5.3     01-17-2004
+--------------------
+
+1)  Fixed bug in ftp process where FtpClose was being called when a file
+    failed to transfer, instead of continuing to the next file.
+2)  Modified ftplib.c to not malloc memory for each file, but rather use
+    a static buffer.
+3)  Tested more thoroughly against remote ftp server.
+4)  Changed ftplib to use system buffers and not malloc all over creation.
+5)  Fixed Bug #17 - partial write bug in ftplib so it continues to transfer 
+    when the far end abates (stalls).
+6)  Fixed memory leak in ftplib.
+7)  Fixed Bug #8 - shift forward day chart samples by one sample.
+
+
+
+0.5.2     01-12-2004
+--------------------
+
+1)  Changed FTP process to always start in the same minute as history timer.
+    This guarantees that ftp.conf intervals coincide with <min> % 5 = 1.
+2)  Changed ftp.conf file format to specify host, user, and pass once at
+    the top of the file.
+3)  Changed ftpUtils.c to only connect and login once per transmit interval 
+    (minute).
+
+
+
+0.5.1     01-11-2004
+--------------------
+
+1)  Improved archive path request processing so that the wviewd daemon does
+    not respond until it has stored all archive records during initial start-up
+2)  Added ftp process to allow moving images to remote server (see README)
+3)  Refined generator data and history timers to more accurately sync to a
+    millisecond offset
+
+
+
+0.4.3     01-06-2004
+--------------------
+
+1)  Removed Davis SDK directory
+2)  added vantageSDK directory
+3)  created "install-env" target for first time installation
+
+
+
+0.4.2     01-06-2004
+--------------------
+
+1)  Fixed chart spikes
+2)  added time synchronization for the console clock
+3)  added top level makefile
+4)  fixed dbfGetAverages "wrap-around" file bug
+5)  fixed add history sample bugs
+
+
+
+0.4.1     12-31-2003
+--------------------
+
+1)  Fixed shutdown nuisance - wview script now starts and stops cleanly
+2)  added SSM chart label changes (moved startDay up 5 mins, startMonth
+    up 1 hour, and startYear up 1 day so the last label is correct)
+
+
+
+0.4.0     12-31-2003
+--------------------
+
+1)  Removed pnggen directory from project - link against system libraries,
+    build against /usr/local/include
+
+
+
+0.3.1     12-31-2003
+--------------------
+
+1)  Fixed midnight wakeup failure
+2)  added wait in html initialization for the daemon process
+
+
+
+0.2.1     12-15-2003
+--------------------
+
+1)  Cleaned up the pnggen build environment
+
+
+
+0.1.0     12-12-2003
+--------------------
+
+1)  Initial version

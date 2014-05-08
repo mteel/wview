@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+xmlns:admin="http://webns.net/mvcb/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+<channel>
+   <title><!--stationCity--> <!--stationState--></title>
+   <link>Insert_Your_WX_HomePage_URL_Here</link>
+   <description>Current Weather Conditions</description>
+   <language>en-us</language>
+   <pubDate><!--stationDate-->,<!--stationTime--></pubDate>
+   <ttl>1</ttl>
+   <generator><!--wviewVersion--></generator>
+   
+   <item>
+      <title><!--stationCity-->,<!--stationState--> Weather Conditions: <!--stationDate--> <!--stationTime--></title>
+      <link>Insert_Your_WX_HomePage_URL_Here</link>
+      <description>Current Weather Conditions</description>
+      <pubDate><!--stationTime-->, <!--stationDate--></pubDate>
+      <guid isPermaLink="true">Insert_Your_WX_HomePage_URL_Here</guid>
+      <dc:date><!--stationDate--> - <!--stationTime--></dc:date>
+      <content:encoded><![CDATA[
+        <p>
+        Temp: <!--outsideTemp--><!--tempUnit--><br>
+        Wind Chill: <!--windChill--><!--tempUnit--><br>
+        Heat Index: <!--outsideHeatIndex--><!--tempUnit--><br>
+        Humidity: <!--outsideHumidity--><!--humUnit--><br>
+        Dewpoint: <!--outsideDewPt--><!--tempUnit--><br>
+        Barometer: <!--barometer--><!--barUnit--><br>
+        Wind: <!--windDirection--> at <!--windSpeed--><!--windUnit--><br>
+        Rain Today: <!--dailyRain--><!--rainUnit--><br>
+        Rain Rate: <!--rainRate--><!--rainUnit--><br>
+        </p>
+      ]]></content:encoded>
+   </item>
+</channel>
+</rss>

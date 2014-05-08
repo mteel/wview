@@ -1,0 +1,43 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WVIEWD_WS2300 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wviewd_ws2300 \- wview La Crosse WS-2300/2308/2310/2315 station interface daemon
+.SH SYNOPSIS
+.B wviewd_ws2300
+.RI
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B wviewd_ws2300
+.
+The daemon wviewd_ws2300 interfaces a La Crosse WS-2300/2308/2310/2315 weather station.
+It retrieves weather data and archives it in an SQLite3 database.
+.BR
+.BR Note: This daemon should ONLY be launched from the /etc/init.d/wview script (typically started in your default runlevel).
+.SH OPTIONS
+There are no options.
+.TP
+.SH SEE ALSO
+.BR /etc/init.d/wview,
+.BR /usr/share/doc/wview/wview-User-Manual.html
+.br
+.SH AUTHOR
+wviewd_ws2300 was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

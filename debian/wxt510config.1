@@ -1,0 +1,44 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WXT510CONFIG 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wxt510config \- wview utility program to configure an attached Vaisala WXT510 weather station 
+.SH SYNOPSIS
+.B wxt510config
+.RI station_device
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B wxt510config
+.
+Configure an attached Vaisala WXT510 weather station (autobaud the serial interface).
+.BR    station_device         - serial device the WXT510 is connected to:
+                                FreeBSD:   /dev/cuaa0 - /dev/cuaa4
+                                Linux:     /dev/ttyS0 - /dev/ttyS4
+                                Linux USB: /dev/ttyUSB0
+                                Ethernet:  host:port
+.SH OPTIONS
+station_device and command are mandatory.
+.TP
+.SH SEE ALSO
+.BR /usr/share/doc/wview/wview-User-Manual.html
+.br
+.SH AUTHOR
+wxt510config was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

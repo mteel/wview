@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>wview Quick Start Guide for Macintosh</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<a href="#topofpage"></a>
+<h1 align="center">wview Quick Start Guide for Macintosh</h1>
+<p align="center">Oct. 20, 2009</p>
+
+<p align="left">
+    <h2><strong>Purpose</strong></h2>
+    This guide will provide the basic procedure for a "standard" wview install. 
+    Detailed description of the steps, advanced configuration of features and 
+    troubleshooting tips are found in the <a href="http://www.wviewweather.com/release-notes/wview-User-Manual.html">
+    wview User Manual</a>. Also, please see <a href="http://www.wviewweather.com">
+    the wview homepage</a> for a detailed description of wview, the latest news 
+    on releases, the wview User's Forum and other interesting links. 
+</p>
+
+<p align="left">
+    <h2><strong>Mac OSX Requirements</strong></h2>
+    <ul>
+      <li>
+        <strong>xcode</strong> - development tools including gcc required to build 
+        source packages - see <a href="http://developer.apple.com/tools/xcode/">
+        http://developer.apple.com/tools/xcode/</a> to download the dmg installer<br><br>
+      </li>
+      <li>
+        <strong>MacPorts</strong> - package management system - used to install 
+        the library prerequisites listed below - see <a href="http://www.macports.org/">
+        http://www.macports.org/</a> to download the latest version - 
+        once installed, add /opt/local/bin to your path by adding the following line to 
+        your ~/.profile file: "export PATH=$PATH:/opt/local/bin" - then execute the following:<br><br>
+        sudo port -d selfupdate (this may take a while)<br>
+        Note: All wview binaries and scripts will be found at /opt/local/bin instead of 
+        /usr/local/bin, so all instructions in the User Manual should have "/usr/local" 
+        replaced with "/opt/local" for Mac installs<br><br>
+      </li>
+    </ul>
+    <h2><strong>System Requirements</strong></h2>
+    <ul>
+      <li>
+        <strong>Sufficient Kernel Share Memory</strong> - check the following line in the 
+        /etc/rc file, making sure the two sizes (shmmax and shmall) are similar in magnitude 
+        to this line:<br>
+        sysctl -w kern.sysv.shmmax=536870912 kern.sysv.shmmin=1 kern.sysv.shmmni=32 kern.sysv.shmseg=8 kern.sysv.shmall=131072
+      </li>
+      <li>
+        <strong>ntp/xntp</strong> - Network Time Protocol - a configured and functional NTP
+        daemon should be enabled on the host system to keep system and weather 
+        station time accurate
+      </li>
+      <li>
+        <strong>apache</strong> - in order to serve your weather site to the world, 
+        an http server is required - other http servers will work too. If you are 
+        going to export your site to another server or to your ISP account site, 
+        then an http server is not required on the wview server
+      </li>
+      <li>
+        <strong>php5 and php5-sqlite3</strong> - optionally needed for browser-based 
+        configuration (requires apache or similar)
+      </li>
+      <li>
+        <strong>Serial/Ethernet/USB port</strong> - an available interface port 
+        is required to connect to the weather station
+      </li>
+    </ul>
+    <h2><u>Weather Station - one of the following:</u></h2>
+    <ul>
+      <li>
+        <strong>Vantage Pro or Vantage Pro2 Weather Station with Console</strong><br> 
+          <ul>
+            <li>
+              <strong>WeatherLink for Vantage Pro or Pro2, Macintosh Version</strong> - 
+              the java software is not required, but this is the only way to obtain the 
+              USB-to-Serial convertor, driver and serial data logger<br><br>
+              Optionally, you can use the windows version with the serial data logger if 
+              you obtain separately a USB-to-Serial convertor with a MacOSX compatible 
+              driver - the Prolific chipset PL-2303 and 
+              <a href="http://tech.prolific.com.tw/visitor/v_filebrw_result.asp">driver</a> 
+              have been confirmed to work with wview on a Mac Mini - Note: USB data 
+              loggers are NOT supported by MacOSX 
+              (in particular, there is no CP2101 driver for Darwin/FreeBSD) - unless you 
+              have a serial port on your Mac, you must use a USB-to-Serial adapter connected 
+              to a Weatherlink serial data logger (or just use the adapter provided with the 
+              Macintosh version of Weatherlink)
+            </li>
+          </ul>
+      </li>
+      <li>
+        <strong>Vaisala WXT-510</strong><br> 
+      </li>
+      <li>
+        <strong>La Crosse WS-2300 Series</strong><br> 
+      </li>
+      <li>
+        <strong>Oregon Scientific WMR918 Series</strong><br> 
+      </li>
+      <li>
+        <strong>Station Simulator (for demos and testing)</strong><br> 
+      </li>
+    </ul>
+</p>
+
+<p align="left">
+    <h2><strong>Install Procedure</strong></h2>
+    <pre>
+      Note: execute these commands in a terminal session while logged into an account 
+            with administration privileges - the sudo command requires you to enter your 
+            password before it will execute the command following it.
+      
+      1)  Install wview directly from MacPorts: 
+
+          sudo port install wview
+      
+      2)  If a new Vantage Pro station, use the on-screen console configuration 
+          wizard
+      
+      3)  Configure wview: 
+
+          Note: Refer to Chapter 6 of the wview User Manual for new browser-based
+                configuration options.
+
+          > sudo /opt/local/bin/wviewconfig
+
+      4)  Configure wview HTML Templates:
+
+          > sudo /opt/local/bin/wviewhtmlconfig
+
+      5)  Run wview: 
+
+          > sudo /sbin/SystemStarter start "wview"
+          
+          Note: You can stop or restart wview as follows:
+          sudo /sbin/SystemStarter stop "wview"
+          sudo /sbin/SystemStarter restart "wview"
+      
+      6)  See wview startup and run logs:
+
+          > sudo tail -n 100 -f /var/log/system.log
+          
+          Note: Unless you configured wview to include ftp, ssh, alarms or CWOP 
+                support, these daemons will start up, determine they are disabled, 
+                then exit. This is normal behavior. 
+
+      7)  Confirm proper operation:
+
+          > sudo ps aux | grep wv
+          (you should see at least "wviewd_[station]" - maybe others if you enabled them)
+
+          > sudo ps aux | grep htmlgend
+          (you should see "htmlgend")
+
+          You should see the log message "doing initial html generation now..." 
+          at the end of the wview initialization log messages.
+
+          > ls -al /opt/local/var/wview/img/index.html
+          (you should see the file listed)
+
+          Open /opt/local/var/wview/img/index.html with your favorite browser - this is your 
+          new wview homepage.
+    </pre>
+</p>
+
+</body>
+</html>
+

@@ -1,0 +1,1748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title><!--stationCity-->,<!--stationState--> Weather Almanac</title>
+  <meta http-equiv="refresh" content="150" ;="">
+</head>
+
+<script language="JavaScript">
+
+function openURL(urlname)
+    {
+    window.location=urlname;
+    }
+
+</script>
+
+<body
+ style="background-image: url(Clouds.jpg);">
+<form method="post">
+<div align="center">
+
+<table cellpadding="1" cellspacing="1" border="0" width="95%" align="center">
+<tbody>
+    <tr>
+      <td colspan="1" align="center" valign="top" height="30">
+        <!--include nav-buttons_Plus.inc-->
+      </td>
+    </tr>
+	<tr>
+	  <td>
+		<table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+		<tbody>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <big><b><font size="6" face="Arial, Helvetica, sans-serif" color="#000000">
+			  <!--stationCity-->,<!--stationState--> Weather Almanac</font></b></big>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <font size="2" face="Arial, Helvetica, sans-serif" color="#000000">
+			  <b><!--stationLatitude--> - <!--stationLongitude--> - 
+			  <!--stationElevation--></b></font>
+			</td>
+		  </tr>
+		  <tr>
+			<td valign="top" align="center">
+			  <font size="4" face="Arial, Helvetica, sans-serif" color="#000000">
+			  Almanac Data for: 
+			  <!--stationDate--> <!--stationTime-->
+			  </font>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <font size="3" face="Arial, Helvetica, sans-serif" color="#000000"><b>
+			  Sunrise: <!--sunriseTime--> - Midday: <!--middayTime--> - Sunset: <!--sunsetTime--> - 
+              Day Length: <!--dayLength--><br>
+              Civil Twilight: <!--civilriseTime--> - <!--civilsetTime-->&nbsp;&nbsp;
+              Astronomical Twilight: <!--astroriseTime--> - <!--astrosetTime--><br>
+              Moonrise: <!--moonriseTime--> - Moonset: <!--moonsetTime-->
+			  </b></font><br>
+			</td>
+		  </tr>
+		</tbody>
+		</table>
+	  </td>
+	</tr>
+	<tr>
+	  <td width="100%">
+		<table align="center" border="0" width="100%">
+		<tbody>
+		  <tr>
+			<td width="32%" align="center">&nbsp;</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">&nbsp;</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Temperature</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Dew Point</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Humidity</strong></font>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--outsideTemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--houravgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangetemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dayavgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangetemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiOutsideTemp--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiOutsideTempTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowOutsideTemp--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--lowOutsideTempTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekavgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangetemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodateavgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxtempdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowMonthlyOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemintempdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodateavgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxtempdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowYearlyOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemintempdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimeavgtemp--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxtempdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowAllTimeOutsideTemp--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimemintempdate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--outsideDewPt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--houravgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangedewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dayavgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangedewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiDewpoint--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiDewpointTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowDewpoint--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--lowDewpointTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekavgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangedewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodateavgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxdewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowMonthlyDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemindewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodateavgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxdewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowYearlyDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemindewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimeavgdewpt--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxdewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowAllTimeDewpoint--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimemindewptdate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--outsideHumidity--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--houravghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangehumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dayavghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangehumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiHumidity--><!--humUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiHumTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowHumidity--><!--humUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--lowHumTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekavghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangehumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodateavghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowMonthlyHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--monthtodateminhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodateavghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowYearlyHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--yeartodateminhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimeavghumid--><!--humUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowAllTimeHumidity--><!--humUnit-->&nbsp;on&nbsp;
+                        <!--alltimeminhumiddate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+		  </tr>
+		</tbody>
+		</table>
+	  </td>
+	</tr>
+	<tr>
+	  <td width="100%">
+		<table align="center" border="0" width="100%">
+		<tbody>
+		  <tr>
+			<td width="32%">&nbsp;</td>
+			<td width="2%" align="center">&nbsp;</td>
+			<td width="32%">&nbsp;</td>
+			<td width="2%" align="center">&nbsp;</td>
+			<td width="32%">&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Wind Chill</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Heat Index</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Wind Run</strong></font>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--windChill--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowWindchill--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--lowWindchillTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowMonthlyWindchill--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodateminchilldate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowYearlyWindchill--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodateminchilldate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowAllTimeWindchill--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimeminchilldate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--outsideHeatIndex--><!--tempUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiHeatindex--><!--tempUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiHeatindexTime--></b>
+					</font>
+				  </td>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyHeatindex--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxheatdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyHeatindex--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxheatdate--></b>
+					</font>
+				  </td>
+				</tr>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeHeatindex--><!--tempUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxheatdate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourwindrun--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daywindrun--></b>
+					</font>
+				  </td>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekwindrun--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodatewindrun--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodatewindrun--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+		  </tr>
+		</tbody>
+		</table>
+	  </td>
+	</tr>
+	<tr>
+	  <td width="100%">
+		<table align="center" border="0" width="100%">
+		<tbody>
+		  <tr>
+			<td width="32%" align="center">&nbsp;</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">&nbsp;</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Wind</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Barometer</strong></font>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center">
+			<font face="Arial, Helvetica, sans-serif" size="-1"><strong>Rain</strong></font>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--windDirectionDegrees--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Dom Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourdomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Direction Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangewinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Dom Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daydomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Direction Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangewinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Dom Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekdomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Direction Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangewinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Dom Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodatedomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Dom Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodatedomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Direction:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimedomwinddir--> degrees</b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--windSpeed--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--houravgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Speed Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangewind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dayavgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Speed Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangewind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiWindSpeed--><!--windUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiWindSpeedTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekavgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Speed Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangewind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodateavgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyWindSpeed--><!--windUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxgustdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodateavgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyWindSpeed--><!--windUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxgustdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Avg Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimeavgwind--><!--windUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High Speed:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeWindSpeed--><!--windUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxgustdate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Current:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--barometer--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--houravgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Hour Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hourchangebarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dayavgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--daychangebarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiBarometer--><!--barUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiBarometerTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowBarometer--><!--barUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--lowBarometerTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekavgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Week Change:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--weekchangebarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthtodateavgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowMonthlyBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--monthtodateminbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--yeartodateavgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowYearlyBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--yeartodateminbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Average:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--alltimeavgbarom--><!--barUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time Low:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--lowAllTimeBarometer--><!--barUnit-->&nbsp;on&nbsp;
+                        <!--alltimeminbaromdate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+			<td width="2%">&nbsp;</td>
+			<td width="32%" align="center" valign="top">
+			  <table cellspacing="1" cellpadding="0" width="100%" align="center" border="1">
+			  <tbody>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Rate:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--rainRate--><!--rateUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--dailyRain--><!--rainUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Storm:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--stormRain--><!--rainUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Storm Start:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--stormStart--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Day High Rate:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiRainRate--><!--rateUnit-->&nbsp;&nbsp;at&nbsp;&nbsp;
+                        <!--hiRainRateTime--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--monthlyRain--><!--rainUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Month High Rate:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiMonthlyRainRate--><!--rateUnit-->&nbsp;on&nbsp;
+                        <!--monthtodatemaxrainratedate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year (<!--rainSeasonStart-->):</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--totalRain--><!--rainUnit--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>Year High Rate:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiYearlyRainRate--><!--rateUnit-->&nbsp;on&nbsp;
+                        <!--yeartodatemaxrainratedate--></b>
+					</font>
+				  </td>
+				</tr>
+				<tr height="20">
+				  <td width="50%">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<strong>All Time High Rate:</strong>
+					</font>
+				  </td>
+				  <td width="50%" align="left">
+					<font face="Tw Cen MT" color="#000000" size="-1">
+					<b><!--hiAllTimeRainRate--><!--rateUnit-->&nbsp;on&nbsp;
+                        <!--alltimemaxrainratedate--></b>
+					</font>
+				  </td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+		  </tr>
+		</tbody>
+		</table>
+	  </td>
+	</tr>
+    <tr>
+      <td width="100%">
+        <hr width="100%" size="4">
+        <table cellpadding="2" cellspacing="2" border="0" width="100%">
+		  <tbody>
+			<tr>
+			  <td width="40%" valign="bottom" align="left">
+				<small><font face="Arial, Helvetica, sans-serif" align="left" color="blue">
+				<!--wviewUpTime-->
+				</font></small>
+			  </td>
+			  <td width="20%" valign="bottom" align="center">
+				<small><font face="Arial, Helvetica, sans-serif" align="center" color="blue">
+				<a href="http://www.wviewweather.com">wviewweather.com</a>
+				</font></small>
+			  </td>
+			  <td width="40%" valign="bottom" align="right">
+				<small><font face="Arial, Helvetica, sans-serif" align="right" color="blue">
+				<!--wviewVersion-->
+				</font></small>
+			  </td>
+			</tr>
+		  </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>

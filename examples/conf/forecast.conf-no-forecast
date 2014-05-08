@@ -1,0 +1,285 @@
+#
+# forecast.conf - provide the text strings which will be associated with the 
+#                 Vantage Pro Forecast Rule and the icon files to be associated 
+#                 with the VP Forecast Icon value
+#
+
+# File Format
+#
+#   Icon Image Files
+#   ----------------
+#
+#   Each line starting with "ICON" will be parsed for icon file name until 
+#   all 31 are found or EOF. They are assigned in order from 1 through 31.
+#   Missing assignments in this file are left uninitialized and will appear 
+#   as a zero-length string when the <!--forecastIcon--> tag is replaced with 
+#   nothing. The text following the keyword "ICON" is ignored by htmlgend and 
+#   is only included for clarity during user configuration. The order cannot 
+#   be changed.
+#
+#   Icon Bit Definitions
+#
+#   VP_FCAST_ICON_RAIN          0x01
+#   VP_FCAST_ICON_CLOUD         0x02
+#   VP_FCAST_ICON_PART_SUN      0x04
+#   VP_FCAST_ICON_SUNNY         0x08
+#   VP_FCAST_ICON_SNOW          0x10
+#
+#   So forecast icon value 0x05 implies PartlySunny and Rain.
+#   Note that some of the combinations of the bits do not make sense, such as
+#   "ICON_SNOW_SUN_PARTSUN_CLOUD_RAIN" - I have made judgement calls for these 
+#   to something more reasonable in terms of the icon file used.
+#
+#
+#   Forecast Rule Text
+#   ------------------
+#
+#   After the first occurence of the string "<RULES>" in this file, each line
+#   following from column 0 to the newline is read by htmlgend and assigned 
+#   to the corresponding forecast rule value - IN ORDER. There are 197 entries 
+#   exactly, no more, no less. htmlgend will assign an empty string to any 
+#   forecast rules which are missing entries in this file. Those will always 
+#   be the last entries - htmlgend assumes that each line of text SEQUENTIALLY 
+#   is to be assigned to the forecast rule that equals that relative line 
+#   number. There can be no holes or gaps.
+#
+#   htmlgend begins with the line following the line with the string "<RULES>". 
+#
+#   Text may be converted to any language which can be represented by 8 bit 
+#   characters.
+#
+
+# these are sequntial from 1-31 representing all of the above bit combinations
+#
+ICON_RAIN                              fc-icon-rain.gif
+ICON_CLOUD                             fc-icon-cloudy.gif
+ICON_CLOUD_RAIN                        fc-icon-rain.gif
+ICON_PARTSUN                           fc-icon-partlycloudy.gif
+ICON_PARTSUN_RAIN                      fc-icon-partlycloudyandrain.gif
+ICON_PARTSUN_CLOUD                     fc-icon-partlycloudy.gif
+ICON_PARTSUN_CLOUD_RAIN                fc-icon-partlycloudyandrain.gif
+ICON_SUN                               fc-icon-sunny.gif
+ICON_SUN_RAIN                          fc-icon-partlycloudyandrain.gif
+ICON_SUN_CLOUD                         fc-icon-partlycloudy.gif
+ICON_SUN_CLOUD_RAIN                    fc-icon-partlycloudyandrain.gif
+ICON_SUN_PARTSUN                       fc-icon-partlycloudy.gif
+ICON_SUN_PARTSUN_RAIN                  fc-icon-partlycloudyandrain.gif
+ICON_SUN_PARTSUN_CLOUD                 fc-icon-partlycloudy.gif
+ICON_SUN_PARTSUN_CLOUD_RAIN            fc-icon-partlycloudyandrain.gif
+ICON_SNOW                              fc-icon-snow.gif
+ICON_SNOW_RAIN                         fc-icon-snowandrain.gif
+ICON_SNOW_CLOUD                        fc-icon-snow.gif
+ICON_SNOW_CLOUD_RAIN                   fc-icon-snowandrain.gif
+ICON_SNOW_PARTSUN                      fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_PARTSUN_RAIN                 fc-icon-snowandrain.gif
+ICON_SNOW_PARTSUN_CLOUD                fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_PARTSUN_CLOUD_RAIN           fc-icon-snowandrain.gif
+ICON_SNOW_SUN                          fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_SUN_RAIN                     fc-icon-snowandrain.gif
+ICON_SNOW_SUN_CLOUD                    fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_SUN_CLOUD_RAIN               fc-icon-snowandrain.gif
+ICON_SNOW_SUN_PARTSUN                  fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_SUN_PARTSUN_RAIN             fc-icon-snowandrain.gif
+ICON_SNOW_SUN_PARTSUN_CLOUD            fc-icon-partlycloudyandsnow.gif
+ICON_SNOW_SUN_PARTSUN_CLOUD_RAIN       fc-icon-snowandrain.gif
+
+
+<RULES>
+Mostly clear and cooler.
+Mostly clear with little temperature change.
+Mostly clear for 12 hours with little temperature change.
+Mostly clear for 12 to 24 hours and cooler.
+Mostly clear with little temperature change.
+Partly cloudy and cooler.
+Partly cloudy with little temperature change.
+Partly cloudy with little temperature change.
+Mostly clear and warmer.
+Partly cloudy with little temperature change.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 24 to 48 hours.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds with little temperature change. Precipitation possible within 24 hours.
+Mostly clear with little temperature change.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds with little temperature change. Precipitation possible within 12 hours.
+Mostly clear with little temperature change.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 24 hours.
+Mostly clear and warmer. Increasing winds.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 hours. Increasing winds.
+Mostly clear and warmer. Increasing winds.
+Increasing clouds and warmer.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 hours. Increasing winds.
+Mostly clear and warmer. Increasing winds.
+Increasing clouds and warmer.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 hours. Increasing winds.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly clear and warmer. Precipitation possible within 48 hours.
+Mostly clear and warmer.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds with little temperature change. Precipitation possible within 24 to 48 hours.
+Increasing clouds with little temperature change.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 to 24 hours.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 to 24 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 to 24 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 6 to 12 hours.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 6 to 12 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 to 24 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation possible within 12 hours.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and warmer. Precipitation likley.
+Clearing and cooler. Precipitation ending within 6 hours.
+Partly cloudy with little temperature change.
+Clearing and cooler. Precipitation ending within 6 hours.
+Mostly clear with little temperature change.
+Clearing and cooler. Precipitation ending within 6 hours.
+Partly cloudy and cooler.
+Partly cloudy with little temperature change.
+Mostly clear and cooler.
+Clearing and cooler. Precipitation ending within 6 hours.
+Mostly clear with little temperature change.
+Clearing and cooler. Precipitation ending within 6 hours.
+Mostly clear and cooler.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds with little temperature change. Precipitation possible within 24 hours.
+Mostly cloudy and cooler. Precipitation continuing.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation likely.
+Mostly cloudy with little temperature change. Precipitation continuing.
+Mostly cloudy with little temperature change. Precipitation likely.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible and windy within 6 hours.
+Increasing clouds with little temperature change. Precipitation possible and windy within 6 hours.
+Mostly cloudy and cooler. Precipitation continuing. Increasing winds.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation likely. Increasing winds.
+Mostly cloudy with little temperature change. Precipitation continuing. Increasing winds.
+Mostly cloudy with little temperature change. Precipitation likely. Increasing winds.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 12 to 24 hours possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hours possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 6 hours possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 6 hours possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Precipitation ending within 12 hours possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation ending within 12 hours possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Precipitation ending within 12 hours possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation possible within 24 hours possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation ending within 12 hours possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation possible within 24 hours possible wind shift to the W NW or N.
+Clearing cooler and windy. Precipitation ending within 6 hours.
+Clearing cooler and windy.
+Mostly cloudy and cooler. Precipitation ending within 6 hours. Windy with possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Windy with possible wind shift to the W NW or N.
+Clearing cooler and windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy with little temperature change. Precipitation possible within 12 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 12 hours possibly heavy at times. Windy.
+Mostly cloudy and cooler. Precipitation ending within 6 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation possible within 12 hours. Windy.
+Mostly cloudy and cooler. Precipitation ending in 12 to 24 hours.
+Mostly cloudy and cooler.
+Mostly cloudy and cooler. Precipitation continuing possible heavy at times. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation possible within 6 to 12 hours. Windy.
+Mostly cloudy with little temperature change. Precipitation continuing possibly heavy at times. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hours. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds with little temperature change. Precipitation possible within 12 hours possibly heavy at times. Windy.
+Mostly cloudy and cooler. Windy.
+Mostly cloudy and cooler. Precipitation continuing possibly heavy at times. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation likely possibly heavy at times. Windy.
+Mostly cloudy with little temperature change. Precipitation continuing possibly heavy at times. Windy.
+Mostly cloudy with little temperature change. Precipitation likely possibly heavy at times. Windy.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 6 hours. Windy.
+Increasing clouds with little temperature change. Precipitation possible within 6 hours. Windy
+Increasing clouds and cooler. Precipitation continuing. Windy with possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation likely. Windy with possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation continuing. Windy with possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation likely. Windy with possible wind shift to the W NW or N.
+Increasing clouds and cooler. Precipitation possible within 6 hours. Windy with possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 6 hours possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 6 hours. Windy with possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 6 hours possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 6 hours. Windy with possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 6 hours. Windy with possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Increasing clouds and cooler. Precipitation possible within 12 to 24 hours. Windy with possible wind shift to the W NW or N.
+Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hours. Windy with possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Precipitation possibly heavy at times and ending within 12 hours. Windy with possible wind shift to the W NW or N.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation possible within 6 to 12 hours possibly heavy at times. Windy with possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation ending within 12 hours. Windy with possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hours possibly heavy at times. Windy with possible wind shift to the W NW or N.
+Mostly cloudy and cooler. Precipitation continuing.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation likely. Windy with possible wind shift to the W NW or N.
+Mostly cloudy with little temperature change. Precipitation continuing.
+Mostly cloudy with little temperature change. Precipitation likely.
+Partly cloudy with little temperature change.
+Mostly clear with little temperature change.
+Mostly cloudy and cooler. Precipitation possible within 12 hours possibly heavy at times. Windy.
+FORECAST REQUIRES 3 HOURS OF RECENT DATA
+Mostly clear and cooler.
+Mostly clear and cooler.
+Mostly clear and cooler.
+

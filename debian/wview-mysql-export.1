@@ -1,0 +1,44 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WVIEW-MYSQL-EXPORT 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wview-mysql-export \- script to export wview SQLite3 data to a MySQL Database on local or remote server
+.SH SYNOPSIS
+.B wview-mysql-export
+.RI
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B wview-mysql-export
+.
+Export wview weather data (archive and HILOW) to a local or remote MySQL server.
+.BR
+.BR Note: REQUIRES: mysqlimport CLI utility for database export.
+.BR Note: must be executed on the source wview server.
+.BR Note: Usually executed as a cron job.
+.SH OPTIONS
+There are no options.
+.TP
+.SH SEE ALSO
+.BR wview-mysql-create (1),
+.BR /usr/share/doc/wview/wview-User-Manual.html
+.br
+.SH AUTHOR
+wview-mysql-export was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

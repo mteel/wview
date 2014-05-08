@@ -1,0 +1,377 @@
+wview Upgrade Directions
+------------------------
+
+
+1)  Extract new wview source tree to standard location (the name includes
+    the version number for uniqueness - your old source tree will not be
+    copied over or disturbed)
+
+2)  Read ChangeLog for any new configuration or environment requirements
+
+3)  Stop any running wview daemons (/etc/init.d/wview stop)
+
+4)  Copy any user-specific source (such as .../htmlgenerator/images-user.c)
+    into the new source tree
+
+5)  cd to the wview-X.Y.Z root source directory
+
+6)  ./configure (see the User Manual for configuration options)
+
+7)  make && make install (install requires root priveleges)
+
+8)  Find the version you are upgrading from in the list below and proceed from 
+    there through all versions to the end
+
+9)  Execute wviewconfig then wviewhtmlconfig - should always be run after upgrades
+
+10) Start wview daemons (/etc/init.d/wview start)
+
+11) Check /var/log/messages (tail -n 100 -f /var/log/messages) for proper
+    operation (htmls generated, wview daemon downloading archive pages, 
+    history timer adding samples every archive interval minutes, etc.)
+
+12) If all is good, store the distro tarball in a safe place, delete the 
+    old source tree, you're done!
+
+
+Version Specific Directions
+---------------------------
+
+0.8.1 or Older: (backup your /usr/local/wview directory first):
+---------------
+      
+      (Mandatory)
+      
+      a) mv /usr/local/wview/html /etc/wview/html
+      b) mv /usr/local/wview/*.conf /etc/wview
+      c) mv /usr/local/wview/archive /var/wview/archive
+      d) mv /usr/local/wview/img /var/wview/img
+      e) mv /usr/local/wview/noaa.dat /var/wview/noaa/noaa.dat
+      f) Edit your start script (/etc/init.d/wview or /etc/rc.d/wview)
+         and change the path to the binaries from /usr/local/wview to
+         /usr/local/bin, change run path from /usr/local/wview to /var/wview 
+         then change the executable name for ftpd to wviewftpd (see the
+         new wview start scripts in examples/* for examples of these
+         changes).
+
+0.9.1 or Older:
+---------------
+
+      (Optional) - If you want to utilize the new combo-charts for 
+                   temp/dewpoint and heat index/wind chill, do the following:
+      
+      a) Using examples/conf/images.conf as a guide, edit your site-specific
+         /etc/wview/images.conf to add Temp/Dew Point and Heat Index/Wind Chill 
+         multi-plot charts. Don't forget to comment out the old single chart
+         entries for TempDay, DewDay, HeatDay, ChillDay, TempMonth, DewMonth,
+         HeatMonth and ChillMonth (see examples/conf/images.conf).
+      b) Using the files Current_Vantage_Pro.htx, Daily_Vantage_Pro.htx and
+         Monthly_Vantage_Pro.htx in the bin/html directory as a guide, modify 
+         your site-specific versions of these files in /etc/wview/html. Look
+         for references to the filenames you commented out in images.conf -
+         a bit of rearranging is necessary but is illustrated in the distro
+         examples in bin/html. According to your site, you may be able to just
+         copy and paste the image blocks from the examples.
+         
+2.0.0 or Older:
+---------------
+
+      (Optional) - From version 3.0.0 forward, the HTML template files with
+                   references to "Vantage Pro" have changed as have the 
+                   references to them in the home page templates. New navigation
+                   buttons were also added at the top of each template. If you 
+                   want to stay up to date on template files, you should upgrade
+                   your template files based on the distro examples then upgrade
+                   your html-templates.conf to the newest format using the new 
+                   file names and update your home page template(s) to refer to 
+                   these new file names.
+
+      Current_Vantage_Pro.htx           => Current.htx
+      Current_Vantage_Pro_Plus.htx      => Current_Plus.htx
+      Daily_Vantage_Pro.htx             => Daily.htx
+      Daily_Vantage_Pro_Plus.htx        => Daily_Plus.htx
+      Monthly_Vantage_Pro.htx           => Monthly.htx
+      Monthly_Vantage_Pro_Plus.htx      => Monthly_Plus.htx
+      Yearly_Vantage_Pro.htx            => Yearly.htx
+      Yearly_Vantage_Pro_Plus.htx       => Yearly_Plus.htx
+
+      (Optional) - Udgrade your almanac.htx file from the distro examples so 
+                   you will have the new solar rise/set times, the new Storm 
+                   Start Date entry, etc. If you have extended sensors, add the
+                   new almanac_Plus.htx to your template directory.
+
+3.1.4 or Older:
+---------------
+
+      (Optional) - Udgrade all of your *.htx template files from the distro 
+                   examples so you will have the new Weekly page and references 
+                   to it on the other pages. Upgrade your images(-metric(-mm)).conf
+                   file to generate the new weekly chart images. Upgrade your
+                   html-templates.conf to include the new Weekly.htx page. As
+                   always, refer to the examples in the distro for changes/usage.
+
+3.2.0 or Older:
+---------------
+
+      (Optional) - Udgrade your index.htx template file (or index-day.htx and 
+                   index-night.htx if doing day/night themes) from the distro 
+                   examples so you may take advantage of the new radar and 
+                   forecast HTML tags. Be sure to always run wviewconfig after 
+                   an upgrade. As always, refer to the examples in the distro 
+                   for changes/usage.
+
+3.2.1 or Older:
+---------------
+If you have user-defined images in ../htmlgenerator/images-user.c which include a
+date and time stamp, (i.e. all non-dial images), add an extra parameter,
+  img->mgrWork->dateFormat
+as the final parameter to the function call which produces the image.  See the 
+version of images-user.c from the distro for an example.
+
+3.3.0 or Older:
+---------------
+      (Mandatory) - (re)copy the wview start script for your OS distribution from
+                    the examples directory of the distribution so the process
+                    monitor will be started.
+
+      (Mandatory) - copy the new wvpmond config file:
+                    > sudo cp examples/conf/processes.conf /etc/wview
+                    It shouldn't require editing.
+
+      (Mandatory) - if you were generating data to wunderground, the new configure 
+                    option to enable it is "--enable-http" - the renamed http
+                    daemon can submit data to wunderground and/or weatherforyou.
+                    The config file for the http daemon is http.conf and replaces
+                    wvwunderd.conf.
+                    (wviewconfig will create the new http.conf config file for 
+                    you)
+
+      (Optional) -  copy the new html templates from examples/html/classic to
+                    your /etc/wview/html directory to take advantage of the new
+                    template macro inclusion capability. Customize the include
+                    templates and html templates for your site.
+
+      (Optional) -  Submit your site template to the wview google group so it can
+                    be included in future wview releases as 
+                    "examples/html/<your_template>".
+
+3.4.1 or Older:
+---------------
+      (Mandatory) - If you use wviewftpd to transfer files to a remote web server
+                    you will need to copy the new example wviewftp.conf-no-ftp to
+                    /etc/wview/wviewftp.conf.  If you need to modify the FTP
+                    binary used or the arguments passed to it you can now do so 
+                    in the new config file.
+
+      (Mandatory) - You should now start using the new html template configuration 
+                    script "wviewhtmlconfig" to setup your HTML templates. Run it
+                    immediately after "make install-env"/"wviewconfig" then 
+                    customize as you wish.
+
+3.5.0 or Older:
+---------------
+      (Mandatory) - The location of generated NOAA and ARC files has been changed
+                    to "img/NOAA" and "img/Archive" respectively. The new "install-env"
+                    make target creates these directories but if you have existing
+                    NOAA and ARC files in the img directory (both on your wview
+                    server and your web site), you will want to create these new
+                    subdirectories and move the files. The new index*.htx files
+                    have been updated to support these locations (but your old ones
+                    will not).
+
+3.6.0 or Older:
+---------------
+      (Mandatory) - The location of the wview configuration and data trees has
+                    moved as of version 3.7.0. To allow installation and 
+                    execution from a chroot jail and/or allow package management
+                    systems to specify an install/run root prefix, the configure
+                    script "--prefix" argument now controls not only where binaries
+                    are installed but also where "/etc/wview" and "/var/wview" are
+                    located. The default for configure if no "--prefix" argument
+                    is given is "--prefix=/usr/local". So the new default locations
+                    are: "/usr/local/etc/wview" and "/usr/local/var/wview". 
+                    Executing "sudo make install-env" for 3.7.0 will create these
+                    directories for you, then you will need to move anything 
+                    pertinent from the old "/etc/wview" and "/var/wview" locations
+                    to the new "prefix" locations. Obvious choices are:
+                    "/var/wview/archive"
+                    "/var/wview/alarms"             - if applicable
+                    "/etc/wview/alarms"             - if applicable
+                    "/etc/wview/*.conf <contents>"  - not advisable to move directly
+                    "/etc/wview/html customizations"
+
+                    Alternatively, if you just refuse to be compliant ;) and *must*
+                    keep your config and data trees on the root prefix, you can
+                    specify "--prefix=/ --exec-prefix=/usr/local". But this means
+                    you must remember this every time you upgrade wview and I am 
+                    not going to keep reminding you...
+
+                    The really good news in all this is that the example start
+                    scripts are now configured for paths based on the "--prefix"
+                    argument too (during the build step), so there should be much 
+                    less customization of those required in the future.
+
+3.7.3 or Older:
+---------------
+      (Optional) -  Support for a new config file "calibrate.conf" has been added.
+                    If you want to calibrate basic sensor readings, copy the 
+                    example version .../wview-x.y.z/examples/conf/calibrate.conf
+                    to $prefix/etc/wview and edit for your calibration requirements.
+                    See the example config file or the User Manual for calibration 
+                    details.
+
+3.9.0 or Older:
+---------------
+      (Mandatory) - If you use wviewftpd to transfer files to your web/ISP server,
+                    you will need to modify your wviewftp.conf file to remove the
+                    preceding "img" from all file transfer rules.  Also, destination
+                    paths will no longer have a trailing "img" directory tacked on 
+                    so if you want to retain this in your destination path, you
+                    will need to add "img" to the end of your "directory" parameter
+                    in wviewftp.conf.
+
+5.0.0 or Older:
+---------------
+      (Mandatory) - Prior to building and installing wview 5.0.0, you need to do
+                    the following:
+                    1) Install gawk, libreadline5-dev
+                    2) Install sqlite3 and libsqlite3-dev (if not already installed).
+                    3) Install radlib 2.8.2 or newer.
+
+                    Given the changes to the configuration location and html template
+                    changes, it is imperative you use the "install-env" make target
+                    when upgrading to 5.0.0:
+                    >./configure [your configure options]
+                    >sudo make install-env
+                    >sudo wviewconfig
+                    >sudo wviewhtmlconfig
+
+                    The vast majority of wview configuration has been moved from
+                    individual config files to an SQLite3 database: 
+                    $prefix/etc/wview/wview-conf.sdb. The wviewconfig script has
+                    been updated to support the sqlite3 database. There are also 
+                    several GUI and web tools for configuring wview including a
+                    Web Forms Inteface: $distro/ConfigForms. See the User
+                    Manual for complete details. At a minimum, running wviewconfig
+                    after upgrading will suffice.
+
+                    wview archive data has been moved to an SQLite3 database from
+                    the rusty old WLK files we have formerly been shackled with.
+                    A new conversion utility "wlk2sqlite" has been added to the
+                    wview distribution to import existing WLK archive data to the
+                    new SQLite3 database. A default empty archive database file
+                    will be installed when you use "make install-env" and is 
+                    located in a familiar place: $prefix/var/wview/archive. The
+                    database filename is "wview-archive.sdb". Entering "sudo wlk2sqlite"
+                    with no parameters at a shell prompt will display usage details.
+                    wlk2sqlite may require adding "/usr/local/lib" to the 
+                    "LD_LIBRARY_PATH" environment variable:
+                    >export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+                    The User Manual has more details on this process.
+
+5.1.1 or Older:
+---------------
+      (Mandatory) - 5.1.0 introduces a new HILOW database which will be populated
+                    with your archive data for historical purposes and with LOOP
+                    data for better resolution once 5.1.0+ is running. It is necessary
+                    to create and populate the wview-hilow.sdb database prior
+                    to running 5.1.0+ or else wview will do this automatically the
+                    first time it is run. The down side to this automatic creation
+                    is that it can be very slow on some platforms such as the NSLU2.
+                    Stations other than the Vantage Pro which do not archive data
+                    in console memory will NOT have archive records generated during
+                    this automatic conversion. The alternative for these stations is
+                    the hilowcreate utility, included with versions 5.1.1+.
+                    The procedure is:
+                    1) Leave your old version running, so long as it is 5.0.0+
+                       (i.e., creating archives in wview-archive.sdb).
+                    2) Build and install wview 5.1.1+.
+                    3) Copy your $prefix/var/wview/archive/wview-archive.sdb database
+                       to a working directory.
+                    4) Execute the utility:
+                       > hilowcreate [working_directory]
+                    5) When it completes, copy the resulting wview-hilow.sdb database
+                       to $prefix/var/wview/archive.
+                    6) Stop old wview.
+                    7) Start new wview, it will pick up archive records for HILOW
+                       that were generated during the execution of hilowcreate.
+
+
+5.2.0 or Older:
+---------------
+      (Mandatory) - 5.2.0 introduces a new method for starting the wviewd daemon
+                    which relies on the newly generated file $prefix/etc/wview/wview-binary.
+                    The make install-env process will populate this file based on
+                    your station choice during the configure step of wview install.
+                    All station binaries are now built and if the station type is
+                    changed when running wviewconfig or using the new wviewmgmt
+                    web interface, the $prefix/etc/wview/wview-binary file will
+                    be updated. To support this you must (in addition to normal steps):
+                    1) Execute the "install-env" target when building:
+                       > make install-env
+                    2) Copy the new wview start script for your platform from the distro:
+                       > sudo cp $distro/examples/[your_platform]/wview /etc/init.d
+                         (or similar, use the appropriate path for your distro)
+                    
+      (Mandatory) - 5.2.0 introduces email alerts. This required several new config
+                    parameters so you must upgrade your wview-conf.sdb file.
+
+                    The simple way (but it requires you to reconfigure everything)
+                    is to copy the new distro database:
+                       > sudo cp $distro/examples/conf/wview-conf.sdb $prefix/etc/wview
+                       > sudo wviewconfig (or use the web interface)
+                       > sudo /etc/init.d/wview restart
+
+                    The simpler way is to add the three new records to your existing
+                    wview-conf.sdb:
+                       > sudo sqlite3 $prefix/etc/wview/wview-conf.sdb
+                       sqlite> INSERT INTO "config" VALUES('EMAIL_ADDRESS','address@server.com','Destination for email alerts:',NULL);
+                       sqlite> INSERT INTO "config" VALUES('ENABLE_EMAIL_ALERTS','no','Send system alert emails?',NULL);
+                       sqlite> INSERT INTO "config" VALUES('SEND_TEST_EMAIL','no','Send a test email?',NULL);
+                       sqlite> .quit
+
+      (Optional) - If you want to be able to Start/Stop wview remotely via the new
+                   wviewmgmt web interface, you will need to do the following:
+
+                   1) The $distro/wviewmgmt directory should be copied to the HTTP
+                      server's document root:
+                      > sudo cp -R $distro/wviewmgmt $documentRoot
+
+                   2) Make $prefix/etc/wview (the directory) and $prefix/etc/wview/wview-conf.sdb
+                      read-write for the http server account (the new install-env build target 
+                      does this for you):
+                      > sudo chmod 777 $prefix/etc/wview
+                      > sudo chmod 777 $prefix/etc/wview/wview-conf.sdb
+                      (This is brute force, you can play with group memberships for the http server
+                       account to avoid 777)
+
+                   3) Be sure PHP support is included with the http server:
+                      For apache2, I have /etc/apache2/mods-enabled/php5.conf and 
+                      /etc/apache2/mods-enabled/php5.load.
+
+                   4) Be sure the SQLite3 module for php is installed (php5-sqlite or similar).
+
+                   5) Add the http user to the sudo group:
+                      > sudo adduser www-data sudo
+
+                   6) Make sure the sudo group has no password required privileges in /etc/sudoers:
+                      > sudo visudo
+                      (Make sure the line "%sudo ALL=NOPASSWD: ALL" is at the bottom of the
+                       /etc/sudoers file)
+
+                   7) Point your browser to: 
+                      http://[wview_URL_or_IP_address]/wviewmgmt/wview-form.php
+
+5.4.0 or Older:
+---------------
+      (Mandatory) - 5.5.0 removes the wviewsqld daemon. If you were exporting to an SQL
+                    database you will need to consult the User Manual on how to use the
+                    new SQL export scripts.
+
+
+5.7.1 or Older:
+---------------
+      (Optional)  - 5.8.0 adds debian package installation capability. See the User Manual
+                    for step-by-step instructions to transition from source installs to 
+                    debian APT install.
+

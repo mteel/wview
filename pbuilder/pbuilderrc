@@ -1,0 +1,54 @@
+# List of Debian suites.
+DEBIAN_SUITES=("squeeze" "wheezy")
+
+# List of Ubuntu suites. Update these when needed.
+UBUNTU_SUITES=("lucid" "precise" "quantal" "raring" "saucy")
+
+# Mirrors to use. Update these to your preferred mirror.
+DEBIAN_MIRROR="ftp.us.debian.org"
+UBUNTU_MIRROR="mirrors.kernel.org"
+
+# Update the changelog file so Distribution is correct in the changes file:
+# (this will require a fresh tarball for each DIST build)
+if [ -e debian/changelog ]; then
+    sed  s/unstable/$DIST/g debian/changelog > debian/changelog.new
+    mv -f debian/changelog.new debian/changelog
+fi
+
+# Optionally set the architecture to the host architecture if none set. Note
+# that you can set your own default (i.e. ${ARCH:="i386"}).
+: ${ARCH:="$(dpkg --print-architecture)"}
+
+OTHERMIRROR="deb file:///var/cache/archive/$DIST ./"
+HOOKDIR="/var/cache/pbuilder/hook.d"
+EXTRAPACKAGES="apt-utils"
+
+NAME="$DIST"
+if [ -n "${ARCH}" ]; then
+    NAME="$NAME-$ARCH"
+    DEBOOTSTRAPOPTS=("--arch=$ARCH" "${DEBOOTSTRAPOPTS[@]}")
+fi
+BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
+DISTRIBUTION="$DIST"
+BUILDRESULT="/var/cache/pbuilder/$NAME/result/"
+APTCACHE="/var/cache/pbuilder/$NAME/aptcache/"
+BUILDPLACE="/var/cache/pbuilder/build/"
+BINDMOUNTS="/var/cache/archive"
+
+if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
+    # Debian configuration
+    MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
+    COMPONENTS="main contrib non-free"
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" --keyring=/usr/share/keyrings/debian-archive-keyring.gpg)
+elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
+    # Ubuntu configuration
+    MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
+    COMPONENTS="main restricted universe multiverse"
+    OTHERMIRROR="$OTHERMIRROR | deb http://$UBUNTU_MIRROR/ubuntu/ $DIST-updates $COMPONENTS"
+    #OTHERMIRROR="$OTHERMIRROR | deb http://$UBUNTU_MIRROR/ubuntu/ $DIST-backports $COMPONENTS"
+    #OTHERMIRROR="$OTHERMIRROR | deb http://$UBUNTU_MIRROR/ubuntu/ $DIST-security $COMPONENTS"
+    #OTHERMIRROR="$OTHERMIRROR | deb http://$UBUNTU_MIRROR/ubuntu/ $DIST-proposed $COMPONENTS"
+else
+    echo "Unknown distribution: $DIST"
+    exit 1
+fi

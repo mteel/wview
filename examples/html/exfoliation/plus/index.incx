@@ -1,0 +1,94 @@
+<table>
+  <tr valign="top">
+    <td>
+<!--include location.inc-->
+    </td>
+    <td>
+<!--include navctls.inc-->
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+  
+<table>
+  <tr valign="top">
+    <td>
+<table>
+  <tr>
+    <td>
+<a href="<!--localRadarURL-->">
+<img src="<!--localRadarURL-->" height="184" width="200" alt="RADAR" border="0">
+</a>
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></td>
+  <tr>
+    <td>
+<!--include readings.inc-->
+    </td>
+  </tr>
+</table>
+    </td>
+
+    <td width="30"></td>
+
+    <td align="center">
+<table width="100%">
+  <tr>
+    <td>
+      <img class="dial" src="tempdial.png">
+      <img class="dial" src="wind.png">
+      <img class="dial" src="humiddial.png">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img class="dial" src="windroseday.png">
+      <img class="dial" src="windroseweek.png">
+      <img class="dial" src="windroseyear.png">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img class="dial" src="netRainDay.png">
+      <img class="dial" src="netRainMonth.png">
+      <img class="dial" src="netRainYear.png">
+    </td>
+  </tr>
+</table>
+<br>
+<table width="100%">
+  <tr>
+    <td>
+      <img class="chart" src="tempdaycomp.png">
+      <img class="chart" src="heatchillcomp.png">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img class="chart" src="humidday.png">
+      <img class="chart" src="baromday.png">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img class="chart" src="wdirday.png">
+      <img class="chart" src="wspeeddaycomp.png">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img class="chart" src="rainday.png">
+    </td>
+  </tr>
+</table>
+
+    </td>
+  </tr>
+</table>
+
+    </td>
+  </tr>
+</table>
+
+<!--include footer.inc-->

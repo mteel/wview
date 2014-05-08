@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title><!--stationCity-->,<!--stationState--> Weather</title>
+  <meta http-equiv="refresh" content="150" ;="">
+  <link rel="alternate" type="application/rss+xml" 
+   title="<!--stationCity-->,<!--stationState--> Weather" 
+   href="wxrss.xml">
+
+  <script language="JavaScript">
+function createDaySelect(name)
+{
+	document.write("<select name=" + name + " size='1'>");
+	var mydate = new Date();
+	var myday = mydate.getDate();
+	var daystring = "";
+	
+	for (var i = 1; i <= 31; ++i) {
+		if(i<10) {
+			daystring = "0" + i;
+			document.write(daystring);
+		} else {
+			daystring = i;
+			document.write(daystring);
+		}
+		if (myday == daystring) {
+			document.write("<option selected='selected' value='" + daystring + "'>" + daystring + "</option>");
+		} else {
+			document.write("<option value='" + daystring + "'>" + daystring + "</option>");
+		}
+	}
+	document.write("</select>");
+}
+
+function createMonthlySelect(name)
+{
+	var month = new Array;
+	month[0]="Jan";
+	month[1]="Feb";
+	month[2]="Mar";
+	month[3]="Apr";
+	month[4]="May";
+	month[5]="Jun";
+	month[6]="Jul";
+	month[7]="Aug";
+	month[8]="Sep";
+	month[9]="Oct";
+	month[10]="Nov";
+	month[11]="Dec";
+	
+	var mydate = new Date();
+	var mymonth = mydate.getMonth();
+	var monthstring = "";
+	
+	document.write("<select name=" + name + " size='1'>");
+	
+	for (var i = 0; i < 12; ++i) {
+		if(i<9) {
+			monthstring = "0" + (i+1);
+		} else {
+			monthstring = i+1;
+		}
+		
+		if(mymonth+1 == monthstring) {
+			document.write("<option selected='selected' value='" + monthstring + "'>" + month[i] + "</option>");
+		} else {
+			document.write("<option value='" + monthstring + "'>" + month[i] + "</option>");
+		}
+	}
+	document.write("</select>");
+}
+
+function createYearlySelect(name)
+{
+	var mydate = new Date();
+	var myyear = (mydate.getYear() % 1900) + 1900;
+	var yearstring = "";
+	
+	document.write("<select name=" + name + " size='1'>");
+	
+	for (var i = 0; i < 51; ++i)
+    {
+		if (i < 10)
+        {
+			yearstring = "200" + i;
+		} 
+        else 
+        {
+			yearstring = "20" + i;
+		}
+		
+        if (myyear == yearstring) 
+        {
+			document.write("<option selected='selected' value='" + yearstring + "'>" + yearstring + "</option>");
+		} 
+        else 
+        {
+			document.write("<option value='" + yearstring + "'>" + yearstring + "</option>");
+		}
+	}
+	document.write("</select>");
+}
+
+function openNoaaFile(month, year)
+{
+    var url = "NOAA/NOAA-";
+    url = url + year;
+    if (month != '')
+    {
+        url = url + "-";
+        url = url + month;
+    }
+
+    url = url + ".txt";
+    window.location=url;
+}
+
+function openARCFile(day, month, year)
+{
+    var url = "Archive/ARC-" + year + "-" + month + "-" + day + ".txt";
+    window.location=url;
+}
+
+function openURL(urlname)
+{
+    window.location=urlname;
+}
+
+  </script>
+
+</head>
+<body
+ style="background-image: url(Clouds.jpg);">
+<form method="post">
+<div align="center">
+
+<table cellpadding="1" cellspacing="1" border="0" width="95%" align="center">
+<tbody>
+  <tr>
+    <td width="100%">
+      <table cellspacing="1" cellpadding="0" width="100%" align="center" border="0">
+      <tbody>
+        <tr>
+          <td width="35%" valign="top">
+            <font color="#000000">
+            <table cellspacing="1" cellpadding="0" width="100%" align="left" border="0">
+            <tbody>
+              <tr>
+                <td align="center">
+                  <!--include readings-plus.inc-->
+                </td>
+              </tr>
+              <tr>
+                <td width="100%" align="center">
+                  <br>
+                  <a href="<!--localRadarURL-->">
+                  <img src="<!--localRadarURL-->" 
+                   border="1" height="240" width="280" alt="NEXRAD">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+          </font>
+        </td>
+        <td width="65%" valign="top">
+          <table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+          <tbody>
+            <tr>
+              <td>
+                <!--include header.inc-->
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+                <tbody>
+                  <tr>
+                    <td align="center">
+                        <table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+                        <tbody>
+                          <tr>
+                            <td align="center">
+                              <img src="tempdaycomp.png">
+                            </td>
+                            <td align="center">
+                              <img src="heatchillcomp.png">
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                        <table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+                        <tbody>
+                          <tr>
+                            <td align="center">
+                              <img src="tempdial.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="wind.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="humiddial.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center">
+                              <img src="windroseday.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="windroseweek.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="windroseyear.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center">
+                              <img src="netRainDay.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="netRainMonth.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                            <td align="center">
+                              <img src="netRainYear.png"
+                                   style="background: url(dial_bg.png) no-repeat center">
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+                      <tbody>
+                        <tr>
+                          <td align="center">
+                            <img src="rainday.png">
+                          </td>
+                          <td align="center">
+                            <img src="baromday.png">
+                          </td>
+                        </tr>
+                      </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <br>
+                      <hr width="96%">
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellpadding="2" cellspacing="2" border="0" width="100%" height="40" align="center">
+                <tbody>
+                  <tr>
+                    <td width="15%" align="center" valign="top"> <input name="button2" type="button"
+                      onClick="openURL('almanac_Plus.htm')" value="     Almanac    "></td>
+                    <td width="15%" align="center" valign="top"> <input name="button2" type="button"
+                      onClick="openURL('Daily_Plus.htm')" value=" Last 24 Hours "></td>
+                    <td width="15%" align="center" valign="top"> <input name="button2" type="button"
+                      onClick="openURL('Weekly_Plus.htm')" value="  Last 7 Days  "></td>
+                    <td width="15%" align="center" valign="top">
+                      <input type="button" value=" Last 28 Days "
+                      onclick="openURL('Monthly_Plus.htm')">
+                    </td>
+                    <td width="15%" align="center" valign="top">
+                      <input name="button" type="button"
+                      onClick="openURL('Yearly_Plus.htm')" value=" Last 365 Days ">
+                    </td>
+                    <td width="15%" align="center" valign="top">
+                      <input type="button" value="    Forecast     "
+                       onClick="openURL('<!--localForecastURL-->')">
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellpadding="2" cellspacing="2" border="0" width="100%" height="30" align="center">
+                <tbody>
+                  <tr>
+                    <td width="100%" align="center" valign="middle">
+                      <font face="Tw Cen MT" color="#000000">
+                      Climatological Summaries:&nbsp;
+                      </font>
+                      <script language="JavaScript">
+                       createMonthlySelect("month");
+                       createYearlySelect("year");
+                      </script>
+    
+                      <input type="button" value="Monthly Report"
+                      onclick="openNoaaFile(this.form.month.value, this.form.year.value)">
+                      <input type="button" value="Yearly Report "
+                      onclick="openNoaaFile('',this.form.year.value)">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="100%" align="center" valign="middle">
+                      <font face="Tw Cen MT" color="#000000">
+                      Browse Archive Records:&nbsp;
+                      </font>
+                      <script language="JavaScript">
+                       createDaySelect("day");
+                       createMonthlySelect("month1");
+                       createYearlySelect("year1");
+                      </script>
+                      <input type="button" value="Browse Day Records"
+                      onclick="openARCFile(this.form.day.value, this.form.month1.value, this.form.year1.value)">
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </td>
+  </tr>
+  <tr>
+  <td width="100%">
+    <hr width="100%" size="4">
+    <table cellpadding="2" cellspacing="2" border="0" width="100%">
+      <tbody>
+        <tr>
+          <td width="40%" valign="bottom" align="left">
+            <small><font face="Arial, Helvetica, sans-serif" align="left" color="blue">
+            <!--wviewUpTime-->
+            </font></small>
+          </td>
+          <td width="20%" valign="bottom" align="center">
+            <small><font face="Arial, Helvetica, sans-serif" align="center" color="blue">
+            <a href="http://www.wviewweather.com">wviewweather.com</a>
+            </font></small>
+          </td>
+          <td width="40%" valign="bottom" align="right">
+            <small><font face="Arial, Helvetica, sans-serif" align="right" color="blue">
+            <!--wviewVersion-->&nbsp;<!--stationType-->
+            </font></small>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

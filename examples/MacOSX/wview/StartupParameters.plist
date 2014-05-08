@@ -1,0 +1,7 @@
+{
+	Description     = "wview daemons";
+	Provides        = ("wview");
+	Requires        = ("Disks", "NetInfo", "Resolver");
+	Uses            = ("Network", "Network Time");
+	OrderPreference = "None";
+}

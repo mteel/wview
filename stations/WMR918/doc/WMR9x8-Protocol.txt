@@ -1,0 +1,208 @@
+John Stanley
+stanley@peak.org
+
+WMR-918 serial data is transmitted at 9600 baud, 8N1.
+
+Each packet starts with two binary bytes of 0xFF. Each packet ends with a
+checksum. The type of packet is given by the third byte, and ranges from
+0x00 through 0x0f. Each type of packet has a predetermined length.
+
+For example, a typical type 5 packet looks like:
+
+  ff ff 05 00 09 02 47 09 dc 0c 50 79 0f
+
+The checksum is the simple addition of each byte in the packet, excluding
+the checksum byte, keeping only the lowest 8 bits. 
+
+In all further examples, the leading "ff ff" will be omitted. The .tab
+output from wmr918d omits the leading "ff ff".
+
+The known packet types are:
+
+	00 - anemometer and wind related data
+	01 - rain guage
+	02 - extra sensors
+	03 - outside temp, humidity and dewpoint
+	04 - unknown
+	05 - inside temp, humidity, dewpoint, and baro.
+	06 - inside temp, humidity, dewpoint, baro for wmr968 and some
+		wmr918's.
+	07 - unknown
+	08 - unknown
+	09 - unknown
+	0a - unknown
+	0b - unknown
+	0c - unknown
+	0d - unknown
+	0e - sequence number
+	0f - hourly status report
+
+The following description will attempt to use the same format as the WX200 
+listing by Mike Wingstrom. H is a hex digit from 0 to f. D is a decimal digit
+from 0 through 9. B is bit encoded, bit 3 is the high bit (0x8).
+
+Type 00
+
+	Example: 00 00 90 01 00 00 00 07 96
+
+Byte	Nibble	Bit	Meaning
+00. 0	00		Anemometer data packet
+00. 1	Bx		Battery status. Higher value == lower battery volt
+00. 1   xB		Unknown
+00. 2	DD		Gust direction, bc of 0<abc<359 degrees
+00. 3	xD		Gust direction, a  of 0<abc<359 degrees
+00. 3	Dx		Gust speed, c  of 0<ab.c<56 m/s
+00. 4	DD		Gust speed, ab of 0<ab.c<56 m/s
+00. 5	DD		Average speed, bc  of 0<ab.c<56 m/s
+00. 6	xD		Average speed, a of 0<ab.c<56 m/s
+00. 6	Bx	3	Sign of wind chill, 1 = negative
+00. 7	DD		Wind chill
+
+	Example: gust at 190 degrees, 0 m/s, average 0, wind chill 7 Celsius
+
+Type 01
+
+	Example: 01 00 92 62 02 00 00 00 15 21 09 03 00 37
+
+Byte	Nibble	Bit	Meaning
+01. 0	01		Rain guage packet
+01. 1	Bx		Battery status. Higher value == lower battery volt
+01. 1   xB		Unknown
+01. 2	DD		Rain rate, bc of 0<abc<999 mm/hr
+01. 3	xD		Rain rate, a  of 0<abc<999 mm/hr
+01. 3	Dx		Bucket tips since ??
+01. 4	DD		Rain Total, cd of 0<abcd<9999 mm (?)
+01. 5	DD		Rain Total, ab of 0<abcd<9999 mm (?)
+01. 6	DD		Rain Yesterday, cd of 0<abdc<9999 mm (?)
+01. 7	DD		Rain Yesterday, ab of 0<abcd<9999 mm (?)
+01. 8	DD		Total reset minute
+01. 9	DD		Total reset hour
+01.10	DD		Total reset day
+01.11	DD		Total reset month
+01.12	DD		Total reset year 
+
+	Example: 292 mm/hr, 0 yesterday, 2mm total since 21:15 9-Mar-2000
+	
+Type 02
+
+	Example: 02 81 71 00 87 05 ff
+
+Byte	Nibble	Bit	Meaning
+02. 0	02		Outside temp/humidity data
+02. 1	Bx		Battery status. Higher value == lower battery volt
+02. 1   xB		Unknown
+02. 1	xB		Sensor number bit encoded, 4=3 2=2 1=1
+02. 2	DD		Outside temp, bc of -?<ab.c<? Celsius
+02. 3	xD		Outside temp, a  of -?<ab.c<? Celsius
+02. 3	Bx	3	Sign of outside temp, 1 = negative
+02. 4	DD		Relative humidity, ab of ?<ab<? percent
+02. 5	DD		Dew point, ab of 0<ab<? Celsius
+
+	Example: 7.1 Celsius, 87% humidity, dew point 5 Celsius
+
+Type 03
+
+	Example: 03 01 71 00 87 05 ff
+
+Byte	Nibble	Bit	Meaning
+03. 0	03		Outside temp/humidity data
+03. 1	Bx		Battery status. Higher value == lower battery volt
+03. 1   xB		Unknown
+03. 2	DD		Outside temp, bc of -?<ab.c<? Celsius
+03. 3	xD		Outside temp, a  of -?<ab.c<? Celsius
+03. 3	Bx	3	Sign of outside temp, 1 = negative
+03. 4	DD		Relative humidity, ab of ?<ab<? percent
+03. 5	DD		Dew point, ab of 0<ab<? Celsius
+
+	Example: 7.1 Celsius, 87% humidity, dew point 5 Celsius
+
+Type 05
+
+	Example: 05 00 11 02 46 09 dc 0c 50 79 16
+
+Byte	Nibble	Bit	Meaning
+05. 0	05		Inside sensor data
+05. 1	Bx		Battery status. Higher value == lower battery volt
+05. 1   xB		Unknown
+05. 2	DD		Inside temp, bc of -?<ab.c<? Celsius
+05. 3	xD		Inside temp, a  of -?<ab.c<? Celsius
+05. 3	Bx	3	Sign of temp, 1 = negative
+05. 4	DD		Relative humidity, ab of ?<ab<? percent
+05. 5	DD		Dew point, ab of 0<ab<? Celsius
+05. 6	HH		Baro pressure, convert to decimal and add 795. mb.
+05. 7	Bx		Unknown
+05. 7	xB		Encoded 'tendency' 0x0c=clear 0x06=partly cloudy
+			0x02=cloudy 0x03=rain
+05. 8	DD		Sea level reference, cd of <abc.d>. 
+05. 9	DD		Sea level reference, ab of <abc.d>. Add this to raw
+			bp from byte 6 to get sea level pressure.
+
+	Example: 21.1 Celsius, 46% humidity, dew point 9 Celsius
+		 BP 1015 mb, sea level pressure 1015 mb.
+
+Type 06
+
+	Example: 06 00 29 02 41 09 8b 61 90 33 06 2e
+
+Byte	Nibble	Bit	Meaning
+06. 0	06		Inside sensor data
+06. 1	Bx		Battery status. Higher value == lower battery volt
+06. 1   xB		Unknown
+06. 2	DD		Inside temp, bc of -?<ab.c<? Celsius
+06. 3	xD		Inside temp, a  of -?<ab.c<? Celsius
+06. 3	Bx	3	Sign of temp, 1 = negative
+06. 4	DD		Relative humidity, ab of ?<ab<? percent
+06. 5	DD		Dew point, ab of 0<ab<? Celsius
+06. 6	HH		Baro pressure, low byte (bc of abc)
+06. 7	xB	0 	Baro pressure, a of abc. Convert abc from hex
+			to decimal, add 600. to get mb. 
+			a is low bit only.
+			Upper three bits may be encoded BP tendency.
+06. 7	Bx		Encoded 'tendency' 0x0c=clear 0x06=partly cloudy
+			0x02=cloudy 0x03=rain
+06. 8	DD		Sea level reference, ef of <abcd.ef>. 
+06. 9	DD		Sea level reference, cd of <abcd.ef>. 
+06.10   DD              Sea level reference, ab of <abcd.ef> Add this to raw
+			bp from byte 6 and 7 to get sea level pressure.
+
+	Example: 22.9 Celsius, 41% humidity, dew point 9 Celsius
+		 BP 995 mb, sea level pressure 1028.9 mb.
+
+Type E
+
+	Example: 0e 81 8d
+
+Byte	Nibble	Bit	Meaning
+0e. 0	0e		Sequence number packet
+0e. 1	Bx		Status, high bit, battery for main unit
+0e. 1	DD		After removing high bit, minute chime
+
+	Example: status = 1, time is hh:01
+
+Type F
+
+	Example: 0f 80 07 09 03 00 a0
+
+Byte	Nibble	Bit	Meaning
+0f. 0	0f		Hour Chime
+0f. 1	BB		Status. High bit == battery low
+0f. 2	DD		Hour 
+0f. 3	DD		Day 
+0f. 4	DD		Month 
+0f. 5	DD		Year 
+
+	Example: It's 7AM, 9-March-2000, do you know where your weather
+		station is?
+
+
+Thanks to the following people for providing additional data and pointing
+out my stupid mistakes:
+
+John R. Covert
+Brad and Stephanie Grant
+Giovanni BOGLIONE
+Alan K. Jackson
+Roy (garlic)
+Krenn Werner
+Steven Danz
+Barry Newton

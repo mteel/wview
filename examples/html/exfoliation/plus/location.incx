@@ -1,0 +1,8 @@
+<p>
+<span id="station_title">
+<!--stationCity--> <!--stationState--></span>
+<br>
+<span id="station_location"><!--stationLatitude--> - <!--stationLongitude--> - <!--stationElevation--></span>
+<br>
+<span id="station_time"><!--stationDate--> <!--stationTime--></span>
+</p>

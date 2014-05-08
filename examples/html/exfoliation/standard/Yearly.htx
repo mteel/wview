@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Year: <!--stationCity--> <!--stationState--></title>
+  <meta http-equiv="refresh" content="1800" ;="">
+  <link href="exfoliation.css" rel="stylesheet" type="text/css" />
+  <script src="exfoliation.js" type="text/javascript"></script>
+</head>
+<body id="yearly">
+<table>
+  <tr valign="top">
+    <td class="page_description">
+<!--include location.inc-->
+    </td>
+    <td>
+<!--include navctls.inc-->
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+
+<p>
+Observations for the Last 365 Days
+</p>
+
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td><img class="chart" src="tempyear.png"></td>
+          <td><img class="chart" src="dewyear.png"></td>
+        </tr>
+        <tr>
+          <td><img class="chart" src="humidyear.png"></td>
+          <td><img class="chart" src="baromyear.png"></td>
+        </tr>
+        <tr>
+          <td><img class="chart" src="wdiryear.png"></td>
+          <td><img class="chart" src="wspeedyear.png"></td>
+        </tr>
+        <tr>
+          <td><img class="chart" src="rainyear.png"></td>
+          <td><img class="chart" src="hiwspeedyear.png"></td>
+        </tr>
+        <tr>
+          <td><img class="chart" src="wchillyear.png"></td>
+          <td><img class="chart" src="hindexyear.png"></td>
+        </tr>
+      </table>
+    </td>
+
+    <td width="30"></td>
+
+    <td valign="top">
+<!--include hiloreadings.inc-->
+    </td>
+  </tr>
+</table>
+
+    </td>
+  </tr>
+</table>
+
+<!--include footer.inc-->
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!-- table of hi-lo readings -->
+
+<table>
+  <tr>
+    <td class="metric_title">Highs/Lows</td>
+    <td class="metric_title">Today</td>
+    <td class="metric_title">Month</td>
+    <td class="metric_title">Year</td>
+    <td></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Temperature:</td>
+    <td><span class="metric_value"><!--hiOutsideTemp--></span><br>
+      <span class="hilo_time"><!--hiOutsideTempTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyOutsideTemp--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxtempdate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyOutsideTemp--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxtempdate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Low Temperature:</td>
+    <td><span class="metric_value"><!--lowOutsideTemp--></span><br>
+      <span class="hilo_time"><!--lowOutsideTempTime--></span></td>
+    <td><span class="metric_value"><!--lowMonthlyOutsideTemp--></span><br>
+      <span class="hilo_time"><!--monthtodatemintempdate--></span></td>
+    <td><span class="metric_value"><!--lowYearlyOutsideTemp--></span><br>
+      <span class="hilo_time"><!--yeartodatemintempdate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Humidity:</td>
+    <td><span class="metric_value"><!--hiHumidity--></span><br>
+      <span class="hilo_time"><!--hiHumTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyHumidity--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxhumiddate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyHumidity--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxhumiddate--></span></td>
+    <td class="metric_units"><!--humUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Low Humidity:</td>
+    <td><span class="metric_value"><!--lowHumidity--></span><br>
+      <span class="hilo_time"><!--lowHumTime--></span></td>
+    <td><span class="metric_value"><!--lowMonthlyHumidity--></span><br>
+      <span class="hilo_time"><!--monthtodateminhumiddate--></span></td>
+    <td><span class="metric_value"><!--lowYearlyHumidity--></span><br>
+      <span class="hilo_time"><!--yeartodateminhumiddate--></span></td>
+    <td class="metric_units"><!--humUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Dewpoint:</td>
+    <td><span class="metric_value"><!--hiDewpoint--></span><br>
+      <span class="hilo_time"><!--hiDewpointTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyDewpoint--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxdewptdate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyDewpoint--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxdewptdate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Low Dewpoint:</td>
+    <td><span class="metric_value"><!--lowDewpoint--></span><br>
+      <span class="hilo_time"><!--lowDewpointTime--></span></td>
+    <td><span class="metric_value"><!--lowMonthlyDewpoint--></span><br>
+      <span class="hilo_time"><!--monthtodatemindewptdate--></span></td>
+    <td><span class="metric_value"><!--lowYearlyDewpoint--></span><br>
+      <span class="hilo_time"><!--yeartodatemindewptdate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Barometer:</td>
+    <td><span class="metric_value"><!--hiBarometer--></span><br>
+      <span class="hilo_time"><!--hiBarometerTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyBarometer--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxbaromdate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyBarometer--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxbaromdate--></span></td>
+    <td class="metric_units"><!--barUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Low Barometer:</td>
+    <td><span class="metric_value"><!--lowBarometer--></span><br>
+      <span class="hilo_time"><!--lowBarometerTime--></span></td>
+    <td><span class="metric_value"><!--lowMonthlyBarometer--></span><br>
+      <span class="hilo_time"><!--monthtodateminbaromdate--></span></td>
+    <td><span class="metric_value"><!--lowYearlyBarometer--></span><br>
+      <span class="hilo_time"><!--yeartodateminbaromdate--></span></td>
+    <td class="metric_units"><!--barUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Heat Index:</td>
+    <td><span class="metric_value"><!--hiHeatindex--></span><br>
+      <span class="hilo_time"><!--hiHeatindexTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyHeatindex--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxheatdate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyHeatindex--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxheatdate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Low Wind Chill:</td>
+    <td><span class="metric_value"><!--lowWindchill--></span><br>
+      <span class="hilo_time"><!--lowWindchillTime--></span></td>
+    <td><span class="metric_value"><!--lowMonthlyWindchill--></span><br>
+      <span class="hilo_time"><!--monthtodateminchilldate--></span></td>
+    <td><span class="metric_value"><!--lowYearlyWindchill--></span><br>
+      <span class="hilo_time"><!--yeartodateminchilldate--></span></td>
+    <td class="metric_units"><!--tempUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Wind Speed:</td>
+    <td><span class="metric_value"><!--hiWindSpeed--></span><br>
+      <span class="hilo_time"><!--hiWindSpeedTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyWindSpeed--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxwinddate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyWindSpeed--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxwinddate--></span></td>
+    <td class="metric_units"><!--windUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">High Rain Rate:</td>
+    <td><span class="metric_value"><!--hiRainRate--></span><br>
+      <span class="hilo_time"><!--hiRainRateTime--></span></td>
+    <td><span class="metric_value"><!--hiMonthlyRainRate--></span><br>
+      <span class="hilo_time"><!--monthtodatemaxrainratedate--></span></td>
+    <td><span class="metric_value"><!--hiYearlyRainRate--></span><br>
+      <span class="hilo_time"><!--yeartodatemaxrainratedate--></span></td>
+    <td class="metric_units"><!--rateUnit--></td>
+  </tr>
+  <tr valign="top">
+    <td class="metric_name">Rain Total:</td>
+    <td><span class="metric_value"><!--dailyRain--></span><br></td>
+    <td><span class="metric_value"><!--monthlyRain--></span></td>
+    <td><span class="metric_value"><!--totalRain--></span></td>
+    <td class="metric_units"><!--rainUnit--></td>
+  </tr>
+</table>

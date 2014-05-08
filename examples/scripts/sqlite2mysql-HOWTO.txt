@@ -1,0 +1,16 @@
+copy the sqlite archive file to a working directory of your choice:
+cp /usr/local/var/wview/archive/wview-archive.sdb .
+
+Dump the sqlite file, in this case:
+sqlite3 wview-archive.sdb .dump .quit >> wview-archive-dump.sql
+
+then run sqlite2mysql:
+sqlite2mysql.sh < wview-archive-dump.sql > wview-archive-mysql-import.sql
+
+Let's create an empty database to test the import.sql:
+mysql> create database wview_test;
+Query OK, 1 row affected (0.02 sec)
+
+Exit mysql and import wview-archive-mysql-import.sql:
+mysql -u al -p wview_test < wview-archive-mysql-import.sql
+enter password, wait a bit, and the import is done.

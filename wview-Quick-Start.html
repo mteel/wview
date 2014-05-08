@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>wview Quick Start Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<a href="#topofpage"></a>
+<h1 align="center">wview Quick Start Guide</h1>
+<p align="center">Feb. 16, 2011</p>
+
+<p align="left">
+    <h2><strong>Purpose</strong></h2>
+    This guide will provide the basic procedure for a "standard" wview install. 
+    Detailed description of the steps, advanced configuration of features and 
+    troubleshooting tips are found in the <a href="wview-User-Manual.html">
+    wview User Manual</a>.
+</p>
+
+<p align="left">
+    <h2><strong>Prerequisites</strong></h2>
+    The following package installations should be verified on your system. If a 
+    package requires installation, you should use the package management utility 
+    appropriate for your OS and distribution. Examples are:<br>
+    <pre>
+FreeBSD           /usr/ports
+Fedora Core       yum
+SuSE              yast (or apt4rpm)
+Gentoo            emerge
+Debian            apt
+    </pre>
+<pre>
+Note: Some of these libraries may be represented as "-devel" or similar in your 
+    package management utility, i.e., "libcurl-devel". If they are, you should install
+    the devel version in order to get the development libraries that radlib/wview needs.
+</pre>
+    <h3><u>Libraries</u></h3>
+    <ul>
+      <li>
+        <strong>libz</strong> - compression library - normally included in OS distribution
+      </li>
+      <li>
+        <strong>libpng</strong> - png image library - normally included in OS distribution
+      </li>
+      <li>
+        <strong>libreadline5-dev</strong> - normally included in OS distribution
+      </li>
+      <li>
+        <strong>gawk</strong> - GNU awk - normally included in OS distribution
+      </li>
+      <li>
+        <strong>libgd2</strong> - graphics drawing library - may require installation -
+        <a href="http://www.boutell.com/gd/">http://www.boutell.com/gd/</a>
+      </li>
+      <li>
+        <strong>libsqlite3</strong> - SQLite3 database library
+      </li>
+      <li>
+        <strong>radlib</strong> - rapid application development library - must be installed 
+        with SQLite support (--enable-sqlite) -
+        <a href="http://www.radlib.teel.ws">http://www.radlib.teel.ws</a>
+      </li>
+      <li>
+        <strong>libcurl</strong> - "C" URL HTTP library - optional, required for Weather Underground -
+        <a href="http://curl.haxx.se/libcurl/">http://curl.haxx.se/libcurl/</a>
+      </li>
+    </ul>
+    <h3><u>System</u></h3>
+    <ul>
+      <li>
+        <strong>ntp/xntp</strong> - Network Time Protocol - a configured and functional NTP
+        daemon should be enabled on the host system to keep system and weather 
+        station time accurate
+      </li>
+      <li>
+        <strong>apache</strong> - in order to serve your weather site to the world, 
+        an http server is required - other http servers will work too. If you are 
+        going to export your site to another server or to your ISP account site, 
+        then an http server is not required on the wview server
+      </li>
+      <li>
+        <strong>php5 and php5-sqlite3</strong> - optionally needed for browser-based 
+        configuration (requires apache or similar)
+      </li>
+      <li>
+        <strong>Serial/Ethernet/USB port</strong> - an available interface port 
+        is required to connect to the weather station
+      </li>
+    </ul>
+    <h3><u>Weather Station - one of the following:</u></h3>
+    <ul>
+      <li>
+        <strong>Vantage Pro or Vantage Pro2 Weather Station with Console</strong><br> 
+          <ul>
+            <li>
+              <strong>WeatherLink for Vantage Pro or Pro2, Windows, Serial or USB or IP</strong> - 
+              the windows software is not required, but this is the only way to obtain the 
+              serial or USB data logger
+            </li>
+          </ul>
+      </li>
+      <li>
+        <strong>Vaisala WXT-510</strong><br> 
+      </li>
+      <li>
+        <strong>La Crosse WS-2300 Series</strong><br> 
+      </li>
+      <li>
+        <strong>Oregon Scientific WMR918 Series</strong><br> 
+      </li>
+      <li>
+        <strong>Station Simulator (for demos and testing)</strong><br> 
+      </li>
+    </ul>
+</p>
+
+<p align="left">
+    <h2><strong>Procedure</strong></h2>
+    <ul>
+      <li>Extract the wview distribution: tar zxvf wview-x.y.z.tar.gz</li>
+      <li>Configure the distribution: cd wview-x.y.z; ./configure</li>
+      <li>Build wview: make</li>
+      <li>Install wview: sudo make install</li>
+      <li>If new Vantage Pro, use the on-screen console configuration wizard</li>
+      <li>If new Vantage Pro, configure the console: /usr/local/bin/vpinstall</li>
+      <li>Configure wview: $prefix/bin/wviewconfig</li>
+      <li>Configure wview HTML Templates: $prefix/bin/wviewhtmlconfig</li>
+      <li>If new install, copy the run script: cp ./examples/[your_distro]/wview /etc/[your_distro_rc.d_dir]</li>
+      <li>If new install, make the run script executable: chmod +x /etc/[your_distro_rc.d_dir]/wview</li>
+      <li>Run wview: $prefix/etc/[your_distro_rc.d_dir]/wview start</li>
+      <li>See wview startup and run logs: tail -n 100 -f /var/log/syslog</li>
+</p>
+
+</body>
+</html>
+

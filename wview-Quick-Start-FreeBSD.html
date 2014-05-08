@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>wview Quick Start Guide For FreeBSD</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<a href="#topofpage"></a>
+<h1 align="center">wview Quick Start Guide For FreeBSD >= 8.0</h1>
+<p align="center">Feb. 16, 2011</p>
+
+<p align="left">
+    <h2><strong>Purpose</strong></h2>
+    This guide will provide the basic procedure for a "standard" wview install. 
+    Detailed description of the steps, advanced configuration of features and 
+    troubleshooting tips are found in the <a href="wview-User-Manual.html">
+    wview User Manual</a>.
+</p>
+
+<p align="left">
+    <h2><strong>Prerequisites</strong></h2>
+    The following packages should be installed. Become root or use sudo.<br>
+    <h3><u>Libraries</u></h3>
+    <ul>
+      <li>
+        <strong>gmake</strong> - GNU make<br>
+        > pkg_add -r gmake
+      </li>
+      <li>
+        <strong>libgd2</strong> - graphics drawing library
+        <a href="http://www.boutell.com/gd/">http://www.boutell.com/gd/</a><br>
+        > pkg_add -r gd<br>
+      </li>
+      <li>
+        <strong>readline</strong> - GNU library to edit command lines<br>
+        > pkg_add -r readline<br>
+      </li>
+      <li>
+        <strong>gawk</strong> - GNU awk<br>
+        > pkg_add -r gawk
+      </li>
+      <li>
+        <strong>wget</strong> - ftp command line file fetcher<br>
+        > pkg_add -r wget
+      </li>
+      <li>
+        <strong>libsqlite3</strong> - SQLite3 database library<br>
+        > pkg_add -r sqlite3<br>
+      </li>
+      <li>
+        <strong>libcurl</strong> - "C" URL HTTP library - optional, required for Weather Underground -
+        <a href="http://curl.haxx.se/libcurl/">http://curl.haxx.se/libcurl/</a><br>
+        > pkg_add -r curl<br>
+      </li>
+      <li>
+        <strong>radlib</strong> - rapid application development library - must be installed 
+        with SQLite support (--enable-sqlite) -
+        <a href="http://www.radlib.teel.ws">http://www.radlib.teel.ws</a><br>
+        Download version 2.10.1 or newer.<br>
+        > wget http://downloads.sourceforge.net/radlib/radlib-2.10.1.tar.gz<br>
+        > tar xzf radlib-X.Y.Z.tar.gz<br>
+        > cd radlib-X.Y.Z<br>
+        > ./configure --enable-sqlite<br>
+        > sudo make install
+      </li>
+    </ul>
+    <h3><u>Optional Web-Based Configuration</u></h3>
+    <ul>
+      <li>
+        <strong>apache22</strong> - HTTP Server<br>
+        > pkg_add -r apache22
+      </li>
+      <li>
+        <strong>PHP5 and PHP5-Sqlite</strong> - Scripting language with Sqlite3 support
+        > cd /usr/ports/databases/php5-sqlite; make install clean<br>
+        (enable building the Apache module)
+      </li>
+    </ul>
+    <h3><u>System</u></h3>
+    <ul>
+      <li>
+        <strong>ntp/xntp</strong> - Network Time Protocol - a configured and functional NTP
+        daemon should be enabled on the host system to keep system and weather 
+        station time accurate
+      </li>
+      <li>
+        <strong>apache</strong> - in order to serve your weather site to the world, 
+        an http server is required - other http servers will work too. If you are 
+        going to export your site to another server or to your ISP account site, 
+        then an http server is not required on the wview server
+      </li>
+      <li>
+        <strong>php5 and php5-sqlite3</strong> - optionally needed for browser-based 
+        configuration (requires apache or similar)
+      </li>
+      <li>
+        <strong>Serial/Ethernet/USB port</strong> - an available interface port 
+        is required to connect to the weather station
+      </li>
+    </ul>
+    <h3><u>Weather Station</u></h3>
+      See <a href="wview-User-Manual.html">wview User Manual</a>
+        for a current list of supported stations and special instructions.
+</p>
+
+<p align="left">
+    <h2><strong>Procedure</strong></h2>
+    <ul>
+      <li>Get the latest wview tarball:wget http://downloads.sourceforge.net/wview/wview-x.y.z.tar.gz</li>
+      <li>Extract the wview distribution: tar zxvf wview-x.y.z.tar.gz</li>
+      <li>Configure the distribution:<br>
+          cd wview-x.y.z<br>
+          export CFLAGS="-I/usr/local/include"; export LDFLAGS="-L/usr/local/lib";<br>
+          ./configure</li>
+      <li>Build wview: make</li>
+      <li>Install wview: sudo make install</li>
+      <li>See <a href="wview-User-Manual.html#StationConfig">wview-User-Manual.html#StationConfig</a>
+        for station setup.</li>
+      <li>See <a href="wview-User-Manual.html#Configuration">wview-User-Manual.html#Configuration</a>
+        for configuration instructions.</li>
+      <li>See wview startup and run logs: tail -n 100 -f /var/log/messages</li>
+</p>
+
+</body>
+</html>
+

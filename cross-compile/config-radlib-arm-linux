@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# architecture prefix
+ARCH="arm-linux-uclibc"
+VERSION="4.2.4"
+
+# path to the toolchain and kernel base
+TOOL_PATH=/usr/local/arm_9263
+
+# path to the toolchain base
+BASE_PATH=$TOOL_PATH/usr
+
+# cumulative toolchain prefix
+PREFIX=$BASE_PATH/bin/$ARCH
+
+export CC=$PREFIX-gcc
+export CXX=$PREFIX-g++
+export LD=$PREFIX-ld
+export NM="$PREFIX-nm -B"
+export AR=$PREFIX-ar
+export RANLIB=$PREFIX-ranlib
+export STRIP=$PREFIX-strip
+export OBJCOPY=$PREFIX-objcopy
+export LN_S="ln -s"
+
+export CFLAGS="-g -O2 -I$BASE_PATH/include"
+export CPPFLAGS="-I$BASE_PATH/include"
+export CXXFLAGS=""
+
+export LDFLAGS="-nostdlib -lgcc -L$BASE_PATH/lib -L$BASE_PATH/$ARCH/lib -L$BASE_PATH/lib/gcc/$ARCH/$VERSION"
+
+./configure --build=`./config.guess` --host=$ARCH --prefix=$BASE_PATH

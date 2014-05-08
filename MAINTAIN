@@ -1,0 +1,21 @@
+##############################################################################
+MAINTAIN - radlib-gpl maintenance notes
+##############################################################################
+
+
+To regenerate the distribution from CVS:
+
+    #./reconf
+
+To generate Makefile and config.h:
+
+    #./configure
+
+make targets:
+
+make
+make distcheck
+make dist
+make clean
+make distclean
+make install

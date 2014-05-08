@@ -1,0 +1,198 @@
+#!/bin/bash
+###############################################################################
+#
+#   Filename:		wview-install-debian
+#
+#   Description:	Install wview on a new debian or derivative server.
+#
+#   Notes:              Must be run with root privileges: sudo ./wview-install-debian
+#
+#                       To change the install/build prefix, edit the INSTALL_PREFIX 
+#                       definition.
+#
+#                       Will only install if wview is not found on the server. Use
+#                       wview-update for upgrades of wview 5.4.0 and later.
+#                       Specify "-f" to this script to force a clean install.
+#
+###############################################################################
+
+## These are the only two macros you should need to change:
+INSTALL_PREFIX=/usr/local
+RADLIB_VERSION=2.12.0
+
+
+BUILD_LOC=$INSTALL_PREFIX/src
+mkdir -p $BUILD_LOC
+
+#  Force clean removal of existing install?
+if [ "$1" = "-f" ]; then
+    #  Yes - install as instructed:
+    echo "Forcing install of wview: this will destroy all existing data!"
+    echo "Are you sure?"
+    INVAL=no
+    read -p " (no) " INVAL
+    [ "$INVAL" = "" ] && INVAL=no
+    [ "$INVAL" = "y" ] && INVAL=yes
+    [ "$INVAL" = "n" ] && INVAL=no
+    if [ "no" = "$INVAL" ]; then
+        echo "Aborting installation"
+        exit 1
+    fi
+    echo "Will clean out all old wview data..."
+else
+    ## Test for existing install:
+    if [ -x /etc/init.d/wview ]; then
+        echo "wview is installed - use wview-update to update existing installs >= 5.4.0"
+        echo "OR - specify -f to this script to force a clean install (delete all existing data)"
+        exit 1
+    fi
+    if [ -x $INSTALL_PREFIX/etc/wview ]; then
+        echo "wview is installed - use wview-update to update existing installs >= 5.4.0"
+        echo "OR - specify -f to this script to force a clean install (delete all existing data)"
+        exit 1
+    fi
+    if [ -x $INSTALL_PREFIX/var/wview ]; then
+        echo "wview is installed - use wview-update to update existing installs >= 5.4.0"
+        echo "OR - specify -f to this script to force a clean install (delete all existing data)"
+        exit 1
+    fi
+    if [ -x $INSTALL_PREFIX/bin/htmlgend ]; then
+        echo "wview is installed - use wview-update to update existing installs >= 5.4.0"
+        echo "OR - specify -f to this script to force a clean install (delete all existing data)"
+        exit 1
+    fi
+fi
+
+
+echo "Answer 'yes' if asked what to do..."
+apt-get install --yes build-essential
+apt-get install --yes libz-dev libpng12-dev
+apt-get install --yes libreadline5-dev gawk
+apt-get install --yes libsqlite3-dev sqlite3
+apt-get install --yes libgd2-noxpm-dev libssl-dev
+apt-get install --yes sendmail sendemail
+apt-get install --yes libcurl4-openssl-dev
+apt-get install --yes libusb-1.0-0-dev
+
+echo ""
+echo "---------------------------------------------------------------------------" 
+echo -n "Include Apache and PHP support for serving weather data and wview management?"
+INVAL=yes
+read -p " (yes) " INVAL
+[ "$INVAL" = "" ] && INVAL=yes
+[ "$INVAL" = "y" ] && INVAL=yes
+
+if [ "yes" = "$INVAL" ]; then
+    apt-get install apache2 php5 php5-sqlite
+    HTTP_ROOT=/var/www
+else
+    HTTP_ROOT=
+fi
+
+apt-get install ntp
+apt-get install tnftp
+if  [ "$?" -ne 0 ] ; then
+    echo "!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "tnftp is not in the repository.  If you need wview to ftp for you, you must build and configure tnftp by yourself!!"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!"
+    fi
+apt-get install wget
+
+# clean up as much as possible before the clean install
+rm -rf /etc/init.d/wview
+rm -f $INSTALL_PREFIX/lib/librad.*
+rm -rf $INSTALL_PREFIX/var/wview
+rm -rf $INSTALL_PREFIX/include/rad*
+rm -rf $INSTALL_PREFIX/etc/wview
+rm -rf $INSTALL_PREFIX/etc/wviewmgmt
+rm -rf $BUILD_LOC/radlib-*
+rm -rf $BUILD_LOC/wview-*
+
+
+# Make sure local lib is in library path
+grep -q $INSTALL_PREFIX/lib /etc/ld.so.conf.d/*
+if  [ "$?" -ne 0 ] ; then
+    if [ -e /etc/ld.so.conf.d/locallib.conf]; then
+        echo "Add $INSTALL_PREFIX/lib to library path, run ldconfig, then re-run this script."
+        exit 1
+    fi
+    echo -n "Adding $INSTALL_PREFIX/lib to your library path..."
+    cat >/etc/ld.so.conf.d/locallib.conf <<- EOF
+        $INSTALL_PREFIX/lib
+EOF
+    ldconfig
+    echo "Done."
+fi
+
+
+# Build radlib:
+cd $BUILD_LOC
+wget http://downloads.sourceforge.net/radlib/radlib-$RADLIB_VERSION.tar.gz
+tar zxvf radlib-$RADLIB_VERSION.tar.gz
+cd radlib-$RADLIB_VERSION
+./configure --prefix=$INSTALL_PREFIX --enable-sqlite
+make install
+
+
+#  Get the latest wview version:
+cd $BUILD_LOC
+rm -rf wview-latest.*
+wget http://www.wviewweather.com/wview-latest.txt
+WVIEW_LATEST=`cat wview-latest.txt`
+echo "Latest wview version is: $WVIEW_LATEST"
+DOWNLOAD=http://downloads.sourceforge.net/wview/wview-$WVIEW_LATEST.tar.gz
+
+
+# build wview
+wget $DOWNLOAD
+tar zxvf wview-$WVIEW_LATEST.tar.gz
+rm wview-$WVIEW_LATEST.tar.gz
+cd wview-$WVIEW_LATEST
+
+./configure --prefix=$INSTALL_PREFIX
+
+make clean
+make install
+
+cp examples/Debian/wview /etc/init.d
+chmod +x /etc/init.d/wview
+
+echo -n "Automatically start wview after every reboot?"
+INVAL=yes
+read -p " (yes) " INVAL
+[ "$INVAL" = "" ] && INVAL=yes
+[ "$INVAL" = "y" ] && INVAL=yes
+
+if [ "yes" = "$INVAL" ]; then
+    update-rc.d wview defaults 99
+fi
+
+echo "During wviewconfig do not change default values for paths"
+wviewconfig
+wviewhtmlconfig
+
+
+if [ "" = "$HTTP_ROOT" ]; then
+    echo "No http links created for weather data and configuration"
+else
+    if [ ! -x $HTTP_ROOT/weather ]; then
+        ln -s $INSTALL_PREFIX/var/wview/img $HTTP_ROOT/weather
+    fi
+    if [ ! -x $HTTP_ROOT/wviewmgmt ]; then
+        ln -s $INSTALL_PREFIX/var/wviewmgmt $HTTP_ROOT/wviewmgmt
+    fi
+fi
+
+
+echo -n "Start wview now?"
+INVAL=yes
+read -p " (yes) " INVAL
+[ "$INVAL" = "" ] && INVAL=yes
+[ "$INVAL" = "y" ] && INVAL=yes
+
+if [ "yes" = "$INVAL" ]; then
+    /etc/init.d/wview start
+fi
+
+echo "Done! - Check your system logs (/var/log/syslog) for wview start up status..."
+

@@ -1,0 +1,100 @@
+#!/bin/bash
+###############################################################################
+#
+#   Filename:		wview-update
+#
+#   Description:	Update a wview installation to the latest version.
+#
+#   Notes:          Must be run with root privileges (sudo ./wview-update).
+#
+#                   Assumes that $prefix for radlib and wview configure was the
+#                   default of "/usr/local" for previous installs. To change this
+#                   edit the INSTALL_PREFIX definition.
+#
+#                   Will only update an existing installation.
+#
+###############################################################################
+INSTALL_PREFIX=/usr/local
+RADLIB_VERSION=2.12.0
+
+BUILD_LOC=$INSTALL_PREFIX/src
+START_DIR=`pwd`
+mkdir -p $BUILD_LOC
+
+# Check for wget:
+which wget
+if [ "$?" != "0" ]; then
+    echo "ERROR: wget NOT installed, for debian, try [sudo apt-get install wget]"
+    exit 1
+fi
+
+#  We work from the source directory:
+cd $BUILD_LOC
+rm -rf wview-latest.*
+
+
+cd $BUILD_LOC
+if [ ! -e ./radlib-$RADLIB_VERSION.tar.gz ]; then
+    echo "radlib not up to date, installing radlib-$RADLIB_VERSION..."
+    wget http://downloads.sourceforge.net/radlib/radlib-$RADLIB_VERSION.tar.gz
+    if [ "$?" != "0" ]; then
+        echo "ERROR: failed to retrieve http://downloads.sourceforge.net/radlib/radlib-$RADLIB_VERSION.tar.gz"
+        exit 1
+    fi
+    tar zxvf radlib-$RADLIB_VERSION.tar.gz
+    cd radlib-$RADLIB_VERSION
+    ./configure --prefix=$INSTALL_PREFIX --enable-sqlite
+    make install
+else
+    echo "radlib-$RADLIB_VERSION is up to date."
+fi
+
+#  Get the latest wview version:
+cd $BUILD_LOC
+wget http://www.wviewweather.com/wview-latest.txt
+WVIEW_LATEST=`cat wview-latest.txt`
+echo "Latest wview version is: $WVIEW_LATEST"
+DOWNLOAD=http://downloads.sourceforge.net/wview/wview-$WVIEW_LATEST.tar.gz
+
+
+#  Grab the currently installed version (if it exists):
+if [ -e $INSTALL_PREFIX/etc/wview/wview-version ]; then
+    WVIEW_CURRENT=`cat $INSTALL_PREFIX/etc/wview/wview-version`
+    echo "Installed wview version: $WVIEW_CURRENT"
+else
+    WVIEW_CURRENT=""
+    echo "ERROR: wview is NOT installed - this script is only for updates"
+    exit 1
+fi
+
+#  Get the station type (if it exists):
+if [ -e $INSTALL_PREFIX/etc/wview/wview-binary ]; then
+    WVIEW_BINARY=`cat $INSTALL_PREFIX/etc/wview/wview-binary`
+    echo "wview binary           : $WVIEW_BINARY"
+    WVIEW_STATION=${WVIEW_BINARY:7}
+    echo "wview station type     : $WVIEW_STATION"
+else
+    WVIEW_BINARY=""
+    WVIEW_STATION=sim
+fi
+
+#  Download and install:
+cd $BUILD_LOC
+if [ "$WVIEW_CURRENT" != "$WVIEW_LATEST" ]; then
+    echo "Installing wview: $WVIEW_LATEST"
+    wget $DOWNLOAD
+    if [ "$?" != "0" ]; then
+        echo "ERROR: failed to retrieve $DOWNLOAD"
+        exit 1
+    fi
+    tar xzf wview-$WVIEW_LATEST.tar.gz
+    cd wview-$WVIEW_LATEST
+    ./configure --prefix=$INSTALL_PREFIX
+    make install
+else
+    echo "wview is up to date!"
+fi
+
+cd $START_DIR
+exit 0
+

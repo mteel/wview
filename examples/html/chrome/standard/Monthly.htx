@@ -1,0 +1,214 @@
+<HTML>
+<HEAD>
+<TITLE>Last 28 Days Weather: <!--stationCity-->,<!--stationState--></TITLE>
+</HEAD>
+<meta http-equiv="refresh" content="1800";>
+<script language="JavaScript">
+
+function openURL(urlname)
+    {
+    window.location=urlname;
+    }
+
+</script>
+
+<BODY bgcolor=#E0E0E0>
+
+<table align="center" border="1" bordercolordark="#000000" bordercolorlight="#000000" cellpadding=2 cellspacing=2>
+<tr>
+  <td colspan="5" align="center" valign="top" height="30">
+    <!--include nav-buttons.inc-->
+  </td>
+</tr>
+<tr height="30">
+<td colspan="5" align=center bordercolor="#000000" bgcolor="#000000" colspan="1" style="border: thin solid rgb(0,0,0)">
+    <font face="verdana, Arial, Helvetica">
+    <strong>
+    <font color="#F5F5F5" size=4>
+    <big>Observations for the Last 28 Days</big><br>
+    <!--stationDate--> <!--stationTime-->
+    </font>
+    </strong>
+    </font>
+</td>
+</tr>
+
+<tr height="58">
+<td bordercolor="#000000" bgcolor="#000000" colspan="2" style="border: thin solid rgb(0,0,0)">
+    <font face="verdana, Arial, Helvetica">
+    <strong>
+    <font color="#A8B8C8">
+    <big>Monthly Highs/Lows</big>
+    </font>
+    </strong>
+    </font>
+</td>
+<td width=700 align=center bordercolor="#000000" bgcolor="#000000" colspan="1" style="border: thin solid rgb(0,0,0)">
+    <font face="verdana, Arial, Helvetica">
+    <strong>
+    <font color="#F5F5F5">
+    <big><!--stationCity-->,<!--stationState--></big>
+    </font>
+    </strong>
+    </font>
+</td>
+
+</tr>
+
+<tr>
+<td width="140" bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Temperature</p><p>Low Temperature</p></font></small></strong></font>
+</td>
+<td nowrap align=left width="80" bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyOutsideTemp--><!--tempUnit--></p><p><!--lowMonthlyOutsideTemp--><!--tempUnit--></p></small></font></strong></font></td>
+
+
+<!-- ***** Chart Images Begin ***** -->
+<td bordercolor="#000000" style="border: thin solid rgb(0,0,0)" rowspan="23" valign="top" align="center" bgcolor="#A9A9A9">
+    <font face="verdana, Arial, Helvetica">
+    <p align="center">
+        <img src="tempmonthcomp.png"
+             style="background: url(chart_bg.png) no-repeat center">
+        &nbsp;&nbsp;&nbsp;
+        <img src="heatchillmonthcomp.png"
+             style="background: url(chart_bg.png) no-repeat center">
+    </p>
+    <p align="center">
+        <img src="humidmonth.png"
+             style="background: url(chart_bg.png) no-repeat center">
+        &nbsp;&nbsp;&nbsp;
+        <img src="barommonth.png"
+             style="background: url(chart_bg.png) no-repeat center">
+    </p>
+    <p align="center">
+        <img src="rainmonth.png"
+             style="background: url(chart_bg.png) no-repeat center">
+    </p>
+    <p align="center">
+        <img src="wdirmonth.png"
+             style="background: url(chart_bg.png) no-repeat center">
+        &nbsp;&nbsp;&nbsp;
+        <img src="wspeedmonthcomp.png"
+             style="background: url(chart_bg.png) no-repeat center">
+    </p>
+    </font>
+</td>
+<!-- ***** Chart Images End ***** -->
+
+
+</tr>
+
+<tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Humidity</p><p>Low Humidity</p></font></small></strong></font>
+</td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyHumidity--><!--humUnit--></p><p><!--lowMonthlyHumidity-->
+ <!--humUnit--></p></small></font></strong></font></td>
+</tr>
+    <tr>
+ <td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Dewpoint</p><p>Low Dewpoint</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyDewpoint--><!--tempUnit--></p><p><!--lowMonthlyDewpoint--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+  <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Wind Speed</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyWindSpeed-->&nbsp;<!--windUnit--></p></small></font></strong></font></td>
+ </tr>
+ <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Barometer</p><p>Low Barometer</p></font></small></strong>
+</font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyBarometer-->&nbsp;<!--barUnit--></p><p><!--lowMonthlyBarometer-->&nbsp;<!--barUnit--></p></small></font></strong></font></td>
+ </tr>  
+<tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>Rain Total</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--monthlyRain-->&nbsp;<!--rainUnit--></p></small></font></strong></font></td>
+ </tr>
+ <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Rain Rate</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyRainRate-->&nbsp;<!--rateUnit--></p></small></font></strong></font></td>
+ </tr> <td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>Low Wind Chill</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--lowMonthlyWindchill--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+   <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Heat Index</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiMonthlyHeatindex--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr> <tr>
+ <td bordercolor="#000000" bgcolor="#000000" colspan="2"
+ style="border: thin solid rgb(0,0,0)"><font face="verdana, Arial, Helvetica"><strong><font color="#A8B8C8">
+<big>Yearly Highs/Lows</big></font></strong></font></td>
+ </tr>
+<tr>
+ <td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Temperature</p><p>Low Temperature</p></font></small></strong></font>
+</td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyOutsideTemp--><!--tempUnit--></p><p><!--lowYearlyOutsideTemp--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+  <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Humidity</p><p>Low Humidity</p></font></small></strong></font>
+</td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyHumidity--><!--humUnit--></p><p><!--lowYearlyHumidity-->
+ <!--humUnit--></p></small></font></strong></font></td>
+ </tr>
+  <tr>
+ <td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana, Arial,
+ Helvetica"><strong><small><font color=#228b22><p>High Dewpoint</p><p>Low Dewpoint</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyDewpoint--><!--tempUnit--></p><p><!--lowYearlyDewpoint--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+  <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Wind Speed</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyWindSpeed-->&nbsp;<!--windUnit--></p></small></font></strong></font></td>
+ </tr>
+<tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Barometer</p><p>Low Barometer</p></font></small></strong>
+</font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyBarometer-->&nbsp;<!--barUnit--></p><p>
+<!--lowYearlyBarometer-->&nbsp;<!--barUnit--></p></small></font></strong></font></td>
+ </tr> <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>Rain Total</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--totalRain-->&nbsp;<!--rainUnit--></p></small></font></strong></font></td>
+ </tr>
+ <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Rain Rate</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyRainRate-->&nbsp;<!--rateUnit--></p></small></font></strong></font></td>
+ </tr>   <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>High Heat Index</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--hiYearlyHeatindex--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+  <tr>
+<td  bordercolor="#000000" style="border: thin solid rgb(0,0,0)"  valign=middle><font face="verdana,
+ Arial, Helvetica"><strong><small><font color=#228b22><p>Low Wind Chill</p></font></small></strong></font></td>
+ <td align=left  bordercolor="#000000" style="border: thin solid rgb(0,0,0)" ><font face="verdana,
+ Arial, Helvetica"><strong><font color=#ff4500><small><p><!--lowYearlyWindchill--><!--tempUnit--></p></small></font></strong></font></td>
+ </tr>
+ </table>
+
+</BODY>
+</HTML>

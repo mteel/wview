@@ -1,0 +1,50 @@
+Mark Teel
+    radlib and wview design and development
+
+Steve Mellon
+    initial help with html templates, glchart enhancements, friendly suggestions
+
+Ken McGuire
+    help with archive interval abstraction; motivation for ARM cross-compilation
+    support; changes to better support embedded devices
+
+Juan Luis Perez
+    motivation and suggestions for internationalization, MySQL database
+    archive support and extended sensor support
+
+Clarence Whetten
+    motivation and testing of extended sensor support and alarms; beta testing
+
+Wyatt Miler
+    motivation and testing of MacOSX support and Weather Underground
+
+Jon Barber
+    motivation, major contributions and testing of the NSLU2 ipkg installation; 
+    beta testing; too much to list here
+
+Tom Hogland
+    cold weather testing; beta testing; general feedback
+
+Brooks Clark
+    added the ability to configure colors and sizes of graphics
+
+Randy Miller
+    added US/Metric combined bucket support
+
+Michael Puckett/Jerry Fiddler
+    debug of endian conversion utilities and suggested solutions
+
+W. Krenn
+    added more robust support for the VP rain tipper types and html tags
+
+M. Nausch
+    contributed a chrome skin
+
+Deborah Pickett
+    Enhanced the vpconfig utility; added wind direction scatter mode for charts
+
+Kevin Cloy
+    Significant WMRXXX sensor enhancements and configurability
+
+Jerry Fiddler/Graham Eddy
+    Prototype for wind rose graphic

@@ -1,0 +1,90 @@
+Using wview
+-----------
+
+Do you have a fascination with weather?  Do you often find yourself checking local weather conditions?  Is the weather your favorite part of the news broadcast?  If so, you may be a weather geek and wview may be the application for you.
+
+wview is a weather application which retrieves sensor readings from a weather station.  The sensor data is stored in sqlite3 databases.  Aggregate data such as minimums, maximums and averages are computed and stored in the database backend.  Optional uses of the stored data include: weather web site generation; generic file generation for external applications; data submission to third-party organizations including Citizens Weather Observer Program (CWOP) and Weather Underground; store-forward to remote data collection centers.  A user-friendly html interface is provided for configuration of your weather station as well as optional features.
+
+To set up your weather station and publish your data with wview you will need a weather station.  Supported stations include: Davis Vantage Pro/Pro2 or Vantage Vue, Texas Weather Instruments, Vaisala WXT510/520, Oregon Scientific WMR9X8 and La Crosse WS-23XX.  Next you will need a platform to host the wview application.  Desktop computers of any vintage work well but it is often desirable to host wview on a low-power, unattended system.  The now discontinued Linksys NSLU2 has been a popular choice.  The new SheevaPlug is quickly gaining popularity as a wview host.  Industrious users have even used a Western Digital Worldbook NAS as their wview host.  Because wview is modular and designed for embedded applications it can be hosted on low horsepower systems.  Next you will need to install a linux distribution of your choice.  The debian and derivatives wview packages provide the most idiot-proof installation path but source installs are also straightforward for any linux distribution.  Finally you will need an interface cable.  This may be a simple 9-pin serial cable or perhaps a USB-serial adapter if your host has no serial ports.
+
+
+Configuration
+-------------
+To configure wview, we open our favorite browser and point it to the wview management web site, typically http://[your_wview_server]/wviewmgmt/login.php.  An HTTP server is required on the wview host (and automatically installed for APT package installs).  Use the default administration password "wview" (you can change this later).  After successful login, the System Status page is displayed.  The System Status Page displays the current state of all wview services as well as other status information.
+
+[Insert System Status page image here]
+
+Configuration is broken up into logical sections with context sensitive help available by mousing over the configuration items.  Click the "Station" tab to configure the station parameters.
+
+[Insert Station page image here]
+
+The critical parameters here are the station type and the interface characteristics.  Select "Save Changes" when you are done.  Next, click the "Services" tab.
+
+[Insert Services page image here]
+
+This page provides the configuration of wview services, log verbosity for the services and email alerts.  Services available are File Generation, Alarms, CWOP, HTTP (Weather Underground and Weatherforyou), File Export (SSH or FTP) and Process Monitoring.  For now we will not enable any additional services until we have confirmed our station interface.
+
+
+Station Confirmation
+--------------------
+We now proceed to the station interface verification.  Open a shell so we can follow updates to the system log.
+At the prompt enter the following:
+> sudo tail -f /var/log/syslog
+This will display new system log messages as they are generated.  Here we will monitor wview startup and status messages.
+Open another shell and execute the following:
+> sudo /etc/init.d/wview stop
+> sudo /etc/init.d/wview start
+You will see a flurry of activity in the system log from the wview processes as they start up.  It is a good idea to familiarize yourself with these wview log messages as there is a wealth of detail included which can be very helpful.
+
+Some of the more important messages are:
+
+
+Return to the System Status page and observe the status of the station interface and the file generation.  If both are not status "green", "Running" then further investigation in the system log file will be required to find any configuration or station interface issues.
+
+
+Default Website
+---------------
+If all is well we can now view the default wview weather site.  This is typically found at http://[your_server_url]/weather/index.html.
+
+[Insert sample weather site here]
+
+Current conditions are given in the table on the left by the dials in the center.  These values are updated every time station data is polled (default is 30 seconds).  The weather site pages are regenerated every 60 seconds (configurable).  Observing changes in the current conditions is an easy way to confirm proper station interface operation.
+
+Historical data for the last 24 hours are presented as graphs.  Graphs of the last 24 hours, the last 7 days, the last 28 days and the last 365 days are available on other site pages.
+
+
+Citizens Weather Observer Program (CWOP)
+----------------------------------------
+CWOP (Citizen Weather Observer Program, http://www.wxqa.com/) is a system by which individuals with weather stations and the proper software can submit their weather data to an APRS-based data storage system so that anyone, including NOAA, can use the data however they see fit. There are some really neat station display web sites including some java apps to look up station data, position, maps, etc.
+
+As an example, see http://www.findu.com/cgi-bin/wxpage.cgi?call=CW4097 for an example weather station.
+
+CWOP participation requires registering for an APRS "Call Sign". Once you have configured wview for CWOP properly and confirmed your data online, you must contact the maintainers via email to confirm your registration. Then your data will be available for anyone to see and possibly be used in NOAA forecast models, etc.
+
+When CWOP support is enabled and configured properly, wview will transmit a new WX packet to the APRS server every 10 minutes based on the last digit of your callsign.
+
+wview supports the APRS-IS Rollover functionality by enforcing the definition of 3 APRS-IS server:port pairs - the goal is to avoid data loss to the CWOP system caused by connection errors. Select 3 different servers from the list at http://www.wxqa.com/activecwd.html.
+
+Click the Services tab and enable CWOP submission and CWOP verbose logging.  Click "Save Changes".  Click the CWOP tab and enter your call sign, Latitude and Longitude (see the mouse-over help for format details) and the CWOP servers (three should be entered) and port numbers.  Go ahead and enable "Log CWOP Packet?", you can disable it after submission is confirmed.  Click "Save Changes".
+
+Now restart wview:
+> sudo /etc/init.d/wview restart
+
+You can monitor CWOP packet submission in the system log (and on the CWOP status pages).
+
+
+Weather Underground Submission
+------------------------------
+The Weather Underground (www.wunderground.com/) (Wunderground) is a privately held organization which provides many weather services - some free and some not. Among the free services is the ability to register your weather station and submit your data to them so that you can access your data and some nice graphs from their site. Weatherforyou.com is also a privately held outfit with similar capabilities to wunderground.
+
+Register for a Weather Underground Station ID (unless you already have one):
+http://www.wunderground.com/weatherstation/usersignup.asp.  Determine your accurate latitude and longitude: http://www.topozone.com/viewmaps.asp.
+
+Click the "Services" tab and enable the HTTP service.  Click "HTTP Services" and configure the Weather Underground settings.  Click "Save Changes".
+
+Look in the system log for something similar to:
+"WUNDERGROUND: configured to submit station KTXCOLLI1 data to wunderground.com"
+
+Confirm your data at the Wunderground server: http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=XXXXXXX where XXXXXXX is your Wunderground Station ID. This should start displaying your weather data graphically and as a packet list.
+
+

@@ -1,0 +1,39 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH HILOWCREATE 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+hilowcreate \- program to create the wview HILOW database from the Archive database
+.SH SYNOPSIS
+.B hilowcreate
+.RI source_directory
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B hilowcreate
+.
+Create a wview HILOW database in source_directory/wview-hilow.sdb
+using archive records in source_directory/wview-archive.sdb.
+.BR Note: If wview-hilow.sdb already exists in source_directory, it will be overwritten.
+.BR source_directory cannot be the live wview archive, copy wview-archive.sdb to a work directory.
+.SH OPTIONS
+There are no options and source_directory is mandatory.
+.TP
+.SH AUTHOR
+hilowcreate was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

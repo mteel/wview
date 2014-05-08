@@ -1,0 +1,18 @@
+This package was debianized by Mark Teel <mteel2005@gmail.com> on
+Thu, 19 Nov 2009 16:09:27 -0600.
+
+It was downloaded from http://www.wviewweather.com
+
+wview was written by Mark Teel <mteel2005@gmail.com>
+
+Copyright: Copyright (C) 2001-2009 Mark Teel. All rights reserved.
+
+Licensed under GPL version 2, see `/usr/share/common-licenses/GPL-2'.
+
+The Debian packaging is:
+
+    Copyright (C) 2009 Mark Teel <mteel2005@gmail.com>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.
+

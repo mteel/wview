@@ -1,0 +1,12 @@
+<table id="navigation_controls">
+  <tr>
+    <td><a href=".">Summary</a></td>
+    <td><a href="Current.htm">Current</a></td>
+    <td><a href="Daily.htm">24 Hours</a></td>
+    <td><a href="Weekly.htm">7 Days</a></td>
+    <td><a href="Monthly.htm">28 Days</a></td>
+    <td><a href="Yearly.htm">365 Days</a></td>
+    <td><a href="almanac.htm">Almanac</a></td>
+    <td><a href="<!--localForecastURL-->">Forecast</a></td>
+  </tr>
+</table>

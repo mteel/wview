@@ -1,0 +1,43 @@
+<table cellpadding="1" cellspacing="1" border="0" width="95%" align="center">
+<tbody>
+	<tr>
+	  <td>
+		<table cellpadding="2" cellspacing="2" border="0" width="100%" align="center">
+		<tbody>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <big><b><font size="6" face="Arial, Helvetica, sans-serif" color="#000000">
+			  <!--stationCity-->,<!--stationState--> Weather</font></b></big>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <font size="2" face="Arial, Helvetica, sans-serif" color="#000000">
+			  <b><!--stationLatitude--> - <!--stationLongitude--> - 
+			  <!--stationElevation--></b></font>
+			</td>
+		  </tr>
+		  <tr>
+			<td valign="top" align="center">
+			  <font size="4" face="Arial, Helvetica, sans-serif" color="#000000">
+			  <!--stationDate--> <!--stationTime-->
+			  </font>
+			</td>
+		  </tr>
+		  <tr>
+			<td width="100%" align="center" valign="top">
+			  <font size="3" face="Arial, Helvetica, sans-serif" color="#000000"><b>
+			  Sunrise: <!--sunriseTime--> - Midday: <!--middayTime--> - Sunset: <!--sunsetTime--> - 
+              Day Length: <!--dayLength--><br>
+              Civil Twilight: <!--civilriseTime--> - <!--civilsetTime-->&nbsp;&nbsp;
+              Astronomical Twilight: <!--astroriseTime--> - <!--astrosetTime-->
+			  </b></font><br>
+			</td>
+		  </tr>
+		</tbody>
+		</table>
+	  </td>
+	</tr>
+</tbody>
+</table>
+

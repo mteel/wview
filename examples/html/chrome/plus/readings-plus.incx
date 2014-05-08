@@ -1,0 +1,422 @@
+<table cellspacing="1" cellpadding="0" width="100%" align="left" border="0">
+<tbody>
+  <tr>
+    <td align="center">
+      <table cellspacing="1" cellpadding="0" width="100%" align="left" border="1">
+      <tbody>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Temperature:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--outsideTemp--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Wind Chill:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--windChill--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Heat Index:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--outsideHeatIndex--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Apparent Temp:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--apparentTemp--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Wet Bulb Temp:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--WetBulbTemp--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Dewpoint:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--outsideDewPt--><!--tempUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Humidity:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--outsideHumidity--><!--humUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Barometer:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--barometer-->&nbsp;<!--barUnit-->&nbsp;<!--baromtrend--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Wind:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--windDirection-->&nbsp;&nbsp;at&nbsp;&nbsp;
+            <!--windSpeed-->&nbsp;<!--windUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Wind:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiWindSpeed--> <!--windUnit--> at 
+            <!--hiWindSpeedTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Recent Avg Wind:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--intervalAvgWindSpeed--> <!--windUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Recent Beaufort Scale:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--intervalAvgBeaufortScale--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Today's Rain:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--dailyRain-->&nbsp;<!--rainUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Rain Rate:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--rainRate-->&nbsp;<!--rateUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Rain Rate:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiRainRate--> <!--rateUnit--> at 
+            <!--hiRainRateTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Storm Total:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--stormRain-->&nbsp;<!--rainUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Monthly Rain:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--monthlyRain-->&nbsp;<!--rainUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Yearly Rain (<!--rainSeasonStart-->):</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--totalRain-->&nbsp;<!--rainUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>UV:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--UV--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>ET:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--ET-->&nbsp;<!--rainUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Solar Radiation:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--solarRad-->&nbsp;watts/m^2</b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Air Density:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--airDensity-->&nbsp;<!--airDensityUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Est. Cumulus Base:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--cumulusBase-->&nbsp;<!--cumulusBaseUnit--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Temperature:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiOutsideTemp--><!--tempUnit--> at 
+            <!--hiOutsideTempTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Low Temperature:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--lowOutsideTemp--><!--tempUnit--> at 
+            <!--lowOutsideTempTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Heat Index:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiHeatindex--><!--tempUnit--> at 
+            <!--hiHeatindexTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Low Wind Chill:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--lowWindchill--><!--tempUnit--> at 
+            <!--lowWindchillTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Humidity:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiHumidity--><!--humUnit--> at 
+            <!--hiHumTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Low Humidity:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--lowHumidity--><!--humUnit--> at 
+            <!--lowHumTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Dewpoint:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiDewpoint--><!--tempUnit--> at 
+            <!--hiDewpointTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Low Dewpoint:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--lowDewpoint--><!--tempUnit--> at 
+            <!--lowDewpointTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>High Barometer:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--hiBarometer--> <!--barUnit--> at 
+            <!--hiBarometerTime--></b>
+            </font>
+          </td>
+        </tr>
+        <tr height="20">
+          <td width="50%">
+            <font face="Tw Cen MT" color="#000000">
+            <strong>Low Barometer:</strong>
+            </font>
+          </td>
+          <td width="50%" align="left">
+            <font face="Tw Cen MT" color="#000000">
+            <b><!--lowBarometer--> <!--barUnit--> at 
+            <!--lowBarometerTime--></b>
+            </font>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </td>
+  </tr>
+</tbody>
+</table>
+

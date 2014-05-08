@@ -1,0 +1,143 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+ifneq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
+CROSS= --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
+else
+CROSS= --build $(DEB_BUILD_GNU_TYPE)
+endif
+
+
+
+config.status: configure
+	dh_testdir
+	# Add here commands to configure the package.
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	./configure $(CROSS) \
+		--prefix= \
+		--exec-prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var/lib \
+		--mandir=/usr/share/man \
+		--infodir=/usr/share/info \
+		--enable-install-dpkg=yes \
+		CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"
+
+
+#Architecture
+build: build-arch
+
+build-arch: build-arch-stamp
+build-arch-stamp:  config.status 
+
+	# Add here commands to compile the arch part of the package.
+	#$(MAKE)
+	touch $@
+
+clean: 
+	dh_testdir
+	dh_testroot
+	rm -f build-arch-stamp
+
+	# Add here commands to clean up after the build process.
+	[ ! -f Makefile ] || $(MAKE) distclean
+	rm -f config.sub config.guess
+
+	dh_clean 
+
+install: install-arch
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_prep -s 
+	dh_installdirs -s
+
+	# Add here commands to install the arch part of the package into
+	# debian/tmp.
+	$(MAKE) DESTDIR=$(CURDIR)/debian/wview install
+
+	dh_install -s
+# Must not depend on anything. This is to be called by
+# binary-arch
+# in another 'make' thread.
+binary-common:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs ChangeLog
+	dh_installdocs
+	dh_installexamples
+#	dh_installmenu
+#	dh_installdebconf
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+#	dh_python
+	dh_installinit --update-rcd-params="defaults 99 10"
+#	dh_installcron
+#	dh_installinfo
+	dh_installman \
+			debian/arc_be2le.1 \
+			debian/arc_le2be.1 \
+			debian/hilowcreate.1 \
+			debian/sqlite2wlk.1 \
+			debian/wlk2sqlite.1 \
+			debian/wview-mysql-create.1 \
+			debian/wview-mysql-export.1 \
+			debian/wview-pgsql-create.1 \
+			debian/wview-pgsql-export.1 \
+			debian/wviewconfig.1 \
+			debian/wviewhtmlconfig.1 \
+			debian/wviewcleardata.1 \
+			debian/htmlgend.1 \
+			debian/wvalarmd.1 \
+			debian/wvcwopd.1 \
+			debian/wvhttpd.1 \
+			debian/wviewftpd.1 \
+			debian/wviewsshd.1 \
+			debian/wvpmond.1 \
+			debian/wviewd_sim.1 \
+			debian/wviewd_vpro.1 \
+			debian/wviewd_wmr918.1 \
+			debian/wviewd_wxt510.1 \
+			debian/wviewd_ws2300.1 \
+			debian/vpconfig.1 \
+			debian/vpinstall.1 \
+			debian/wxt510config.1
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_perl
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps -- --ignore-missing-info
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Keep this around to avoid lintian warnings:
+binary-indep:
+
+# Build architecture dependant packages using the common target.
+binary-arch: build-arch install-arch
+	$(MAKE) -f debian/rules DH_OPTIONS=-s binary-common
+
+binary: binary-arch
+.PHONY: build clean binary-arch binary install install-arch
+

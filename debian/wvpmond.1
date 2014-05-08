@@ -1,0 +1,44 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WVPMOND 1 "November 19, 2009"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wvpmond \- wview process monitoring daemon
+.SH SYNOPSIS
+.B wvpmond
+.RI
+.br
+.SH DESCRIPTION
+This manual page describes the use of
+.B wvpmond
+.
+The daemon wvpmond monitors user-defined wview processes.
+If a monitored process becomes non-responsive, wvpmond will restart it.
+It requires the appropriate wview station daemon.
+.BR
+.BR Note: This daemon should ONLY be launched from the /etc/init.d/wview script (typically started in your default runlevel).
+.SH OPTIONS
+There are no options.
+.TP
+.SH SEE ALSO
+.BR /etc/init.d/wview,
+.BR /usr/share/doc/wview/wview-User-Manual.html
+.br
+.SH AUTHOR
+wvpmond was written by Mark Teel.
+.PP
+This manual page was written by Mark Teel <mteel2005@gmail.com>,
+for the Debian project (and may be used by others).

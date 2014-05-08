@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="refresh" content="150";>
+<TITLE>Current Conditions - <!--stationCity-->,<!--stationState--></TITLE>
+</HEAD>
+<BODY background="Clouds.jpg">
+<P><FONT size=4></FONT></P>
+<P>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="90%" align=center
+ height=50 >
+
+</TABLE></P>
+<P align=center><FONT size=5  color=darkred><STRONG><A NAME = "Current">Current Weather
+Conditions for <!--stationCity-->,<!--stationState--></A></STRONG></FONT></P>
+<P align=center><FONT size=4  color=darkred><STRONG><A NAME = "Current">As of:  <!--stationDate--> <!--stationTime-->
+</A></STRONG></FONT></P><TABLE  cellspacing=1 cellpadding=0 width="85%"
+ align=center  border=1>
+
+  <TR height=20>
+   <TD Width="33%"><STRONG><FONT face="Tw Cen MT">Temperature:</FONT></STRONG></TD>
+    <TD Width="22%" align=left> <b> <!--outsideTemp--><!--tempUnit--></b></TD>
+    <TD Width="33%"><STRONG><FONT face="Tw Cen MT">Wind Chill:</FONT></STRONG></TD>
+  <TD Width="11%" align=left><b><!--windChill--><!--tempUnit--></b></TD>
+  </TR>
+   <TR height=20>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Humidity:</FONT></STRONG></TD>
+    <TD Width=100 align=left><b> <!--outsideHumidity--><!--humUnit--></b></TD>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Heat Index:</FONT></STRONG></TD>
+  <TD Width=100 align=left><b> <!--outsideHeatIndex--><!--tempUnit--></b></TD>
+  </TR>
+   <TR height=20>
+   <TD Width="15%"><STRONG><FONT face="Tw Cen MT">Wind:</FONT></STRONG> </TD>
+    <TD Width="18%" align=left><b> <!--windDirection--> at <!--windSpeed-->&nbsp;<!--windUnit--></b></TD>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Dewpoint:</FONT></STRONG></TD>
+  <TD Width=100 align=left><b><!--outsideDewPt--><!--tempUnit--></b></TD>
+  </TR>
+  <TR height=20>
+   <TD Width=200><STRONG><FONT face="Tw Cen MT">Barometer:</FONT></STRONG></TD>
+    <TD Width=100 align=left> <b> <!--barometer-->&nbsp;<!--barUnit--></b></TD>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Rain Rate:</FONT></STRONG></TD>
+  <TD Width=100 align=left> <b><!--rainRate-->&nbsp;<!--rateUnit--></b></TD>
+  </TR>
+  <TR height=20>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Today's Rain:</FONT></STRONG></TD>
+  <TD Width=100 align=left> <b><!--dailyRain-->&nbsp;<!--rainUnit--></b></TD>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Monthly Rain:</FONT></STRONG></TD>
+    <TD Width=100 align=left><b><!--monthlyRain-->&nbsp;<!--rainUnit--></b></TD>
+  </TR>
+  <TR height=20>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Storm Total:</FONT></STRONG></TD>
+    <TD Width=100 align=left><b><!--stormRain-->&nbsp;<!--rainUnit--></b></TD>
+    <TD Width=200><STRONG><FONT face="Tw Cen MT">Yearly Rain:</FONT></STRONG></TD>
+    <TD Width=100 align=left><b><!--totalRain-->&nbsp;<!--rainUnit--></b></TD>
+  </TR>
+ </TABLE>
+<br>
+
+</BODY>
+</HTML>
+

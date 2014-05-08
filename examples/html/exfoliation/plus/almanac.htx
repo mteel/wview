@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Almanac: <!--stationCity--> <!--stationState--></title>
+  <meta http-equiv="refresh" content="150" ;="">
+  <link href="exfoliation.css" rel="stylesheet" type="text/css" />
+  <script src="exfoliation.js" type="text/javascript"></script>
+</head>
+<body id="almanac">
+<table>
+  <tr valign="top">
+    <td class="page_description">
+<!--include location.inc-->
+    </td>
+    <td>
+<!--include navctls.inc-->
+
+<form method="post">
+<table id="report_controls">
+  <tr>
+    <td>
+Climatological Summaries:&nbsp;
+<script language="JavaScript">
+  createMonthlySelect("month");
+  createYearlySelect("year");
+</script>
+<input type="button" value="Monthly Report"
+       onclick="openNoaaFile(this.form.month.value, this.form.year.value)">
+<input type="button" value="Yearly Report "
+       onclick="openNoaaFile('',this.form.year.value)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+Browse Archive Records:&nbsp;
+<script language="JavaScript">
+  createDaySelect("day");
+  createMonthlySelect("month1");
+  createYearlySelect("year1");
+</script>
+<input type="button" value="Browse Day Records"
+       onclick="openARCFile(this.form.day.value, this.form.month1.value, this.form.year1.value)">
+    </td>
+  </tr>
+</table>
+</form>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+
+<p>Almanac Data</p>
+
+<table width="100%">
+  <tr valign="top">
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Time:</td>
+          <td><span class="metric_value"><!--stationTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Date:</td>
+          <td><span class="metric_value"><!--stationDate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Station:</td>
+          <td><span class="metric_value"><!--stationCity--> <!--stationState--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Latitude:</td>
+          <td><span class="metric_value"><!--stationLatitude--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Longitude:</td>
+          <td><span class="metric_value"><!--stationLongitude--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Elevation:</td>
+          <td><span class="metric_value"><!--stationElevation--></span></td>
+        </tr>
+      </table>
+    </td>
+    
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Sunrise:</td>
+          <td><span class="metric_value"><!--sunriseTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Midday:</td>
+          <td><span class="metric_value"><!--middayTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Sunset:</td>
+          <td><span class="metric_value"><!--sunsetTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Length:</td>
+          <td><span class="metric_value"><!--dayLength--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Civil Twilight:</td>
+          <td><span class="metric_value"><!--civilriseTime--> - <!--civilsetTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Astronomical Twilight:</td>
+          <td><span class="metric_value"><!--astroriseTime--> - <!--astrosetTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Moonrise:</td>
+          <td><span class="metric_value"><!--moonriseTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Moonset:</td>
+          <td><span class="metric_value"><!--moonsetTime--></span></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td class="metric_title">Temperature</td>
+    <td width="20"></td>
+    <td class="metric_title">Dew Point</td>
+    <td width="20"></td>
+    <td class="metric_title">Humidity</td>
+  </tr>
+
+  <tr valign="top">
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--outsideTemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Average:</td>
+          <td><span class="metric_value"><!--houravgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Change:</td>
+          <td><span class="metric_value"><!--hourchangetemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Average:</td>
+          <td><span class="metric_value"><!--dayavgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Change:</td>
+          <td><span class="metric_value"><!--daychangetemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High:</td>
+          <td><span class="metric_value"><!--hiOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiOutsideTempTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Low:</td>
+          <td><span class="metric_value"><!--lowOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--lowOutsideTempTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Average:</td>
+          <td><span class="metric_value"><!--weekavgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Change:</td>
+          <td><span class="metric_value"><!--weekchangetemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Average:</td>
+          <td><span class="metric_value"><!--monthtodateavgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High:</td>
+          <td><span class="metric_value"><!--hiMonthlyOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxtempdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Low:</td>
+          <td><span class="metric_value"><!--lowMonthlyOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemintempdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Average:</td>
+          <td><span class="metric_value"><!--yeartodateavgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High:</td>
+          <td><span class="metric_value"><!--hiYearlyOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxtempdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Low:</td>
+          <td><span class="metric_value"><!--lowYearlyOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemintempdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Average:</td>
+          <td><span class="metric_value"><!--alltimeavgtemp--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High:</td>
+          <td><span class="metric_value"><!--hiAllTimeOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxtempdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Low:</td>
+          <td><span class="metric_value"><!--lowAllTimeOutsideTemp--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemintempdate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--outsideDewPt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Average:</td>
+          <td><span class="metric_value"><!--houravgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Change:</td>
+          <td><span class="metric_value"><!--hourchangedewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Average:</td>
+          <td><span class="metric_value"><!--dayavgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Change:</td>
+          <td><span class="metric_value"><!--daychangedewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High:</td>
+          <td><span class="metric_value"><!--hiDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiDewpointTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Low:</td>
+          <td><span class="metric_value"><!--lowDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--lowDewpointTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Average:</td>
+          <td><span class="metric_value"><!--weekavgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Change:</td>
+          <td><span class="metric_value"><!--weekchangedewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Average:</td>
+          <td><span class="metric_value"><!--monthtodateavgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High:</td>
+          <td><span class="metric_value"><!--hiMonthlyDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxdewptdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Low:</td>
+          <td><span class="metric_value"><!--lowMonthlyDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemindewptdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Average:</td>
+          <td><span class="metric_value"><!--yeartodateavgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High:</td>
+          <td><span class="metric_value"><!--hiYearlyDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxdewptdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Low:</td>
+          <td><span class="metric_value"><!--lowYearlyDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemindewptdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Average:</td>
+          <td><span class="metric_value"><!--alltimeavgdewpt--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High:</td>
+          <td><span class="metric_value"><!--hiAllTimeDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxdewptdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Low:</td>
+          <td><span class="metric_value"><!--lowAllTimeDewpoint--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemindewptdate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--outsideHumidity--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Average:</td>
+          <td><span class="metric_value"><!--houravghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Change:</td>
+          <td><span class="metric_value"><!--hourchangehumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Average:</td>
+          <td><span class="metric_value"><!--dayavghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Change:</td>
+          <td><span class="metric_value"><!--daychangehumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High:</td>
+          <td><span class="metric_value"><!--hiHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiHumTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Low:</td>
+          <td><span class="metric_value"><!--lowHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--lowHumTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Average:</td>
+          <td><span class="metric_value"><!--weekavghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Change:</td>
+          <td><span class="metric_value"><!--weekchangehumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Average:</td>
+          <td><span class="metric_value"><!--monthtodateavghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High:</td>
+          <td><span class="metric_value"><!--hiMonthlyHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxhumiddate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Low:</td>
+          <td><span class="metric_value"><!--lowMonthlyHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodateminhumiddate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Average:</td>
+          <td><span class="metric_value"><!--yeartodateavghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High:</td>
+          <td><span class="metric_value"><!--hiYearlyHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxhumiddate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Low:</td>
+          <td><span class="metric_value"><!--lowYearlyHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodateminhumiddate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Average:</td>
+          <td><span class="metric_value"><!--alltimeavghumid--><!--humUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High:</td>
+          <td><span class="metric_value"><!--hiAllTimeHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxhumiddate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Low:</td>
+          <td><span class="metric_value"><!--lowAllTimeHumidity--><!--humUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimeminhumiddate--></span></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td class="metric_title">Wind Chill</td>
+    <td></td>
+    <td class="metric_title">Heat Index</td>
+    <td></td>
+    <td class="metric_title">Wind Run</td>
+  </tr>
+
+  <tr valign="top">
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--windChill--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Low:</td>
+          <td><span class="metric_value"><!--lowWindchill--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--lowWindchillTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Low:</td>
+          <td><span class="metric_value"><!--lowMonthlyWindchill--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodateminchilldate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Low:</td>
+          <td><span class="metric_value"><!--lowYearlyWindchill--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodateminchilldate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Low:</td>
+          <td><span class="metric_value"><!--lowAllTimeWindchill--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimeminchilldate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--outsideHeatIndex--><!--tempUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High:</td>
+          <td><span class="metric_value"><!--hiHeatindex--><!--tempUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiHeatindexTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High:</td>
+          <td><span class="metric_value"><!--hiMonthlyHeatindex--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxheatdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High:</td>
+          <td><span class="metric_value"><!--hiYearlyHeatindex--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxheatdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High:</td>
+          <td><span class="metric_value"><!--hiAllTimeHeatindex--><!--tempUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxheatdate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Hour:</td>
+          <td><span class="metric_value"><!--hourwindrun--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day:</td>
+          <td><span class="metric_value"><!--daywindrun--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week:</td>
+          <td><span class="metric_value"><!--weekwindrun--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month:</td>
+          <td><span class="metric_value"><!--monthtodatewindrun--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year:</td>
+          <td><span class="metric_value"><!--yeartodatewindrun--></span></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td class="metric_title">Wind</td>
+    <td></td>
+    <td class="metric_title">Barometer</td>
+    <td></td>
+    <td class="metric_title">Rain</td>
+  </tr>
+
+  <tr valign="top">
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current Direction:</td>
+          <td><span class="metric_value"><!--windDirectionDegrees--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Dom Direction:</td>
+          <td><span class="metric_value"><!--hourdomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Direction Change:</td>
+          <td><span class="metric_value"><!--hourchangewinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Dom Direction:</td>
+          <td><span class="metric_value"><!--daydomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Direction Change:</td>
+          <td><span class="metric_value"><!--daychangewinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Dom Direction:</td>
+          <td><span class="metric_value"><!--weekdomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Direction Change:</td>
+          <td><span class="metric_value"><!--weekchangewinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Dom Direction:</td>
+          <td><span class="metric_value"><!--monthtodatedomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Dom Direction:</td>
+          <td><span class="metric_value"><!--yeartodatedomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Direction:</td>
+          <td><span class="metric_value"><!--alltimedomwinddir--> degrees</span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Current Speed:</td>
+          <td><span class="metric_value"><!--windSpeed--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Avg Speed:</td>
+          <td><span class="metric_value"><!--houravgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Speed Change:</td>
+          <td><span class="metric_value"><!--hourchangewind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Avg Speed:</td>
+          <td><span class="metric_value"><!--dayavgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Speed Change:</td>
+          <td><span class="metric_value"><!--daychangewind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High Speed:</td>
+          <td><span class="metric_value"><!--hiWindSpeed--><!--windUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiWindSpeedTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Avg Speed:</td>
+          <td><span class="metric_value"><!--weekavgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Speed Change:</td>
+          <td><span class="metric_value"><!--weekchangewind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Avg Speed:</td>
+          <td><span class="metric_value"><!--monthtodateavgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High Speed:</td>
+          <td><span class="metric_value"><!--hiMonthlyWindSpeed--><!--windUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxgustdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Avg Speed:</td>
+          <td><span class="metric_value"><!--yeartodateavgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High Speed:</td>
+          <td><span class="metric_value"><!--hiYearlyWindSpeed--><!--windUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxgustdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Avg Speed:</td>
+          <td><span class="metric_value"><!--alltimeavgwind--><!--windUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High Speed:</td>
+          <td><span class="metric_value"><!--hiAllTimeWindSpeed--><!--windUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxgustdate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Current:</td>
+          <td><span class="metric_value"><!--barometer--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Average:</td>
+          <td><span class="metric_value"><!--houravgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Hour Change:</td>
+          <td><span class="metric_value"><!--hourchangebarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Average:</td>
+          <td><span class="metric_value"><!--dayavgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Change:</td>
+          <td><span class="metric_value"><!--daychangebarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High:</td>
+          <td><span class="metric_value"><!--hiBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiBarometerTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day Low:</td>
+          <td><span class="metric_value"><!--lowBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--lowBarometerTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Average:</td>
+          <td><span class="metric_value"><!--weekavgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Week Change:</td>
+          <td><span class="metric_value"><!--weekchangebarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Average:</td>
+          <td><span class="metric_value"><!--monthtodateavgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High:</td>
+          <td><span class="metric_value"><!--hiMonthlyBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxbaromdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month Low:</td>
+          <td><span class="metric_value"><!--lowMonthlyBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodateminbaromdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Average:</td>
+          <td><span class="metric_value"><!--yeartodateavgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High:</td>
+          <td><span class="metric_value"><!--hiYearlyBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxbaromdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year Low:</td>
+          <td><span class="metric_value"><!--lowYearlyBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodateminbaromdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Average:</td>
+          <td><span class="metric_value"><!--alltimeavgbarom--><!--barUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High:</td>
+          <td><span class="metric_value"><!--hiAllTimeBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxbaromdate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time Low:</td>
+          <td><span class="metric_value"><!--lowAllTimeBarometer--><!--barUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimeminbaromdate--></span></td>
+        </tr>
+      </table>
+    </td>
+
+    <td></td>
+
+    <td align="center">
+      <table>
+        <tr>
+          <td class="metric_name">Rate:</td>
+          <td><span class="metric_value"><!--rainRate--><!--rateUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day:</td>
+          <td><span class="metric_value"><!--dailyRain--><!--rainUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Storm:</td>
+          <td><span class="metric_value"><!--stormRain--><!--rainUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Storm Start:</td>
+          <td><span class="metric_value"><!--stormStart--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Day High Rate:</td>
+          <td><span class="metric_value"><!--hiRainRate--><!--rateUnit--></span><span class="hilo_time">&nbsp;at&nbsp;<!--hiRainRateTime--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month:</td>
+          <td><span class="metric_value"><!--monthlyRain--><!--rainUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Month High Rate:</td>
+          <td><span class="metric_value"><!--hiMonthlyRainRate--><!--rateUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--monthtodatemaxrainratedate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year (<!--rainSeasonStart-->):</td>
+          <td><span class="metric_value"><!--totalRain--><!--rainUnit--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">Year High Rate:</td>
+          <td><span class="metric_value"><!--hiYearlyRainRate--><!--rateUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--yeartodatemaxrainratedate--></span></td>
+        </tr>
+        <tr>
+          <td class="metric_name">All Time High Rate:</td>
+          <td><span class="metric_value"><!--hiAllTimeRainRate--><!--rateUnit--></span><span class="hilo_time">&nbsp;on&nbsp;<!--alltimemaxrainratedate--></span></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+    </td>
+  </tr>
+</table>
+
+<!--include footer.inc-->
+
+</body>
+</html>

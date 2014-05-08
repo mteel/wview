@@ -1,0 +1,83 @@
+#!/bin/sh
+
+# Script to build all wview debian/ubuntu packages.
+# USAGE: wview-build-all wview_version [distribution] [architecture]
+
+if [ "$1" = "" ]; then
+    echo "You must specify a wview version number (x.y.z)!"
+    echo "Usage: wview-build-all wview_version [distribution] [architecture]"
+    exit 1
+else
+    VERS=$1
+fi
+
+DISTS="wheezy"
+
+ARCHS="armhf"
+
+cd ~/dev/pbuilder
+if [ ! -e /mnt/data/temp/wview-$VERS.tar.gz ]; then
+    echo "Version $VERS tarball does not exist - abort!"
+    exit 1
+else
+    cp /mnt/data/temp/wview-$VERS.tar.gz .
+fi
+
+for DIST in ${DISTS}
+do
+    # Loop through architectures:
+    for ARCH in ${ARCHS}
+    do
+        echo "###########################################################################"
+        echo "                  Starting deb build for ${DIST}-${ARCH}"
+        echo "###########################################################################"
+
+        # extract the prestine tarball:
+        cd ~/dev/pbuilder/wview
+        cp ../wview-$VERS.tar.gz .
+        tar xzf wview-$VERS.tar.gz
+        sudo rm -f /var/cache/pbuilder/${DIST}-${ARCH}/result/*
+
+        # create the pbuilder chroot env if it does not exist:
+        cd wview-$VERS
+        if [ ! -e /var/cache/pbuilder/${DIST}-${ARCH} ]; then
+            sudo DIST=${DIST} ARCH=${ARCH} pbuilder create
+#        else
+#            sudo DIST=${DIST} ARCH=${ARCH} pbuilder update --override-config --configfile /root/.pbuilderrc 
+        fi
+
+        # build the pkg in the chroot jail:
+        sudo DIST=${DIST} ARCH=${ARCH} pdebuild -- --allow-untrusted
+
+        # check to see if it worked:
+        if [ ! -e /var/cache/pbuilder/${DIST}-${ARCH}/result/wview*.changes ]; then
+            echo "${DIST}-${ARCH}/result/wview*.changes does not exist!"
+            echo "Did ${DIST}-${ARCH} build fail or do you need to create with pbuilder?"
+            exit 1
+        fi
+
+        # Save to the file server:
+        if [ ! -e /mnt/data/info/release/debian/wview/${VERS} ]; then
+            mkdir -p /mnt/data/info/release/debian/wview/${VERS}
+        fi
+        if [ ! -e /mnt/data/info/release/debian/wview/${VERS}/${DIST} ]; then
+            mkdir -p /mnt/data/info/release/debian/wview/${VERS}/${DIST}
+        fi
+        if [ ! -e /mnt/data/info/release/debian/wview/${VERS}/${DIST}/${ARCH} ]; then
+            mkdir -p /mnt/data/info/release/debian/wview/${VERS}/${DIST}/${ARCH}
+        else
+            rm -rf /mnt/data/info/release/debian/wview/${VERS}/${DIST}/${ARCH}/*
+        fi
+        cp -f /var/cache/pbuilder/${DIST}-${ARCH}/result/* /mnt/data/info/release/debian/wview/${VERS}/${DIST}/${ARCH}
+
+        # remove everything to start fresh:
+        cd ~/dev/pbuilder/wview
+        rm -rf wview-$VERS*
+
+        echo "###########################################################################"
+        echo "                           ${DIST}-${ARCH} DONE!"
+        echo "###########################################################################"
+    done
+done
+
+exit 0
